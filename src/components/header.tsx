@@ -1,38 +1,25 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Image from 'next/image'
 import xbn from '../xbn.png'
-export default function Header () {
-  const object: any = getItems()
-
-  console.log(object.brands)
-  /* const brandListItems = names.map((brand: any) => {
-    return (
-        <li>
-            <a href="#">{brand.name}</a>
-        </li>
-    )
-  }) */
-  return (
-        <header className="flex">
-            a
-        </header>
-  )
+interface Brands {
+  _id: string
+  name: string
 }
-
-async function getItems () {
-  try {
+export default async function Header () {    
     const response = await fetch('http://localhost:3000/api/brands')
     const data = await response.json()
-    const brands = await data.brands
-    const names = brands.map((brand: any) => { return brand.name })
-    const responseB = await fetch('http://localhost:3000/api/categories')
-    const dataB = await responseB.json()
-    const categories = dataB.map((category: any) => { return category.type })
-    return {
-      brands: names,
-      categories
-    }
-  } catch (err) {
-    return err
-  }
+    const brands = data.brands
+    const brandListItems = brands.map((brand: any) => {
+        return ( 
+            <li>
+                {brand.name}
+            </li>
+        )
+    })
+    
+  return (
+        <header className="flex">
+            {brandListItems}
+        </header>
+  )
 }
