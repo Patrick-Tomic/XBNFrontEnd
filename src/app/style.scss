@@ -1,0 +1,28 @@
+header{
+    background: white;
+    box-shadow: 1px 10px 10px 1px orange;
+    position: sticky;
+    top: 0;
+    ul{
+        div{
+            li:hover{ 
+               text-decoration: underline double orange 2px;
+            }
+        }
+    }
+}
+main{
+    #homeDescription{
+        div{
+            h1{
+                border-radius: 5px;
+            }
+           padding: 50px 50px;
+            border-radius: 15px;
+        }
+    }
+    display: grid;
+   padding: 5vh 5vw;
+    grid-template-columns: 1fr 1fr;
+    background:	#FAF9F6;
+}
