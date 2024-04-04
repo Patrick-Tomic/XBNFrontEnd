@@ -1,21 +1,25 @@
+/* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Image from 'next/image'
 import xbn from '/public/xbn.png'
-export default async function header () {
+export default async function Header () {
   const brandResponse = await fetch('http://localhost:3000/api/brands')
   const data = await brandResponse.json()
-  const brands = data.brands 
-  const brandListItems = brands.map((brand: any) => {
-    return (
-            <li key={brand.name} id='brandChild' className="hidden p-5">
-                <a href="#">{brand.name}</a>
-            </li>
-    )
-  })
+  const brands = data.brands
+
   const categoryResponse = await fetch('http://localhost:3000/api/categories')
   const dataB = await categoryResponse.json()
   const categories = dataB.categories
+
+  const brandListItems = brands.map((brand: any) => {
+    return (
+       <li key={brand._id} id='brandChild' className="hidden p-5">
+                <a href={`/brand/${brand._id}`}> {brand.name}</a>
+            </li>
+    )
+  })
+
   const categoryListItems = categories.map((cat: any) => {
     return (
         <li key={cat.type} id='categoryChild' className='p-5 hidden'>

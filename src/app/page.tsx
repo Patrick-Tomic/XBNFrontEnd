@@ -39,7 +39,7 @@ export default function Home () {
   <Image className="w-[15vw] h-[18vh]"
               src={xbn} alt={''} />
     <div className='border-solid border-gray-600 border-2 flex flex-col justify-center items-center bg-[#353935]'>
-      <h1 className=' absolute p-3 border-4 border-solid border-orange-400 bg-white top-[38%] text-3xl text-orange-400 font-bold bg-'>Our Promise</h1>
+      <h1 className=' z-[1]absolute p-3 border-4 border-solid border-orange-400 bg-white top-[38%] text-3xl text-orange-400 font-bold bg-'>Our Promise</h1>
       <p className='text-orange-400 text-xl font-bold'>Our mission at Xtreme Body Nutrition is to develop an individualized supplement stack that fits your lifestyle, fitness goals, and
         training style to help your reach your goals! We pride ourselves on always bringing in high-quality products, and
         providing helpful employee knowledge which created the fantastic customer retention over the years. <br></br> <br></br>

@@ -5,6 +5,9 @@ header{
     top: 0;
     ul{
         div{
+            background: white;
+            border: #353935 2px solid;
+            z-index: 4;
             li:hover{ 
                text-decoration: underline double orange 2px;
             }
