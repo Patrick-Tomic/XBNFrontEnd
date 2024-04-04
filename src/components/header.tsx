@@ -1,9 +1,36 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Image from 'next/image'
+import { useEffect } from 'react'
 import xbn from '/public/xbn.png'
 export default async function Header () {
+  useEffect(() => {
+    document.getElementById('brandHead')?.addEventListener('mouseover', () => {
+      document.querySelectorAll('#brandChild').forEach((child) => {
+        child.setAttribute('style', 'display:block;')
+      })
+    })
+
+    document.getElementById('categoryHead')?.addEventListener('mouseover', () => {
+      document.querySelectorAll('#categoryChild').forEach((child) => {
+        child.setAttribute('style', 'display:block')
+      })
+    })
+    document.getElementById('catUL')?.addEventListener('mouseleave', () => {
+      document.querySelectorAll('#categoryChild').forEach((child) => {
+        child.setAttribute('style', 'display:hidden')
+      })
+    })
+
+    document.getElementById('brandUL')?.addEventListener('mouseleave', () => {
+      document.querySelectorAll('#brandChild').forEach((child) => {
+        child.setAttribute('style', 'display:hidden')
+      })
+    })
+  })
   const brandResponse = await fetch('http://localhost:3000/api/brands')
   const data = await brandResponse.json()
   const brands = data.brands
@@ -12,14 +39,6 @@ export default async function Header () {
   const dataB = await categoryResponse.json()
   const categories = dataB.categories
 
-  const brandListItems = brands.map((brand: any) => {
-    return (
-       <li key={brand._id} id='brandChild' className="hidden p-5">
-                <a href={`/brand/${brand._id}`}> {brand.name}</a>
-            </li>
-    )
-  })
-
   const categoryListItems = categories.map((cat: any) => {
     return (
         <li key={cat.type} id='categoryChild' className='p-5 hidden'>
@@ -27,12 +46,23 @@ export default async function Header () {
         </li>
     )
   })
+
+  const brandListItems = brands.map((brand: any) => {
+    return (
+     <li key={brand._id} id='brandChild' className="hidden p-5">
+             {/*  <a href={`/brand/${brand._id}`}> {brand.name}</a> */}
+             <button onClick={() => {
+               window.location.href = `/brands/${brand._id}`
+             }}>{brand.name}</button>
+          </li>
+    )
+  })
   return (
         <header className="flex justify-around items-center">
             <a href="#">Home</a>
              <ul id='brandUL'>
                 <li id='brandHead'>Shop by Brand</li>
-                <div className='absolute'>
+                <div className='brandDiv absolute'>
                 {brandListItems}
                 </div>
              </ul>
