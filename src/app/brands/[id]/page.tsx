@@ -9,7 +9,6 @@ export default async function brandPage (req: { params: { id: any } }) {
   const items = data.items
   const div = items.map((item: any) => {
     const images = item.images
-    console.log(images[0])
     return (
       <>
             <div>

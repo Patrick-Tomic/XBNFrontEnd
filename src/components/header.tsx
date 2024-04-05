@@ -42,7 +42,11 @@ export default async function Header () {
   const categoryListItems = categories.map((cat: any) => {
     return (
         <li key={cat.type} id='categoryChild' className='p-5 hidden'>
-            <a href="#">{cat.type}</a>
+            <button onClick={() => {
+              window.location.href = `/category/${cat._id}`
+            }}>
+              {cat.type}
+            </button>
         </li>
     )
   })
