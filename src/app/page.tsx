@@ -1,16 +1,49 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
+import { useEffect } from 'react'
+import aminos from '/public/aminoShelf.png'
+import supps from '/public/suppShelf.png'
+import pre from '/public/preShelf.png'
 import Image from 'next/image'
 import Header from '@/components/header'
 import xbn from '/public/xbnLogoB.png'
 
 export default function Home () {
- return (
+  useEffect(() => {
+    let count = 0
+    setInterval(() => {
+      const slideA = document.querySelector('.slideA')
+      const slideB = document.querySelector('.slideB')
+      const slideC = document.querySelector('.slideC')
+      if (count === 0) {
+        slideA?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideB?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 1) {
+        slideB?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideC?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 2) {
+        slideC?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideA?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      count++
+      if (count === 3) { count = 0 }
+    }, 5000)
+  })
+  return (
   <>
   <Header />
-  <main>
-  <iframe className=' border-solid border-2 border-black w-[600px] h-[775px]' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
+  <main className='grid p-0 m-0 grid-cols-2'>
+  <div className='h-[800px] w-[100%] col-span-2'>
+  <Image className='slideA absolute w-[100%] h-[700px] z-[2] ' alt='pre' src= {pre} />
+  <Image className='slideB  absolute w-[100%] h-[700px] z-[1]' src={aminos} alt='aminos' />
+  <Image className='slideC  absolute w-[100%] h-[700px] z-auto' src={supps} alt='supps' />
+  </div>
+  <iframe className=' w-[px]  h-[775px]' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
   <div id='homeDescription' className='flex flex-col items-center justify-start w-[30vw]'>
   <Image className="w-[15vw] h-[18vh]"
               src={xbn} alt={''} />
@@ -22,7 +55,8 @@ export default function Home () {
         We want to be a resource for you. Come in and chat with us today and make your health and fitness dream a reality!
       </p>
     </div>
-  </div>mic Pre-Workout
+  </div>
+
   </main>
   </>
   )

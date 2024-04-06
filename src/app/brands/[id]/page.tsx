@@ -11,9 +11,9 @@ export default async function brandPage (req: { params: { id: any } }) {
     const images = item.images
     return (
       <>
-            <div>
-            <img className="w-[15vw]" src={`${images[0]}`} alt="" />
-            <h2>{item.product} </h2>
+            <div className='w-[25vw] p-3 border-gray-500 border-solid border-2 rounded-xl flex flex-col justify-center items-center'>
+            <img className="max-w-[13vw] mb-10" src={`${images[0]}`} alt="" />
+            <h2 className='text-2xl font-bold'>{item.product} </h2>
             </div>
             </>
     )
@@ -22,7 +22,7 @@ export default async function brandPage (req: { params: { id: any } }) {
   return (
     <>
     <Header />
-        <div>
+        <div className=' m-10 grid gap-10 grid-cols-3'>
             {div}
         </div>
   </>
