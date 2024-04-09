@@ -10,21 +10,22 @@ export default async function brandPage (req: { params: { id: any } }) {
   const div = items.map((item: any) => {
     const images = item.images
     return (
-      <>
-            <div className='w-[25vw] p-3 border-gray-500 border-solid border-2 rounded-xl flex flex-col justify-center items-center'>
+      <a href={`/item/${item._id}`}>
+            <div className='w-[25vw] bg-white p-3 border-gray-500 border-solid border-2 rounded-xl flex flex-col justify-center items-center'>
             <img className="max-w-[13vw] mb-10" src={`${images[0]}`} alt="" />
             <h2 className='text-2xl font-bold'>{item.product} </h2>
+            <p className='text-xl'>{item.price}</p>
             </div>
-            </>
+            </a>
     )
   })
 
   return (
-    <>
+    <div className=' bg-gray-600 h-[100%]'>
     <Header />
-        <div className=' m-10 grid gap-10 grid-cols-3'>
-            {div}
-        </div>
-  </>
+          <div className='h-[100%] grid gap-10 grid-cols-3 m-10'>
+          {div}
+          </div>
+  </div>
   )
 }

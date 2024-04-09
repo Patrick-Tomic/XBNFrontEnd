@@ -1,3 +1,10 @@
+html{
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+ 
+
 header{
     z-index: 3;
     background: white;
@@ -29,4 +36,10 @@ main{
    padding: 5vh 5vw;
     grid-template-columns: 1fr 1fr;
     background:	#FAF9F6;
+    #productImg{
+       img{
+        
+        width: 20vw;
+       }
+    }
 }
