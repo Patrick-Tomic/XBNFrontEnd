@@ -22,7 +22,14 @@ header{
         }
     }
 }
+.itemDetail{
+    background: linear-gradient(#F6E4C8,#FAA11B);
+}
 main{
+    #addToCart:hover{
+        background: orange;
+        color: white;
+    }
     #homeDescription{
         div{
             h1{
@@ -39,7 +46,7 @@ main{
     #productImg{
        img{
         
-        max-width:15vw;
+        max-width:25vw;
        }
     }
 }

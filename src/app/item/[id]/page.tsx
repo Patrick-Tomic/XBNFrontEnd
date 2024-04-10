@@ -31,10 +31,9 @@ export default async function itemDetail (req: { params: { id: any } }) {
   const data = await item.json()
   const product = data.product
   const imgs = product.images
-  console.log(product)
   const flavors = product.flavors
   const productImg = (
-    <div id='productImg' className='flex w-[15vw] overflow-hidden'>
+    <div id='productImg' className='flex w-[25vw] overflow-hidden'>
       <img src={imgs[0]} alt="" />
       <img src={imgs[imgs.length - 1]} alt="" />
     </div>
@@ -49,11 +48,10 @@ export default async function itemDetail (req: { params: { id: any } }) {
   return (
         <>
         <Header />
-        <main className='m-10 h-[100%]  items-center flex flex-col border-solid border-black border-2 ' suppressHydrationWarning={true}>
-            <h1 className='text-3xl font-bold mb-20'>{product.product}</h1>
-            <div className='flex border-2 border-solid border-black w-[75%] p-16 justify-around' suppressHydrationWarning={true}>
-            <div className='flex justify-around border-2 border-black border-solid w-[25vw]'>
-                <button>
+        <main className='itemDetail h-[100%] bg-[F6E4C8] items-center flex flex-col  ' suppressHydrationWarning={true}>
+            <div className='flex rounded-xl h-[100vh]  w-[85%] p-16 justify-around bg-[#FAF9F6]' suppressHydrationWarning={true}>
+            <div className='flex justify-around items-center  w-[45vw]'>
+                <button id='leftBtn'>
                     left
                 </button>
                 <div>
@@ -61,21 +59,25 @@ export default async function itemDetail (req: { params: { id: any } }) {
                 <div>
                 </div>
                 </div>
-                <button>
+                <button id='rightBtn'>
                     right
                 </button>
              </div>
-              <div className='flex items-center flex-col' id='rightItemDesc' suppressHydrationWarning={true} >
-                <div className='flex'>
-                <p className='font-bold text-xl' suppressHydrationWarning={true}>
+              <div className='flex  items-center justify-between flex-col' id='rightItemDesc' suppressHydrationWarning={true} >
+                <div>
+              <h1 className='text-3xl font-bold mb-5'>{product.product}</h1>
+                <p className='text-2xl' suppressHydrationWarning={true}>
                     ${product.price}
                 </p>
-                <select name="flavor" id="">
+                </div>
+                <div className='flex justify-center items-center'>
+                  <h3 className='text-3xl'>Flavors:</h3>
+                <select className='w-[80%] text-3xl' name="flavor" id="">
                   {flavorOptions }
                 </select>
                 </div>
-
-                <p className='w-[20vw] text-lg'>
+                 <button id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
+                <p className='w-[20vw] text-xl leading-loose'>
                   {product.summary}
                 </p>
               </div>
