@@ -7,30 +7,6 @@ import Image from 'next/image'
 import { useEffect } from 'react'
 import xbn from '/public/xbn.png'
 export default async function Header () {
-  useEffect(() => {
-    document.getElementById('brandHead')?.addEventListener('mouseover', () => {
-      document.querySelectorAll('#brandChild').forEach((child) => {
-        child.setAttribute('style', 'display:block;')
-      })
-    })
-
-    document.getElementById('categoryHead')?.addEventListener('mouseover', () => {
-      document.querySelectorAll('#categoryChild').forEach((child) => {
-        child.setAttribute('style', 'display:block')
-      })
-    })
-    document.getElementById('catUL')?.addEventListener('mouseleave', () => {
-      document.querySelectorAll('#categoryChild').forEach((child) => {
-        child.setAttribute('style', 'display:hidden')
-      })
-    })
-
-    document.getElementById('brandUL')?.addEventListener('mouseleave', () => {
-      document.querySelectorAll('#brandChild').forEach((child) => {
-        child.setAttribute('style', 'display:hidden')
-      })
-    })
-  })
   const brandResponse = await fetch('http://localhost:3000/api/brands')
   const data = await brandResponse.json()
   const brands = data.brands
