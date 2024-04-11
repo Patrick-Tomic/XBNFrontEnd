@@ -1,9 +1,13 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
 import aminos from '/public/aminoShelf.png'
 import supps from '/public/suppShelf.png'
 import pre from '/public/preShelf.png'
@@ -16,6 +20,51 @@ import imgC from '/public/imgC.png'
 import imgD from '/public/imgD.png'
 
 export default function Home () {
+  const [errMessage, setErr] = useState()
+  const [logErr, setLogErr] = useState(false)
+  const [userAuth, setUserAuth] = useState(false)
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string().required('Please enter your email'),
+    password: Yup.string().required('Please enter your password')
+  })
+  const formOptions = { resolver: yupResolver(validationSchema) }
+  const { register, handleSubmit, reset, formState } = useForm(formOptions)
+  const { errors } = formState
+
+  const submitForm = async (data: any) => {
+    const formData = JSON.stringify(data)
+    try {
+      const req = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      })
+      const file = await req.json()
+      console.log(file)
+      if (req.status !== 200) {
+        setErr(file.info.message)
+        setLogErr(true)
+        console.log(file)
+        console.log(errMessage)
+        return
+      }
+      console.log(file)
+      setUserAuth(true)
+      localStorage.setItem('token', file.token)
+      localStorage.setItem('userAuthorization', 'true')
+      localStorage.setItem('email', file.body.email)
+      localStorage.setItem('id', file.body._id)
+      localStorage.setItem('Cart', file.body.cart)
+      reset()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
@@ -84,6 +133,7 @@ export default function Home () {
   return (
   <>
   <Header />
+  <form action=""></form>
   <main className='grid p-0 m-0 grid-cols-2'>
   <div className='h-[800px] w-[100%] col-span-2'>
   <Image className='slideA absolute w-[100%] h-[700px] z-[6] ' alt='pre' src= {pre} />
@@ -107,7 +157,17 @@ export default function Home () {
       </p>
     </div>
   </div>
-
+    <form onSubmit={handleSubmit(submitForm)}>
+      <div>
+        <label htmlFor="email">Email:</label>
+        <input type="text" {...register('email')} />
+      </div>
+      <div>
+        <label htmlFor="password">Password:</label>
+        <input type="password" {...register('password')} />
+      </div>
+      <button type='submit'>Submit</button>
+    </form>
   </main>
   </>
   )
