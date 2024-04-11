@@ -10,6 +10,10 @@ import pre from '/public/preShelf.png'
 import Image from 'next/image'
 import Header from '@/components/header'
 import xbn from '/public/xbnLogoB.png'
+import imgA from '/public/imgA.png'
+import imgB from '/public/imgB.png'
+import imgC from '/public/imgC.png'
+import imgD from '/public/imgD.png'
 
 export default function Home () {
   useEffect(() => {
@@ -41,6 +45,10 @@ export default function Home () {
       const slideA = document.querySelector('.slideA')
       const slideB = document.querySelector('.slideB')
       const slideC = document.querySelector('.slideC')
+      const slideD = document.querySelector('.slideD')
+      const slideE = document.querySelector('.slideE')
+      const slideF = document.querySelector('.slideF')
+      const slideG = document.querySelector('.slideG')
       if (count === 0) {
         slideA?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
         slideB?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
@@ -51,10 +59,26 @@ export default function Home () {
       }
       if (count === 2) {
         slideC?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideD?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 3) {
+        slideD?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideE?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 4) {
+        slideE?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideF?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 5) {
+        slideF?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideG?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 6) {
+        slideG?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
         slideA?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
       }
       count++
-      if (count === 3) { count = 0 }
+      if (count === 7) { count = 0 }
     }, 5000)
   })
   return (
@@ -62,9 +86,13 @@ export default function Home () {
   <Header />
   <main className='grid p-0 m-0 grid-cols-2'>
   <div className='h-[800px] w-[100%] col-span-2'>
-  <Image className='slideA absolute w-[100%] h-[700px] z-[2] ' alt='pre' src= {pre} />
-  <Image className='slideB  absolute w-[100%] h-[700px] z-[1]' src={aminos} alt='aminos' />
-  <Image className='slideC  absolute w-[100%] h-[700px] z-auto' src={supps} alt='supps' />
+  <Image className='slideA absolute w-[100%] h-[700px] z-[6] ' alt='pre' src= {pre} />
+  <Image className='slideB  absolute w-[100%] h-[700px] z-[5]' src={imgC} alt='aminos' />
+  <Image className='slideC  absolute w-[100%] h-[700px] z-[4]' src={supps} alt='supps' />
+  <Image className='slideD  absolute w-[100%] h-[700px] z-[3]' src={imgA} alt='imgA' />
+  <Image className='slideE  absolute w-[100%] h-[700px] z-[2]' src={imgB} alt='imgB' />
+  <Image className='slideF  absolute w-[100%] h-[700px] z-[1]' src={aminos} alt='imgC' />
+  <Image className='slideG  absolute w-[100%] h-[700px] z-auto' src={imgD} alt='imgD' />
   </div>
   <iframe className=' w-[px]  h-[775px]' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
   <div id='homeDescription' className='flex flex-col items-center justify-start w-[30vw]'>

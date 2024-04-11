@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Belleza&family=Quicksand:wght@300..700&family=Ysabeau+SC:wght@1..1000&display=swap');
 html{
     height: 100%;
     margin: 0;
@@ -6,7 +7,10 @@ html{
  
 
 header{
-    z-index: 3;
+    font-family: 'Bebas Neue', system-ui;
+    font-size:x-large;
+    font-weight: bold;
+    z-index: 10;
     background: white;
     box-shadow: 1px 10px 10px 1px orange;
     position: sticky;
@@ -16,8 +20,13 @@ header{
             background: white;
           /*   border: #353935 1px solid; */
             z-index: 4;
+            li{
+                font-weight: normal;
+            }
             li:hover{ 
-               text-decoration: underline double orange 2px;
+                
+                
+               text-decoration: underline orange 2px;
             }
         }
     }

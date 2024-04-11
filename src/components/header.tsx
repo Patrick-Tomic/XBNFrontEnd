@@ -38,7 +38,8 @@ export default async function Header () {
     )
   })
   return (
-        <header className="flex justify-around items-center">
+        <header className="flex justify-evenly items-center ">
+          <p></p>
             <a href="#">Home</a>
              <ul id='brandUL'>
                 <li id='brandHead'>Shop by Brand</li>
@@ -55,6 +56,10 @@ export default async function Header () {
                 </div>
              </ul>
              <a href="#">Contact Us</a>
+             <div className='flex justify-around border-2 border-solid border-black w-[10vw]'>
+              <button className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]'>Login</button>
+              <a href="/signup">Sign-up</a>
+             </div>
         </header>
   )
 }

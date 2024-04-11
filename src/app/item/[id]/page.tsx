@@ -26,6 +26,11 @@ export default async function itemDetail (req: { params: { id: any } }) {
         child.setAttribute('style', 'display:hidden')
       })
     })
+    document.getElementById('leftBtn')?.addEventListener('click', () => {
+      const vw = 25
+      const imgs = document.getElementById('productImg')
+
+    })
   }, [])
   const item = await fetch(`http://localhost:3000/api/product/${req.params.id}`)
   const data = await item.json()
@@ -65,7 +70,7 @@ export default async function itemDetail (req: { params: { id: any } }) {
              </div>
               <div className='flex  items-center justify-between flex-col' id='rightItemDesc' suppressHydrationWarning={true} >
                 <div>
-              <h1 className='text-3xl font-bold mb-5'>{product.product}</h1>
+              <h1 className='text-3xl font-bold mb-5'>{product.brand.name} - {product.product}</h1>
                 <p className='text-2xl' suppressHydrationWarning={true}>
                     ${product.price}
                 </p>
