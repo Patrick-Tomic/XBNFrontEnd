@@ -46,7 +46,7 @@ export default async function brandPage (req: { params: { id: any } }) {
   })
 
   return (
-    <div className=' bg-gray-600 h-[100%]'>
+    <div className=' brandPage h-[100%]'>
     <Header />
           <div className='h-[100%] grid gap-10 grid-cols-3 m-10'>
           {div}

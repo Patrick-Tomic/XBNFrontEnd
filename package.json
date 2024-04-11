@@ -14,9 +14,12 @@
     "next-video": "^0.16.2",
     "react": "^18",
     "react-dom": "^18",
-    "sass": "^1.72.0"
+    "react-hook-form": "^7.51.2",
+    "sass": "^1.72.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
+    "@hookform/resolvers": "^3.3.4",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
