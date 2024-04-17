@@ -1,12 +1,68 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Image from 'next/image'
-import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import { useEffect, useState } from 'react'
 import xbn from '/public/xbn.png'
 export default async function Header () {
+  const [errMessage, setErr] = useState()
+  const [logErr, setLogErr] = useState(false)
+  const [userAuth, setUserAuth] = useState('')
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required('Please enter your email'),
+    password: Yup.string().required('Please enter your password')
+  })
+  const formOptions = { resolver: yupResolver(validationSchema) }
+  const { register, handleSubmit, reset, formState } = useForm(formOptions)
+  const { errors } = formState
+
+  const submitForm = async (data: any) => {
+    const formData = JSON.stringify(data)
+    try {
+      const req = await fetch('http://localhost:3000/api/login', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      })
+      const file = await req.json()
+      if (req.status !== 200) {
+        setErr(file.info.message)
+        setLogErr(true)
+        console.log(file)
+        console.log(errMessage)
+        return
+      }
+      console.log(file)
+      setUserAuth(true)
+      localStorage.setItem('token', file.token)
+      localStorage.setItem('userAuthorization', 'true')
+      localStorage.setItem('email', file.body.email)
+      localStorage.setItem('id', file.body._id)
+      localStorage.setItem('Cart', file.body.cart)
+      reset()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+   
+  useEffect(() => {
+    const authorization: any = localStorage.getItem('userAuthorization')
+    if (authorization === 'true') {
+      document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
+      document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
+    }
+  })
   const brandResponse = await fetch('http://localhost:3000/api/brands')
   const data = await brandResponse.json()
   const brands = data.brands
@@ -57,9 +113,27 @@ export default async function Header () {
              </ul>
              <a href="#">Contact Us</a>
              <div className='flex justify-around border-2 border-solid border-black w-[10vw]'>
-              <button className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]'>Login</button>
+              <div className='hidden' id='logoutBtn'>
+                  <button>Logout</button>
+              </div>
+              <div id='startingBtns'>
+              <button className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick={() => {
+                document.getElementById('loginForm')?.setAttribute('style', 'display:block')
+              }}>Login</button>
               <a href="/signup"><button>Sign-up</button></a>
+              </div>
              </div>
+             <form id='loginForm' className='hidden fixed z-[11] font-sans bg-gray-500 text-white h-[20vh] top-[15%] left-[78%] rounded-md' onSubmit={handleSubmit(submitForm)}>
+      <div className='flex flex-col'>
+        <label className=' text-xl font-bold' htmlFor="emai">Email:</label>
+        <input type="text" className='border-2 border-black border-solid text-black max-w-[312px]' {...register('username')} />
+      </div>
+      <div className='flex flex-col'>
+        <label className=' text-xl font-bold' htmlFor="password">Password:</label>
+        <input className='border-2 border-black border-solid text-black' type="password" {...register('password')} />
+      </div>
+      <button className='border-2 p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-2xl ml-[30%] mt-2 rounded-lg transition-all ease-in-out duration-[1s]' type='submit'>Submit</button>
+    </form>
         </header>
   )
 }
