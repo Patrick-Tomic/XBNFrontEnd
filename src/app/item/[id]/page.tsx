@@ -1,9 +1,23 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 'use client'
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Header from '@/components/header'
-import { useEffect } from 'react'
-export default async function itemDetail (req: { params: { id: any } }) {
+import { useEffect, useState } from 'react'
+export default function itemDetail (req: { params: { id: any } }) {
+  const [product, setProduct] = useState({
+    images: [],
+    flavors: [],
+    brand: {}
+  })
   useEffect(() => {
+    (async () => {
+      const item = await fetch(`http://localhost:3000/api/product/${req.params.id}`)
+      const data = await item.json()
+      const product = data.product
+      setProduct(product)
+    })()
+
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
         child.setAttribute('style', 'display:block;')
@@ -29,12 +43,9 @@ export default async function itemDetail (req: { params: { id: any } }) {
     document.getElementById('leftBtn')?.addEventListener('click', () => {
       const vw = 25
       const imgs = document.getElementById('productImg')
-
     })
   }, [])
-  const item = await fetch(`http://localhost:3000/api/product/${req.params.id}`)
-  const data = await item.json()
-  const product = data.product
+ 
   const imgs = product.images
   const flavors = product.flavors
   const productImg = (

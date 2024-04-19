@@ -1,11 +1,21 @@
+/* eslint-disable no-useless-return */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
 
 import Header from '@/components/header'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-export default async function categoryPage (req: { params: { id: any } }) {
+export default function categoryPage (req: { params: { id: any } }) {
+  const [items, setItems] = useState([])
   useEffect(() => {
+    (async () => {
+      const categoryItems = await fetch(`http://localhost:3000/api/category/${req.params.id}`)
+      const data = await categoryItems.json()
+      const items = data.items
+      setItems(items)
+      return
+    })()
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
         child.setAttribute('style', 'display:block;')
@@ -28,15 +38,12 @@ export default async function categoryPage (req: { params: { id: any } }) {
         child.setAttribute('style', 'display:hidden')
       })
     })
-  })
-  const categoryItems = await fetch(`http://localhost:3000/api/category/${req.params.id}`)
-  const data = await categoryItems.json()
-  const items = data.items
+  }, [])
   const div = items.map((item: any) => {
     const images = item.images
     return (
             <>
-            <a className="flex flex-col justify-between items-center" href={`/item/${item._id}`}>
+            <a className="flex flex-col justify-between items-center" key={item.product} href={`/item/${item._id}`}>
                 <img src={`${images[0]}`} alt="" />
                 <h2>{item.product}</h2>
                 <p>{item.summary}</p>

@@ -79,7 +79,6 @@ export default function Header () {
     }
     fetchCat()
   }, [])
-  
   const categoryListItems = categories.map((cat: any) => {
     return (
         <li key={cat.type} id='categoryChild' className='p-5 hidden'>
