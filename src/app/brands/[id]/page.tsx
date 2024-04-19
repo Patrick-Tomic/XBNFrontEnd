@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 'use client'
 import Header from '@/components/header'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export default async function brandPage (req: { params: { id: any } }) {
+export default function brandPage (req: { params: { id: any } }) {
+  const [items, setItems] = useState([])
   useEffect(() => {
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
@@ -28,10 +31,15 @@ export default async function brandPage (req: { params: { id: any } }) {
         child.setAttribute('style', 'display:hidden')
       })
     })
-  })
-  const brandItems = await fetch(`http://localhost:3000/api/brand/${req.params.id}`)
-  const data = await brandItems.json()
-  const items = data.items
+    const fetchItems = async () => {
+      const brandItems = await fetch(`http://localhost:3000/api/brand/${req.params.id}`)
+      const data = await brandItems.json()
+      const items = data.items
+      setItems(items)
+    }
+    fetchItems()
+  }, [])
+
   const div = items.map((item: any) => {
     const images = item.images
     return (

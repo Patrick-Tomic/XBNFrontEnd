@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
@@ -5,17 +6,19 @@
 /* eslint-disable @typescript-eslint/quotes */
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+'use client'
 import Image from 'next/image'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { useEffect, useState } from 'react'
 import xbn from '/public/xbn.png'
-export default async function Header () {
+export default function Header () {
+  const [brands, setBrands] = useState([])
+  const [categories, setCategories] = useState([])
   const [errMessage, setErr] = useState()
-  const [logErr, setLogErr] = useState(false)
-  const [userAuth, setUserAuth] = useState('')
-
+  const [logErr, setLogErr] = useState('false')
+  const [userAuth, setUserAuth] = useState(localStorage.getItem('userAuthorization'))
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Please enter your email'),
     password: Yup.string().required('Please enter your password')
@@ -38,39 +41,45 @@ export default async function Header () {
       const file = await req.json()
       if (req.status !== 200) {
         setErr(file.info.message)
-        setLogErr(true)
+        /* setLogErr(true) */
         console.log(file)
         console.log(errMessage)
         return
       }
       console.log(file)
-      setUserAuth(true)
+      /*  setUserAuth(true) */
       localStorage.setItem('token', file.token)
       localStorage.setItem('userAuthorization', 'true')
       localStorage.setItem('email', file.body.email)
       localStorage.setItem('id', file.body._id)
       localStorage.setItem('Cart', file.body.cart)
       reset()
+      window.location.reload()
     } catch (err) {
       console.log(err)
     }
   }
-   
   useEffect(() => {
-    const authorization: any = localStorage.getItem('userAuthorization')
-    if (authorization === 'true') {
+    if (userAuth === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
     }
-  })
-  const brandResponse = await fetch('http://localhost:3000/api/brands')
-  const data = await brandResponse.json()
-  const brands = data.brands
-
-  const categoryResponse = await fetch('http://localhost:3000/api/categories')
-  const dataB = await categoryResponse.json()
-  const categories = dataB.categories
-
+    const fetchBrands = async () => {
+      const brandResponse = await fetch('http://localhost:3000/api/brands')
+      const data = await brandResponse.json()
+      const brands = await data.brands
+      setBrands(brands)
+    }
+    fetchBrands()
+    const fetchCat = async () => {
+      const categoryResponse = await fetch('http://localhost:3000/api/categories')
+      const dataB = await categoryResponse.json()
+      const cat = await dataB.categories
+      setCategories(cat)
+    }
+    fetchCat()
+  }, [])
+  
   const categoryListItems = categories.map((cat: any) => {
     return (
         <li key={cat.type} id='categoryChild' className='p-5 hidden'>
@@ -112,7 +121,7 @@ export default async function Header () {
                 </div>
              </ul>
              <a href="#">Contact Us</a>
-             <div className='flex justify-around border-2 border-solid border-black w-[10vw]'>
+             <div className='flex justify-around  w-[10vw]'>
               <div className='hidden' id='logoutBtn'>
                   <button>Logout</button>
               </div>
