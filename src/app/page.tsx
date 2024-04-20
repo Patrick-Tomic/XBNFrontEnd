@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
 import { useEffect } from 'react'
-
+import Footer from '@/components/footer'
 import aminos from '/public/aminoShelf.png'
 import supps from '/public/suppShelf.png'
 import pre from '/public/preShelf.png'
@@ -87,10 +87,10 @@ export default function Home () {
   <>
   <Header />
   <form action=""></form>
-  <main className='grid p-0 m-0 grid-cols-2'>
+  <main className='grid p-0 m-0 grid-cols-2 pb-10'>
   <div className='h-[800px] w-[100%] col-span-2'>
   <Image className='slideA absolute w-[100%] h-[700px] z-[6] ' alt='pre' src= {pre} />
-  <Image className='slideB  absolute w-[100%] h-[700px] z-[5]' src={imgC} alt='aminos' />
+  <Image className='slideB  absolute w-[100%] h-[700px] z-[5] ' src={imgC} alt='aminos' />
   <Image className='slideC  absolute w-[100%] h-[700px] z-[4]' src={supps} alt='supps' />
   <Image className='slideD  absolute w-[100%] h-[700px] z-[3]' src={imgA} alt='imgA' />
   <Image className='slideE  absolute w-[100%] h-[700px] z-[2]' src={imgB} alt='imgB' />
@@ -111,6 +111,7 @@ export default function Home () {
     </div>
   </div>
   </main>
+  <Footer />
   </>
   )
 }
