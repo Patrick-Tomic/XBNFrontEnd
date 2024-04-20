@@ -14,6 +14,13 @@ import * as Yup from 'yup'
 import { useEffect, useState } from 'react'
 import xbn from '/public/xbn.png'
 export default function Header () {
+  const hour: any = localStorage.getItem('hour')
+  const minute: any = localStorage.getItem('minute')
+  const date = new Date()
+  if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
+    localStorage.clear()
+  }
+
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
   const [errMessage, setErr] = useState()
@@ -47,6 +54,11 @@ export default function Header () {
         return
       }
       console.log(file)
+      const date = new Date()
+      const hour = date.getHours()
+      const minute = date.getMinutes()
+      localStorage.setItem('hour', `${hour}`)
+      localStorage.setItem('minute', `${minute}`)
       /*  setUserAuth(true) */
       localStorage.setItem('token', file.token)
       localStorage.setItem('userAuthorization', 'true')
@@ -122,7 +134,9 @@ export default function Header () {
              <a href="#">Contact Us</a>
              <div className='flex justify-around  w-[10vw]'>
               <div className='hidden' id='logoutBtn'>
-                  <button>Logout</button>
+                  <button onClick = {() => { localStorage.clear()
+                    window.location.reload()
+                  }}>Logout</button>
               </div>
               <div id='startingBtns'>
               <button className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick={() => {
