@@ -26,7 +26,7 @@ export default function categoryPage (req: { params: { id: any } }) {
     document.getElementById('categoryHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#categoryChild').forEach((child) => {
         child.setAttribute('style', 'display:block')
-      })     
+      })
     })
     document.getElementById('catUL')?.addEventListener('mouseleave', () => {
       document.querySelectorAll('#categoryChild').forEach((child) => {
