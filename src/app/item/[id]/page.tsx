@@ -23,7 +23,7 @@ export default function itemDetail (req: { params: { id: any } }) {
   console.log(cart)
   useEffect(() => {
     (async () => {
-      const item = await fetch(`http://localhost:3000/api/product/${req.params.id}`)
+      const item = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${req.params.id}`)
       const data = await item.json()
       const product = data.product
       setProduct(product)
