@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
@@ -55,7 +56,7 @@ export default function Signup () {
   const submitForm = async (data: any, e: any) => {
     const formData = JSON.stringify(data)
     try {
-      const req = await fetch('http://localhost:3000/api/signup', {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_links}signup`, {
 
         method: 'POST',
         body: formData,

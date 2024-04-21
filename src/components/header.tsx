@@ -16,8 +16,6 @@ import xbn from '/public/xbn.png'
 export default function Header () {
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
-  const [errMessage, setErr] = useState()
-  const [logErr, setLogErr] = useState('false')
   const [userAuth, setUserAuth] = useState(localStorage.getItem('userAuthorization'))
 
   const validationSchema = Yup.object().shape({
@@ -41,10 +39,7 @@ export default function Header () {
       })
       const file = await req.json()
       if (req.status !== 200) {
-        setErr(file.info.message)
         /* setLogErr(true) */
-        console.log(file)
-        console.log(errMessage)
         return
       }
       console.log(file)
@@ -71,7 +66,6 @@ export default function Header () {
     if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
       localStorage.clear()
     }
- 
     if (userAuth === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')

@@ -7,9 +7,14 @@ import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 export default function itemDetail (req: { params: { id: any } }) {
   const [product, setProduct] = useState({
+    product: '',
+    summary: '',
+    price: 0,
     images: [],
     flavors: [],
-    brand: {}
+    brand: {
+      name: ''
+    }
   })
   const [cart, setCart] = useState({
     items: [],

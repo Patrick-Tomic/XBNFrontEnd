@@ -1,3 +1,5 @@
+/* eslint-disable import/no-absolute-path */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Image from 'next/image'
 import xbn from '/public/xbnLogoB.png'
 export default function Footer () {
