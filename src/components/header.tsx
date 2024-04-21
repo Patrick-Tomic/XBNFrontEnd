@@ -66,6 +66,7 @@ export default function Header () {
     if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
       localStorage.clear()
     }
+    // fix this load issue//
     if (localStorage.getItem('userAuthorization') === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
