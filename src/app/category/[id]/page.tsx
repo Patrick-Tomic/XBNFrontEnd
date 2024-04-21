@@ -11,7 +11,7 @@ export default function categoryPage (req: { params: { id: any } }) {
   const [items, setItems] = useState([])
   useEffect(() => {
     (async () => {
-      const categoryItems = await fetch(`{process.env.NEXT_PUBLIC_backend_Link}category/${req.params.id}`)
+      const categoryItems = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}category/${req.params.id}`)
       const data = await categoryItems.json()
       const items = data.items
       setItems(items)
