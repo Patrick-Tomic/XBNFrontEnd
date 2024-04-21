@@ -29,7 +29,7 @@ export default function Header () {
   const submitForm = async (data: any) => {
     const formData = JSON.stringify(data)
     try {
-      const req = await fetch('http://localhost:3000/api/login', {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_link}login`, {
         method: 'POST',
         body: formData,
         headers: {
