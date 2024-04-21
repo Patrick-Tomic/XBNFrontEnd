@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 // eslint-disable-next-line @typescript-eslint/no-unused-expressions
 'use client'
+import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 
@@ -32,7 +33,7 @@ export default function brandPage (req: { params: { id: any } }) {
       })
     })
     const fetchItems = async () => {
-      const brandItems = await fetch(`http://localhost:3000/api/brand/${req.params.id}`)
+      const brandItems = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}brand/${req.params.id}`)
       const data = await brandItems.json()
       const items = data.items
       setItems(items)
@@ -54,11 +55,12 @@ export default function brandPage (req: { params: { id: any } }) {
   })
 
   return (
-    <div className=' brandPage h-[100%]'>
+    <>
     <Header />
-          <div className='h-[100%] grid gap-10 grid-cols-3 m-10'>
+          <main className='h-[100%] grid gap-10 grid-cols-3 brandPage'>
           {div}
-          </div>
-  </div>
+          </main>
+          <Footer />
+  </>
   )
 }

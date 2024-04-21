@@ -14,18 +14,12 @@ import * as Yup from 'yup'
 import { useEffect, useState } from 'react'
 import xbn from '/public/xbn.png'
 export default function Header () {
-  const hour: any = localStorage.getItem('hour')
-  const minute: any = localStorage.getItem('minute')
-  const date = new Date()
-  if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
-    localStorage.clear()
-  }
-
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
   const [errMessage, setErr] = useState()
   const [logErr, setLogErr] = useState('false')
   const [userAuth, setUserAuth] = useState(localStorage.getItem('userAuthorization'))
+
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Please enter your email'),
     password: Yup.string().required('Please enter your password')
@@ -64,7 +58,6 @@ export default function Header () {
       localStorage.setItem('userAuthorization', 'true')
       localStorage.setItem('email', file.body.email)
       localStorage.setItem('id', file.body._id)
-      localStorage.setItem('Cart', file.body.cart)
       reset()
       window.location.reload()
     } catch (err) {
@@ -72,19 +65,26 @@ export default function Header () {
     }
   }
   useEffect(() => {
+    const hour: any = localStorage.getItem('hour')
+    const minute: any = localStorage.getItem('minute')
+    const date = new Date()
+    if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
+      localStorage.clear()
+    }
+ 
     if (userAuth === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
     }
     const fetchBrands = async () => {
-      const brandResponse = await fetch('http://localhost:3000/api/brands')
+      const brandResponse = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}brands`)
       const data = await brandResponse.json()
       const brands = await data.brands
       setBrands(brands)
     }
     fetchBrands()
     const fetchCat = async () => {
-      const categoryResponse = await fetch('http://localhost:3000/api/categories')
+      const categoryResponse = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}categories`)
       const dataB = await categoryResponse.json()
       const cat = await dataB.categories
       setCategories(cat)
@@ -134,7 +134,8 @@ export default function Header () {
              <a href="#">Contact Us</a>
              <div className='flex justify-around  w-[10vw]'>
               <div className='hidden' id='logoutBtn'>
-                  <button onClick = {() => { localStorage.clear()
+                  <button onClick = {() => {
+                    localStorage.clear()
                     window.location.reload()
                   }}>Logout</button>
               </div>

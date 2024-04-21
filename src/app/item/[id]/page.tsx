@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 'use client'
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 export default function itemDetail (req: { params: { id: any } }) {
@@ -10,14 +11,25 @@ export default function itemDetail (req: { params: { id: any } }) {
     flavors: [],
     brand: {}
   })
+  const [cart, setCart] = useState({
+    items: [],
+    price: 0
+  })
+  console.log(cart)
   useEffect(() => {
     (async () => {
       const item = await fetch(`http://localhost:3000/api/product/${req.params.id}`)
       const data = await item.json()
       const product = data.product
       setProduct(product)
+      const id = localStorage.getItem('id')
+      const dataB = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`)
+      const cart = await dataB.json()
+      setCart(cart.cart.cart)
     })()
-
+    if (flavors.length === 0) {
+      document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
+    }
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
         child.setAttribute('style', 'display:block;')
@@ -45,7 +57,7 @@ export default function itemDetail (req: { params: { id: any } }) {
       const imgs = document.getElementById('productImg')
     })
   }, [])
- 
+
   const imgs = product.images
   const flavors = product.flavors
   const productImg = (
@@ -86,19 +98,32 @@ export default function itemDetail (req: { params: { id: any } }) {
                     ${product.price}
                 </p>
                 </div>
-                <div className='flex justify-center items-center'>
-                  <h3 className='text-3xl'>Flavors:</h3>
-                <select className='w-[80%] text-3xl' name="flavor" id="">
+                <form className='w-[100%]' action="">
+                  <div>
+                  <h3 className='text-3xl'>Amount:</h3>
+                  <select className='w-[80%] text-3xl' name="amount" >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    </select>
+                  </div>
+                <div className='flex justify-center items-center' id="flavorSelect">
+                <h3 className='text-3xl'>Flavors:</h3>
+                <select className='w-[80%] text-3xl' name="flavor" >
                   {flavorOptions }
                 </select>
                 </div>
                  <button id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
+                 </form>
                 <p className='w-[20vw] text-xl leading-loose'>
                   {product.summary}
                 </p>
               </div>
             </div>
         </main>
+        <Footer />
         </>
   )
 }

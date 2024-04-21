@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
 
+import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { useEffect, useState } from 'react'
 
@@ -10,7 +11,7 @@ export default function categoryPage (req: { params: { id: any } }) {
   const [items, setItems] = useState([])
   useEffect(() => {
     (async () => {
-      const categoryItems = await fetch(`http://localhost:3000/api/category/${req.params.id}`)
+      const categoryItems = await fetch(`{process.env.NEXT_PUBLIC_backend_Link}category/${req.params.id}`)
       const data = await categoryItems.json()
       const items = data.items
       setItems(items)
@@ -57,6 +58,7 @@ export default function categoryPage (req: { params: { id: any } }) {
     <main>
         {div}
     </main>
+    <Footer />
   </>
   )
 }

@@ -41,7 +41,6 @@ export default function Home () {
         child.setAttribute('style', 'display:hidden')
       })
     })
-
     let count = 0
     setInterval(() => {
       const slideA = document.querySelector('.slideA')
