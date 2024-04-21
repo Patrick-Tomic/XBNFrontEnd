@@ -16,7 +16,7 @@ import xbn from '/public/xbn.png'
 export default function Header () {
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
-  const [userAuth, setUserAuth] = useState(localStorage.getItem('userAuthorization'))
+  const [userAuth, setUserAuth] = useState()
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Please enter your email'),
@@ -66,7 +66,7 @@ export default function Header () {
     if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
       localStorage.clear()
     }
-    if (userAuth === 'true') {
+    if (localStorage.getItem('userAuthorization') === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
     }
