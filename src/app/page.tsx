@@ -16,10 +16,12 @@ import imgA from '/public/imgA.png'
 import imgB from '/public/imgB.png'
 import imgC from '/public/imgC.png'
 import imgD from '/public/imgD.png'
+import imgE from '/public/imgE.jpg'
+import imgF from '/public/imgF.jpg'
+import imgG from '/public/imgG.jpg'
 
 export default function Home () {
   const [count, setCount] = useState(0)
-  console.log(count)
   useEffect(() => {
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
@@ -43,7 +45,7 @@ export default function Home () {
         child.setAttribute('style', 'display:hidden')
       })
     })
-    setTimeout(() => {
+   /*  setTimeout(() => { 
       const slideA = document.querySelector('.slideA')
       const slideB = document.querySelector('.slideB')
       const slideC = document.querySelector('.slideC')
@@ -51,6 +53,9 @@ export default function Home () {
       const slideE = document.querySelector('.slideE')
       const slideF = document.querySelector('.slideF')
       const slideG = document.querySelector('.slideG')
+      const slideH = document.querySelector('.slideH')
+      const slideI = document.querySelector('.slideI')
+      const slideJ = document.querySelector('.slideJ')
       if (count === 0) {
         slideA?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
         slideB?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
@@ -79,31 +84,52 @@ export default function Home () {
         slideG?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
         slideA?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
       }
-      let num = count + 1
       if (count === 7) {
+        slideG?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideH?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 8) {
+        slideH?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideI?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 9) {
+        slideI?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideJ?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      if (count === 10) {
+        slideJ?.setAttribute('style', 'opacity:0; visibility:hidden; transition: 0.5s linear')
+        slideA?.setAttribute('style', 'opacity:1; visibility:visible; transition: 0.5s linear 0.5s')
+      }
+      let num = count + 1
+      if (count === 10) {
         num = 0
         setCount(num)
       } else {
         setCount(num)
       }
-    }, 5000)
+    }, 5000) */
   })
   return (
   <>
   <Header />
   <form action=""></form>
-  <main className='lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
-  <div className='h-[800px] w-[100%] col-span-2'>
-  <Image className='slideA absolute w-[100%] max-h-[700px] z-[6] ' alt='pre' src= {pre} />
-  <Image className='slideB  absolute w-[100%] max-h-[700px] z-[5] ' src={imgC} alt='aminos' />
-  <Image className='slideC  absolute w-[100%] max-h-[700px] z-[4]' src={supps} alt='supps' />
-  <Image className='slideD  absolute w-[100%] max-h-[700px] z-[3]' src={imgA} alt='imgA' />
-  <Image className='slideE  absolute w-[100%] max-h-[700px] z-[2]' src={imgB} alt='imgB' />
-  <Image className='slideF  absolute w-[100%] max-h-[700px] z-[1]' src={aminos} alt='imgC' />
-  <Image className='slideG  absolute w-[100%] max-h-[700px] z-auto' src={imgD} alt='imgD' />
+  <main className='md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
+    <div className='col-span-2 p-10 w-[100%]  bg-[#71797E]'>
+  <div id='wrap' className=' 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   '>
+  <Image className='slideA rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[6] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' alt='pre' src= {pre} />
+  {/* <Image className='slideB  absolute rounded-md max-w-[1008px] max-h-[700px] z-[5] ' src={imgC} alt='aminos' />
+  <Image className='slideC  absolute max-w-[1008px] rounded-md max-h-[700px] z-[4]' src={supps} alt='supps' />
+  <Image className='slideD  absolute max-w-[1008px] max-h-[700px] rounded-md z-[3]' src={imgA} alt='imgA' />
+  <Image className='slideE  absolute max-w-[1008px] rounded-md max-h-[700px] z-[2]' src={imgB} alt='imgB' />
+  <Image className='slideF  absolute max-w-[1008px] rounded-md max-h-[700px] z-[1]' src={aminos} alt='imgC' />
+  <Image className='slideG  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgD} alt='imgD' />
+  <Image className='slideH  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgE} alt='imgE' />
+  <Image className='slideI  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgF} alt='imgF' />
+  <Image className='slideJ  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgG} alt='imgG' /> */}
+  </div>
   </div>
   <iframe className='xl:h-[620px] xl:mt-40 w-[px]  2xl:h-[775px] 2xl:mt-0 ' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
-  <div id='homeDescription' className='  lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 '>
+  <div id='homeDescription' className=' md:m-10 sm:m-10 lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 '>
   <Image className="w-[15vw] h-[15vh]"
               src={xbn} alt={''} />
     <div className='border-solid border-gray-600 border-2 flex flex-col justify-center items-center bg-[#353935]'>
