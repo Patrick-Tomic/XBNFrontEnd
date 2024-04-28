@@ -71,13 +71,13 @@ export default function itemDetail (req: { params: { id: any } }) {
       <img src={imgs[imgs.length - 1]} alt="" />
     </div>
   )
-  const flavorOptions = flavors.length > 0
-    ? flavors.map((flavor: any) => {
+  const flavorOptions =  if(flavors.length > 0){
+     flavors.map((flavor: any) => {
       return (
       <option key ={flavor} value={`${flavor}`}>{flavor}</option>
       )
-    })
-    : ''
+    })}
+    else{ ''}
   return (
         <>
         <Header />

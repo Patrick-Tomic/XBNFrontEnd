@@ -30,6 +30,16 @@ header{
             }
         }
     }
+    
+    #startingBtns{
+        button:hover{
+            transition: all ease-in-out .5s;
+            background: #F28C28;
+        }
+        button{
+            transition: all .5s ease-in-out;
+        }
+    }
 }
 .itemDetail{
     background: linear-gradient(#F6E4C8,#FAA11B);
