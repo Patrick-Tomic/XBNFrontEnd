@@ -45,7 +45,7 @@ export default function Home () {
         child.setAttribute('style', 'display:hidden')
       })
     })
-   /*  setTimeout(() => { 
+    setTimeout(() => {
       const slideA = document.querySelector('.slideA')
       const slideB = document.querySelector('.slideB')
       const slideC = document.querySelector('.slideC')
@@ -107,7 +107,7 @@ export default function Home () {
       } else {
         setCount(num)
       }
-    }, 5000) */
+    }, 5000)
   })
   return (
   <>
@@ -116,19 +116,19 @@ export default function Home () {
   <main className='md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
     <div className='col-span-2 p-10 w-[100%]  bg-[#71797E]'>
   <div id='wrap' className=' 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   '>
-  <Image className='slideA rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[6] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' alt='pre' src= {pre} />
-  {/* <Image className='slideB  absolute rounded-md max-w-[1008px] max-h-[700px] z-[5] ' src={imgC} alt='aminos' />
-  <Image className='slideC  absolute max-w-[1008px] rounded-md max-h-[700px] z-[4]' src={supps} alt='supps' />
-  <Image className='slideD  absolute max-w-[1008px] max-h-[700px] rounded-md z-[3]' src={imgA} alt='imgA' />
-  <Image className='slideE  absolute max-w-[1008px] rounded-md max-h-[700px] z-[2]' src={imgB} alt='imgB' />
-  <Image className='slideF  absolute max-w-[1008px] rounded-md max-h-[700px] z-[1]' src={aminos} alt='imgC' />
-  <Image className='slideG  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgD} alt='imgD' />
-  <Image className='slideH  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgE} alt='imgE' />
-  <Image className='slideI  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgF} alt='imgF' />
-  <Image className='slideJ  absolute max-w-[1008px] rounded-md max-h-[700px] z-auto' src={imgG} alt='imgG' /> */}
+  <Image className='slideA rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[9] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' alt='pre' src= {pre} />
+   <Image className='slideB rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[8] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgC} alt='aminos' />
+  <Image className='slideC rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[7] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={supps} alt='supps' />
+  <Image className='slideD rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[6] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgA} alt='imgA' />
+  <Image className='slideE rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[5] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgB} alt='imgB' />
+  <Image className='slideF invisible rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[4] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={aminos} alt='imgC' />
+  <Image className='slideG rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[3] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgD} alt='imgD' />
+  <Image className='slideH rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[2] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgE} alt='imgE' />
+  <Image className='slideI rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[1] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgF} alt='imgF' />
+  <Image className='slideJ rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[auto] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgG} alt='imgG' />
   </div>
   </div>
-  <iframe className='xl:h-[620px] xl:mt-40 w-[px]  2xl:h-[775px] 2xl:mt-0 ' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
+  <iframe className='xl:h-[620px] xl:mt-40 lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]  2xl:h-[775px] 2xl:mt-0 ' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
   <div id='homeDescription' className=' md:m-10 sm:m-10 lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 '>
   <Image className="w-[15vw] h-[15vh]"
               src={xbn} alt={''} />

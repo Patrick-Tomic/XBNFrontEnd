@@ -71,6 +71,7 @@ export default function Header () {
     // fix this load issue//
     if (localStorage.getItem('userAuthorization') === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
+      document.getElementById('cart')?.setAttribute('style', 'display:block')
       document.getElementById('startingBtns')?.setAttribute('style', 'display:none;')
     }
     const fetchBrands = async () => {
@@ -111,7 +112,7 @@ export default function Header () {
     )
   })
   return (
-        <header className="flex justify-evenly items-center ">
+        <header className="flex justify-evenly items-center md:text-lgm sm:text-base">
           <p></p>
             <a href="/">Home</a>
              <ul id='brandUL'>
@@ -120,7 +121,7 @@ export default function Header () {
                 {brandListItems}
                 </div>
              </ul>
-             <Image className="w-[12vw] h-[18vh]"
+             <Image className="w-[12vw] h-[18vh] lg:h-[16vh] lg:w-[12vw] md:w-[10vw] md:h-[12vh] sm:h-[10vh] sm:w-[8vw]"
               src={xbn} alt={''} />
              <ul id='catUL'>
                 <li id='categoryHead'>Shop by Category</li>
@@ -129,18 +130,18 @@ export default function Header () {
                 </div>
              </ul>
              <a href="#">Contact Us</a>
-             <div className='flex justify-around  w-[10vw]'>
-                  <button id='logoutBtn' className='hidden font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
+             <div className='flex justify-around w-[10vw]'>
+                  <button id='logoutBtn' className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
                     localStorage.clear()
                     window.location.reload()
-                  }}>Logout</button> 
+                  }}>Logout</button>
               <div className='flex' id='startingBtns'>
               <button id='login' className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh] mr-10' onClick={() => {
                 document.getElementById('loginForm')?.setAttribute('style', 'display:block')
               }}>Login</button>
               <a href="/signup"><button className=' font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]'>Sign-up</button></a>
               </div>
-              <a href="#"><svg className='w-10 h-10' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+              <a className='hidden' id='cart' href="#"><svg className='w-10 h-10' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                   width="800px" height="800px" viewBox="0 0 902.86 902.86"
                   >
                 <g>
