@@ -58,13 +58,18 @@ export default function Header () {
   useEffect(() => {
     // check if token in local storage is valid
     const validateToken = async () => {
-      const valid = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}load/${localStorage.getItem('token')}`)
-      const data = await valid.json()
-      if (valid.status === 200) {
-        console.log('good to go')
-      } else {
-        console.log('not valid')
-        localStorage.clear()
+      try {
+        const token = localStorage.getItem('token')
+        const valid = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}load/${localStorage.getItem('token')}`)
+        const data = await valid.json()
+        if (valid.status === 200) {
+          console.log('good to go')
+        } else {
+          console.log('not valid')
+          localStorage.clear()
+        }
+      } catch (err) {
+        console.log('expired token')
       }
     }
     validateToken()
