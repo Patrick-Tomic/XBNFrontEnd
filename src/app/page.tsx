@@ -112,7 +112,6 @@ export default function Home () {
   return (
   <>
   <Header />
-  <form action=""></form>
   <main className='md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
     <div className='col-span-2 p-10 w-[100%]  bg-[#71797E]'>
   <div id='wrap' className=' 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   '>
@@ -128,7 +127,7 @@ export default function Home () {
   <Image className='slideJ rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[auto] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' src={imgG} alt='imgG' />
   </div>
   </div>
-  <iframe className='xl:h-[620px] xl:mt-40 lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]  2xl:h-[775px] 2xl:mt-0 ' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
+  <iframe className='xl:h-[620px] sm:w-auto xl:mt-40 md:w-auto lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]  2xl:h-[775px] 2xl:mt-0 ' title="vimeo-player" src="https://player.vimeo.com/video/928577228?h=5c2f067c4f" width="900px" height="775" allowFullScreen></iframe>
   <div id='homeDescription' className=' md:m-10 sm:m-10 lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 '>
   <Image className="w-[15vw] h-[15vh]"
               src={xbn} alt={''} />

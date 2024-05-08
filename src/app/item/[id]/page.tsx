@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-floating-promises */
 'use client'
@@ -71,13 +72,15 @@ export default function itemDetail (req: { params: { id: any } }) {
       <img src={imgs[imgs.length - 1]} alt="" />
     </div>
   )
-  const flavorOptions =  if(flavors.length > 0){
-     flavors.map((flavor: any) => {
-      return (
+  const flavorOptions = () => {
+    if (flavors.length > 0) {
+      flavors.map((flavor: any) => {
+        return (
       <option key ={flavor} value={`${flavor}`}>{flavor}</option>
-      )
-    })}
-    else{ ''}
+        )
+      })
+    }
+  }
   return (
         <>
         <Header />
@@ -116,7 +119,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                   </div>
                 <div className='flex justify-center items-center' id="flavorSelect">
                 <h3 className='text-3xl'>Flavors:</h3>
-                <select className='w-[80%] text-3xl' name="flavor" >
+                <select id='flavorSelect' className='w-[80%] text-3xl' name="flavor" >
                   {flavorOptions }
                 </select>
                 </div>

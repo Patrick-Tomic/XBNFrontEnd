@@ -4,8 +4,8 @@ import Image from 'next/image'
 import xbn from '/public/xbnLogoB.png'
 export default function Footer () {
   return (
-        <footer className="bg-[#353935] text-white flex text-xl p-16">
-          <div className=" flex-col flex justify-around items-center   w-[40%]">
+        <footer className="bg-[#353935] sm:text-base  md:text-lg text-white flex text-xl p-16">
+          <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw]  w-[40%]">
            <div className="flex-col flex">
            <p className=" font-semibold">Tampa Palms - 15309A Amberly Dr. 33647</p>
            <a className='ml-10 underline hover:text-orange-500' href="tel:813-910-2639">(813) 910-2639</a>
@@ -16,13 +16,13 @@ export default function Footer () {
            </div>
           </div>
           <div className='grid grid-cols-2 w-[60%]'>
-            <Image className='w-[12vw] h-[14vh] ml-10' src={xbn} alt='Logo'/>
-            <div className='flex flex-col ml-32 justify-around'>
-              <a className='underline hover:text-orange-500 w-[200px]' href="#">Terms of Services</a>
-              <a className='underline hover:text-orange-500 w-[200px]' href="#">Refund Policy</a>
+            <Image className='w-[12vw] h-[14vh] md:w-[12vw] sm:h-[12vh] sm:w-[16vw] md:h-[12vh] ml-10' src={xbn} alt='Logo'/>
+            <div className='flex  flex-col ml-32 md:ml-16 sm:ml-10 justify-around'>
+              <a className='underline hover:text-orange-500 w-[200px] md:w-auto' href="#">Terms of Services</a>
+              <a className='underline hover:text-orange-500 w-[200px] md:w-auto' href="#">Refund Policy</a>
             </div>
-            <h2 className='text-2xl mt-10'> ©2024 Xtreme Body Nutrition</h2>
-            <div className='flex items-center justify-between mt-10 w-[10vw] ml-32'>
+            <h2 className='text-2xl mt-10 sm:text-lg' > ©2024 Xtreme Body Nutrition</h2>
+            <div className='flex items-center justify-between mt-10 w-[10vw] ml-32 md:ml-16 sm:ml-10'>
               <a href="https://www.linkedin.com/company/xtremebody-nutrition-llc/">
                 <button>
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,7 +40,7 @@ export default function Footer () {
               <a href="https://www.facebook.com/xbnutrition/">
                 <button>
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_17_61)">
+                <g clipPath="url(#clip0_17_61)">
                 <path d="M24 0C10.7453 0 0 10.7453 0 24C0 35.255 7.74912 44.6995 18.2026 47.2934V31.3344H13.2538V24H18.2026V20.8397C18.2026 12.671 21.8995 8.8848 29.9194 8.8848C31.44 8.8848 34.0637 9.18336 35.137 9.48096V16.129C34.5706 16.0694 33.5866 16.0397 32.3645 16.0397C28.4294 16.0397 26.9088 17.5306 26.9088 21.4061V24H34.7482L33.4013 31.3344H26.9088V47.8243C38.7926 46.3891 48.001 36.2707 48.001 24C48 10.7453 37.2547 0 24 0Z" fill="white"/>
                 </g>
                 <defs>

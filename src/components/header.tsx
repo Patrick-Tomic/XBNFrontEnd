@@ -45,16 +45,10 @@ export default function Header () {
         return
       }
       console.log(file)
-      const date = new Date()
-      const hour = date.getHours()
-      const minute = date.getMinutes()
-      localStorage.setItem('hour', `${hour}`)
-      localStorage.setItem('minute', `${minute}`)
       /*  setUserAuth(true) */
       localStorage.setItem('token', file.token)
       localStorage.setItem('userAuthorization', 'true')
-      localStorage.setItem('email', file.body.email)
-      localStorage.setItem('id', file.body._id)
+      localStorage.setItem('admin', file.body.admin)
       reset()
       window.location.reload()
     } catch (err) {
@@ -62,12 +56,18 @@ export default function Header () {
     }
   }
   useEffect(() => {
-    const hour: any = localStorage.getItem('hour')
-    const minute: any = localStorage.getItem('minute')
-    const date = new Date()
-    if (parseInt(hour) + 1 <= date.getHours() && parseInt(minute) <= date.getMinutes()) {
-      localStorage.clear()
+    // check if token in local storage is valid
+    const validateToken = async () => {
+      const valid = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}load/${localStorage.getItem('token')}`)
+      const data = await valid.json()
+      if (valid.status === 200) {
+        console.log('good to go')
+      } else {
+        console.log('not valid')
+        localStorage.clear()
+      }
     }
+    validateToken()
     // fix this load issue//
     if (localStorage.getItem('userAuthorization') === 'true') {
       document.getElementById('logoutBtn')?.setAttribute('style', 'display:block;')
@@ -112,7 +112,7 @@ export default function Header () {
     )
   })
   return (
-        <header className="flex justify-evenly items-center md:text-lgm sm:text-base">
+        <header className="flex justify-evenly items-center md:text-lgm sm:text-base xl:text-xl 2xl:text-2xl">
           <p></p>
             <a href="/">Home</a>
              <ul id='brandUL'>
