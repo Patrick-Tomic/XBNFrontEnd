@@ -49,6 +49,7 @@ export default function Header () {
       localStorage.setItem('token', file.token)
       localStorage.setItem('userAuthorization', 'true')
       localStorage.setItem('admin', file.body.admin)
+      localStorage.setItem('id', file.body._id)
       reset()
       window.location.reload()
     } catch (err) {

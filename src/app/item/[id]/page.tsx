@@ -6,6 +6,10 @@
 import Footer from '@/components/footer'
 import Header from '@/components/header'
 import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import { number } from 'yup'
 export default function itemDetail (req: { params: { id: any } }) {
   const [product, setProduct] = useState({
     product: '',
@@ -21,7 +25,33 @@ export default function itemDetail (req: { params: { id: any } }) {
     items: [],
     price: 0
   })
-  console.log(cart)
+  // form submittion
+
+  const validationSchema = Yup.object().shape({
+    product: Yup.string(),
+    flavor: Yup.string().required(),
+    amount: Yup.number().required(),
+    price: Yup.number().required()
+  })
+  const formOptions = { resolver: yupResolver(validationSchema) }
+  const { register, handleSubmit, reset, formState } = useForm(formOptions)
+  const submitForm = async (data: any) => {
+    const formData = JSON.stringify(data)
+    localStorage.setItem('formData', formData)
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addcart`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      const file = await req.json()
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
   useEffect(() => {
     (async () => {
       const item = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${req.params.id}`)
@@ -33,9 +63,6 @@ export default function itemDetail (req: { params: { id: any } }) {
       const cart = await dataB.json()
       setCart(cart.cart.cart)
     })()
-    if (flavors.length === 0) {
-      document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
-    }
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
       document.querySelectorAll('#brandChild').forEach((child) => {
         child.setAttribute('style', 'display:block;')
@@ -62,6 +89,9 @@ export default function itemDetail (req: { params: { id: any } }) {
       const vw = 25
       const imgs = document.getElementById('productImg')
     })
+    if (flavors.length === 0) {
+      document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
+    }
   }, [])
 
   const imgs = product.images
@@ -72,15 +102,15 @@ export default function itemDetail (req: { params: { id: any } }) {
       <img src={imgs[imgs.length - 1]} alt="" />
     </div>
   )
-  const flavorOptions = () => {
-    if (flavors.length > 0) {
-      flavors.map((flavor: any) => {
-        return (
-      <option key ={flavor} value={`${flavor}`}>{flavor}</option>
-        )
-      })
-    }
-  }
+  const flavorOptions: any = flavors.map((flavor: any) => {
+    return (
+      <>
+      <option key ={flavor} value={`${flavor}`}>{flavor}
+      </option>
+      </>
+    )
+  })
+
   return (
         <>
         <Header />
@@ -107,9 +137,17 @@ export default function itemDetail (req: { params: { id: any } }) {
                 </p>
                 </div>
                 <form className='w-[100%]' action="">
+                  <input className='hidden' type="text" value={product.product} {...register('product')} id="" />
+                  <input type="text" className='hidden' value={product.price} {...register('price')} />
+                <div className='flex justify-center items-center' id="flavorSelect">
+                <h3 className='text-3xl'>Flavors:</h3>
+                <select className='w-[80%] text-3xl' {...register('flavor')} >
+                  {flavorOptions}
+                </select>
+                </div>
                   <div>
                   <h3 className='text-3xl'>Amount:</h3>
-                  <select className='w-[80%] text-3xl' name="amount" >
+                  <select className='w-[80%] text-3xl' {...register('amount')} >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -117,12 +155,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                     <option value="5">5</option>
                     </select>
                   </div>
-                <div className='flex justify-center items-center' id="flavorSelect">
-                <h3 className='text-3xl'>Flavors:</h3>
-                <select id='flavorSelect' className='w-[80%] text-3xl' name="flavor" >
-                  {flavorOptions }
-                </select>
-                </div>
+
                  <button id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
                  </form>
                 <p className='w-[20vw] text-xl leading-loose'>
