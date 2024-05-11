@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-floating-promises */
@@ -28,16 +29,17 @@ export default function itemDetail (req: { params: { id: any } }) {
   // form submittion
 
   const validationSchema = Yup.object().shape({
-    product: Yup.string(),
-    flavor: Yup.string().required(),
     amount: Yup.number().required(),
-    price: Yup.number().required()
+    flavor: Yup.string().required()
   })
   const formOptions = { resolver: yupResolver(validationSchema) }
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
   const submitForm = async (data: any) => {
-    const formData = JSON.stringify(data)
-    localStorage.setItem('formData', formData)
+    const id = localStorage.getItem('id')
+    console.log(id)
+    // eslint-disable-next-line object-shorthand
+    const obj = { product: product.product, flavor: data.flavor, amount: data.amount, price: product.price, id: id }
+    const formData = JSON.stringify(obj)
     try {
       const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addcart`, {
         method: 'POST',
@@ -47,16 +49,19 @@ export default function itemDetail (req: { params: { id: any } }) {
         }
       })
       const file = await req.json()
+      console.log(file)
     } catch (err) {
       console.log(err)
     }
   }
-
   useEffect(() => {
     (async () => {
       const item = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${req.params.id}`)
       const data = await item.json()
       const product = data.product
+      if (product.flavors.length === 0) {
+        document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
+      }
       setProduct(product)
       const id = localStorage.getItem('id')
       const dataB = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`)
@@ -89,11 +94,7 @@ export default function itemDetail (req: { params: { id: any } }) {
       const vw = 25
       const imgs = document.getElementById('productImg')
     })
-    if (flavors.length === 0) {
-      document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
-    }
   }, [])
-
   const imgs = product.images
   const flavors = product.flavors
   const productImg = (
@@ -110,7 +111,6 @@ export default function itemDetail (req: { params: { id: any } }) {
       </>
     )
   })
-
   return (
         <>
         <Header />
@@ -136,18 +136,16 @@ export default function itemDetail (req: { params: { id: any } }) {
                     ${product.price}
                 </p>
                 </div>
-                <form className='w-[100%]' action="">
-                  <input className='hidden' type="text" value={product.product} {...register('product')} id="" />
-                  <input type="text" className='hidden' value={product.price} {...register('price')} />
+                <form className='w-[100%]' onSubmit={handleSubmit(submitForm)}>
                 <div className='flex justify-center items-center' id="flavorSelect">
                 <h3 className='text-3xl'>Flavors:</h3>
-                <select className='w-[80%] text-3xl' {...register('flavor')} >
+                <select className='w-[80%] text-3xl' defaultValue={flavors[0]} {...register('flavor')} >
                   {flavorOptions}
                 </select>
                 </div>
                   <div>
                   <h3 className='text-3xl'>Amount:</h3>
-                  <select className='w-[80%] text-3xl' {...register('amount')} >
+                  <select defaultValue={'1'} className='w-[80%] text-3xl' {...register('amount')} >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -156,7 +154,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                     </select>
                   </div>
 
-                 <button id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
+                 <button type='submit' id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
                  </form>
                 <p className='w-[20vw] text-xl leading-loose'>
                   {product.summary}
