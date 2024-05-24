@@ -38,7 +38,7 @@ export default function brandPage (req: { params: { id: any } }) {
       const items = data.items
       setItems(items)
     }
-    fetchItems()
+    fetchItems() 
   }, [])
 
   const div = items.map((item: any) => {
