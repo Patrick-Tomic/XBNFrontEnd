@@ -7,7 +7,9 @@ html{
     padding: 0;
 }
  
-
+#loginForm{
+    box-shadow: #464241 1px 1px 10px 1px;
+}
 header{
     font-family: 'Bebas Neue', system-ui;
     font-size:x-large;
@@ -50,7 +52,10 @@ header{
     background: linear-gradient(#464241 40%, #FF6726);
 }
 main{
-    
+    #imageSlider{
+        box-shadow: 1px 10px 10px 1px orange;
+        margin-bottom: 5vh;
+    }
     #addToCart:hover{
         background: orange;
         color: white;
