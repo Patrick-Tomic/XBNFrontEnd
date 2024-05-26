@@ -19,44 +19,7 @@ import xbn from '/public/xbn.png'
 export default function Header () {
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
-  const [userAuth, setUserAuth] = useState()
-
-  const validationSchema = Yup.object().shape({
-    username: Yup.string().required('Please enter your email'),
-    password: Yup.string().required('Please enter your password')
-  })
-  const formOptions = { resolver: yupResolver(validationSchema) }
-  const { register, handleSubmit, reset, formState } = useForm(formOptions)
-  const { errors } = formState
-
-  const submitForm = async (data: any) => {
-    const formData = JSON.stringify(data)
-    try {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}login`, {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-
-      })
-      const file = await req.json()
-      if (req.status !== 200) {
-        /* setLogErr(true) */
-        return
-      }
-      console.log(file)
-      /*  setUserAuth(true) */
-      localStorage.setItem('token', file.token)
-      localStorage.setItem('userAuthorization', 'true')
-      localStorage.setItem('admin', file.body.admin)
-      localStorage.setItem('id', file.body._id)
-      reset()
-      window.location.reload()
-    } catch (err) {
-      console.log(err)
-    }
-  }
+  
   useEffect(() => {
     // check if token in local storage is valid
     const validateToken = async () => {
@@ -98,7 +61,7 @@ export default function Header () {
   }, [])
   const categoryListItems = categories.map((cat: any) => {
     return (
-        <li key={cat.type} id='categoryChild' className='p-5 bg-[#6E260E] text-[#Edeade] hidden'>
+        <li key={cat.type} id='categoryChild' className='p-5 bg-[#6E260E] border-x-2 border-black text-[#Edeade] hidden'>
             <button onClick={() => {
               window.location.href = `/category/${cat._id}`
             }}>
@@ -110,7 +73,7 @@ export default function Header () {
 
   const brandListItems = brands.map((brand: any) => {
     return (
-     <li key={brand._id} id='brandChild' className="hidden p-5 bg-[#6E260E] text-[#Edeade]">
+     <li key={brand._id} id='brandChild' className="hidden p-5 bg-[#6E260E] border-x-2  border-black border-solid  text-[#Edeade]">
              {/*  <a href={`/brand/${brand._id}`}> {brand.name}</a> */}
              <button onClick={() => {
                window.location.href = `/brands/${brand._id}`
@@ -122,9 +85,9 @@ export default function Header () {
         <header className="flex justify-evenly items-center md:text-lgm sm:text-base xl:text-xl 2xl:text-2xl">
           <p></p>
             <a href="/">Home</a>
-             <ul id='brandUL' className='overflow-y-auto'>
+             <ul id='brandUL'>
                 <li id='brandHead'>Shop by Brand</li>
-                <div className='brandDiv overflow-y-auto absolute border-2 border-solid border-black'>
+                <div className='brandDiv overflow-auto absolute  border-solid border-black'>
                 {brandListItems}
                 </div>
              </ul>
@@ -132,7 +95,7 @@ export default function Header () {
               src={xbn} alt={''} />
              <ul id='catUL'>
                 <li id='categoryHead'>Shop by Category</li>
-                <div className='absolute catDiv border-2 border-solid border-black bg-[#B87333]'>
+                <div className='absolute catDiv  border-solid border-black bg-[#B87333]'>
                 {categoryListItems}
                 </div>
              </ul>
@@ -163,17 +126,7 @@ export default function Header () {
                 </g>
                 </svg></a>
              </div>
-             <form id='loginForm' className='hidden fixed z-[11] font-sans font-[Junge] bg-[#6F4E37] text-white h-[32vh] top-[15%] left-[78%] rounded-md' onSubmit={handleSubmit(submitForm)}>
-      <div className='flex flex-col'>
-        <label className=' text-xl font-bold' htmlFor="emai">Email:</label>
-        <input type="text" className='border-2 border-black border-solid text-black max-w-[312px]' {...register('username')} />
-      </div>
-      <div className='flex flex-col'>
-        <label className=' text-xl font-bold' htmlFor="password">Password:</label>
-        <input className='border-2 border-black border-solid text-black' type="password" {...register('password')} />
-      </div>
-      <button className='border-2 p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-2xl ml-[30%] mt-2 rounded-lg transition-all ease-in-out duration-[1s]' type='submit'>Submit</button>
-    </form>
+             
     <div className='absolute top-[20%] left-[80%]'>
     <UserMenu />
     </div>

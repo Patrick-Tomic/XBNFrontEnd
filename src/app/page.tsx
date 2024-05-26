@@ -4,7 +4,6 @@
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 'use client'
-import { useEffect, useState } from 'react'
 import Footer from '@/components/footer'
 import aminos from '/public/aminoShelf.png'
 import supps from '/public/suppShelf.png'
@@ -19,8 +18,49 @@ import imgD from '/public/imgD.png'
 import imgE from '/public/imgE.jpg'
 import imgF from '/public/imgF.jpg'
 import imgG from '/public/imgG.jpg'
-
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as Yup from 'yup'
+import { useEffect, useState } from 'react'
 export default function Home () {
+  const [userAuth, setUserAuth] = useState()
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required('Please enter your email'),
+    password: Yup.string().required('Please enter your password')
+  })
+  const formOptions = { resolver: yupResolver(validationSchema) }
+  const { register, handleSubmit, reset, formState } = useForm(formOptions)
+  const { errors } = formState
+
+  const submitForm = async (data: any) => {
+    const formData = JSON.stringify(data)
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}login`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+
+      })
+      const file = await req.json()
+      if (req.status !== 200) {
+        /* setLogErr(true) */
+        return
+      }
+      console.log(file)
+      /*  setUserAuth(true) */
+      localStorage.setItem('token', file.token)
+      localStorage.setItem('userAuthorization', 'true')
+      localStorage.setItem('admin', file.body.admin)
+      localStorage.setItem('id', file.body._id)
+      reset()
+      window.location.reload()
+    } catch (err) {
+      console.log(err)
+    }
+  }
   const [count, setCount] = useState(0)
   useEffect(() => {
     document.getElementById('brandHead')?.addEventListener('mouseover', () => {
@@ -112,6 +152,17 @@ export default function Home () {
   return (
   <>
   <Header />
+  <form id='loginForm' className='hidden fixed z-[11] font-sans font-[Junge] bg-[#edeade] h-[50vh] w-[50vw] top-[10%] left-[25%] rounded-md flex flex-col justify-center items-center' onSubmit={handleSubmit(submitForm)}>
+      <div className='flex flex-col'>
+        <label className=' text-xl font-bold' htmlFor="emai">Email:</label>
+        <input type="text" className='border-2 border-black border-solid text-black w-[50%] ' {...register('username')} />
+      </div>
+      <div className='flex flex-col'>
+        <label className=' text-xl font-bold' htmlFor="password">Password:</label>
+        <input className='border-2 border-black w-[50%] border-solid text-black' type="password" {...register('password')} />
+      </div>
+      <button className='border-2 p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-2xl ml-[30%] mt-2 rounded-lg transition-all ease-in-out duration-[1s]' type='submit'>Submit</button>
+    </form>
   <main className='md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
     <div className='col-span-2 p-10 w-[100%]  bg-[#71797E]'>
   <div id='wrap' className=' 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   '>

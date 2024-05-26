@@ -20,7 +20,9 @@ export default function UserMenu() {
             <a href="#">Contact Us</a>
             <div className='flex justify-center'>
               <button id='login' className=' font-sans border-solid border-black border-2 rounded-xl hover:bg-[#FF6726] ease-in-out transition-all hover:text-white text-lg w-[6vw] bg-white h-[4vh] mr-10' onClick={() => {
-                document.getElementById('loginForm')?.setAttribute('style', 'display:block')
+                document.querySelector('main')?.setAttribute('style', 'filter: blur(10px)')
+                document.querySelector('header')?.setAttribute('style', 'filter: blur(10px)')
+                document.getElementById('loginForm')?.setAttribute('style', 'display:block; opacity:1;')
               }}>Login</button>
               <a href="/signup"><button className=' font-sans border-solid border-black border-2 rounded-xl text-lg bg-white w-[6vw] h-[4vh] hover:bg-[#FF6726] ease-in-out transition-all hover:text-white'>Sign-up</button></a>
               </div>
