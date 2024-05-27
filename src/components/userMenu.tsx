@@ -4,12 +4,33 @@ import XBN from '/public/xbnLogoB.png'
 import X from '/public/X.png'
 import SocialMedia from './social'
 import Image from 'next/image'
+import { useEffect } from 'react'
 export default function UserMenu () {
-  document.getElementById('brandAnchor')?.addEventListener('mouseover', () => {
-    document.getElementById('divBrand')?.setAttribute('style', 'transform:scaleX(1);')
-  })
-  document.getElementById('brandAnchor')?.addEventListener('mouseout', () => {
-    document.getElementById('divBrand')?.setAttribute('style', 'transform:scaleX(.5);')
+  useEffect(() => {
+    document.getElementById('brandAnchor')?.addEventListener('mouseover', () => {
+      document.getElementById('divBrand')?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById('brandAnchor')?.addEventListener('mouseout', () => {
+      document.getElementById('divBrand')?.setAttribute('style', 'transform:scaleX(.5);')
+    })
+    document.getElementById('catAnchor')?.addEventListener('mouseover', () => {
+      document.getElementById('divCategory')?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById('catAnchor')?.addEventListener('mouseout', () => {
+      document.getElementById('divCategory')?.setAttribute('style', 'transform:scaleX(.5);')
+    })
+    document.getElementById('productAnchor')?.addEventListener('mouseover', () => {
+      document.getElementById('divProducts')?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById('productAnchor')?.addEventListener('mouseout', () => {
+      document.getElementById('divProducts')?.setAttribute('style', 'transform:scaleX(.5);')
+    })
+    document.getElementById('contactAnchor')?.addEventListener('mouseover', () => {
+      document.getElementById('divContact')?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById('contactAnchor')?.addEventListener('mouseout', () => {
+      document.getElementById('divContact')?.setAttribute('style', 'transform:scaleX(.5);')
+    })
   })
   return (
         <div id='userClass' className="z-[11] absolute flex border-2 border-solid origin-right border-black font-[Junge] bg-[#FFFBD6] w-[300px] h-[100%] scale-x-0 transition-all duration-[.5s] ease-in-out flex-col">
@@ -27,17 +48,17 @@ export default function UserMenu () {
             <div id='divBrand' className='border-b-2 w-[50%] ml-1 scale-[.5] solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black'></div>
             </div>
             <div>
-            <a href="#">Categories</a>
+            <a id='catAnchor' href="#">Categories</a>
             <div className='border-b-2 w-[50%] ml-1 scale-[.5] solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id='divCategory'>
             </div>
             </div>
             <div>
-            <a href="#">All Products</a>
+            <a id='productAnchor' href="#">All Products</a>
             <div className='border-b-2 ml-1 w-[50%] scale-[.5] solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id='divProducts'>
                 </div>
             </div>
             <div>
-            <a href="#">Contact Us</a>
+            <a id='contactAnchor' href="#">Contact Us</a>
             <div className='border-b-2 w-[50%] scale-[.5] ml-1 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id='divContact'>
                 </div>
             </div>

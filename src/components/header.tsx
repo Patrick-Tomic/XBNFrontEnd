@@ -62,6 +62,12 @@ export default function Header () {
     }
   }
   useEffect(() => {
+    document.getElementById('brandUL')?.addEventListener('mouseover', () => {
+      document.getElementById('brandDiv')?.setAttribute('style', 'height:80vh;')
+    })
+    document.getElementById('brandUL')?.addEventListener('mouseout', () => {
+      document.getElementById('brandDiv')?.setAttribute('style', 'height:auto;')
+    })
     // check if token in local storage is valid
     const validateToken = async () => {
       try {
@@ -98,24 +104,38 @@ export default function Header () {
     fetchCat()
   }, [])
   const categoryListItems = categories.map((cat: any) => {
+    document.getElementById(`${cat.type}`)?.addEventListener('mouseover', () => {
+      document.getElementById(`div${cat.type}`)?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById(`${cat.type}`)?.addEventListener('mouseout', () => {
+      document.getElementById(`div${cat.type}`)?.setAttribute('style', 'transform:scaleX(0);')
+    })
     return (
         <li key={cat.type} id='categoryChild' className='p-5 bg-[#6E260E] border-x-2 border-black text-[#Edeade] hidden'>
-            <button onClick={() => {
+            <button id={`${cat.type}`} onClick={() => {
               window.location.href = `/category/${cat._id}`
             }}>
               {cat.type}
             </button>
+            <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-white' id={`div${cat.type}`}></div>
         </li>
     )
   })
 
   const brandListItems = brands.map((brand: any) => {
+    document.getElementById(`${brand._id}`)?.addEventListener('mouseover', () => {
+      document.getElementById(`div${brand._id}`)?.setAttribute('style', 'transform:scaleX(1);')
+    })
+    document.getElementById(`${brand._id}`)?.addEventListener('mouseout', () => {
+      document.getElementById(`div${brand._id}`)?.setAttribute('style', 'transform:scaleX(0);')
+    })
     return (
      <li key={brand._id} id='brandChild' className="hidden p-5 bg-[#6E260E] border-x-2  border-black border-solid  text-[#Edeade]">
              {/*  <a href={`/brand/${brand._id}`}> {brand.name}</a> */}
-             <button onClick={() => {
+             <button id={`${brand._id}`} onClick={() => {
                window.location.href = `/brands/${brand._id}`
              }}>{brand.name}</button>
+              <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-white' id={`div${brand._id}`}></div>
           </li>
     )
   })
@@ -143,7 +163,7 @@ export default function Header () {
             <a href="/">Home</a>
              <ul id='brandUL'>
                 <li id='brandHead'>Shop by Brand</li>
-                <div className='brandDiv overflow-auto absolute  border-solid border-black'>
+                <div id='brandDiv' className='brandDiv overflow-y-scroll absolute border-solid border-black'>
                 {brandListItems}
                 </div>
              </ul>
