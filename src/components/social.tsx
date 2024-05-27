@@ -1,6 +1,7 @@
-export default function SocialMedia (){
-    return (
-        <div className='flex items-center justify-around mt-10 w-[10vw] ml-32 md:ml-12 sm:ml-10'>
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+export default function SocialMedia () {
+  return (
+        <div className='flex items-center justify-around mt-5 w-[10vw] ml-10'>
               <a href="https://www.linkedin.com/company/xtremebody-nutrition-llc/">
                 <button>
                 <svg width="33" height="28" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -40,5 +41,5 @@ export default function SocialMedia (){
                 </button>
               </a>
             </div>
-    )
+  )
 }
