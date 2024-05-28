@@ -59,9 +59,10 @@ export default function itemDetail (req: { params: { id: any } }) {
       const item = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${req.params.id}`)
       const data = await item.json()
       const product = data.product
+      console.log(product)
       if (product.flavors.length === 0) {
         document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
-      }
+      } 
       setProduct(product)
       const id = localStorage.getItem('id')
       const dataB = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`)
