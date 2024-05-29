@@ -103,6 +103,11 @@ export default function itemDetail (req: { params: { id: any } }) {
       <img src={imgs[imgs.length - 1]} alt="" />
     </div>
   )
+  const images = imgs.map((img: any) => {
+    return (
+      <img src={img} alt = {product.product} />
+    )
+  })
   const flavorOptions: any = flavors.map((flavor: any) => {
     return (
       <>
@@ -121,7 +126,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                     left
                 </button>
                 <div>
-                {productImg}
+                {images}
                 <div>
                 </div>
                 </div>
