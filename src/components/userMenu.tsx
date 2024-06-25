@@ -43,7 +43,7 @@ export default function UserMenu () {
                 <Image src = { X } alt='X' />
                 </button>
             </div>
-            <div className='flex flex-col justify-center'>
+            <div className='flex  flex-col justify-around'>
             <a id='brandAnchor' href="#">Brands</a>
             <div id='divBrand' className='border-b-2 w-[50%] ml-1 scale-[.5] solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black'></div>
             </div>

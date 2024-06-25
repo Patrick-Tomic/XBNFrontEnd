@@ -11,6 +11,9 @@ html{
     box-shadow: #464241 1px 1px 10px 1px;
 }
 header{
+    #brandDiv{
+        scrollbar-width: thin;
+    }
     font-family: 'Bebas Neue', system-ui;
     font-size:x-large;
     font-weight: bold;

@@ -111,13 +111,13 @@ export default function Header () {
       document.getElementById(`div${cat.type}`)?.setAttribute('style', 'transform:scaleX(0);')
     })
     return (
-        <li key={cat.type} id='categoryChild' className='p-5 bg-[#6E260E] border-x-2 border-black text-[#Edeade] hidden'>
+        <li key={cat.type} id='categoryChild' className='p-5 bg-[white] border-x-2 border-black hidden'>
             <button id={`${cat.type}`} onClick={() => {
               window.location.href = `/category/${cat._id}`
             }}>
               {cat.type}
             </button>
-            <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-white' id={`div${cat.type}`}></div>
+            <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id={`div${cat.type}`}></div>
         </li>
     )
   })
@@ -130,12 +130,12 @@ export default function Header () {
       document.getElementById(`div${brand._id}`)?.setAttribute('style', 'transform:scaleX(0);')
     })
     return (
-     <li key={brand._id} id='brandChild' className="hidden p-5 bg-[#6E260E] border-x-2  border-black border-solid  text-[#Edeade]">
+     <li key={brand._id} id='brandChild' className="hidden p-5 bg-[white] border-x-2  border-black border-solid  ">
              {/*  <a href={`/brand/${brand._id}`}> {brand.name}</a> */}
              <button id={`${brand._id}`} onClick={() => {
                window.location.href = `/brands/${brand._id}`
              }}>{brand.name}</button>
-              <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-white' id={`div${brand._id}`}></div>
+              <div className='border-b-2 w-[80%] scale-x-0 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id={`div${brand._id}`}></div>
           </li>
     )
   })
@@ -143,7 +143,31 @@ export default function Header () {
     <>
         <header className="flex justify-evenly items-center md:text-lgm sm:text-base xl:text-xl 2xl:text-2xl">
           <p></p>
-          <a className='hidden' id='cart' href="#"><svg className='w-10 h-10' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
+            <a href="/">Home</a>
+             <ul id='brandUL'>
+                <li id='brandHead'>Shop by Brand</li>
+                <div id='brandDiv' className='brandDiv overflow-y-scroll absolute'>
+                {brandListItems}
+                </div>
+             </ul>
+             <Image className="w-[12vw] h-[18vh] lg:h-[16vh] lg:w-[12vw] md:w-[10vw] md:h-[12vh] sm:h-[10vh] sm:w-[8vw]"
+              src={xbn} alt={''} />
+             <ul id='catUL'>
+                <li id='categoryHead'>Shop by Category</li>
+                <div id='categoryDiv' className='absolute catDiv  border-solid border-black bg-[#B87333]'>
+                {categoryListItems}
+                </div>
+             </ul>
+             <a href="#">Contact Us</a>
+             <div className='flex justify-around w-[10vw]'>
+                  <button id='userMenu' onClick={() => {
+                    document.getElementById('userClass')?.setAttribute('style', 'transform:scale(1);')
+                  }}>
+                  <svg width="37" height="45" viewBox="0 0 37 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 4.5C13.5913 4.5 9.612 8.52944 9.612 13.5C9.612 18.4706 13.5913 22.5 18.5 22.5C23.4087 22.5 27.388 18.4706 27.388 13.5C27.388 8.52944 23.4087 4.5 18.5 4.5ZM26.5903 24.2311C29.7766 21.7642 31.832 17.8752 31.832 13.5C31.832 6.04416 25.8631 0 18.5 0C11.1369 0 5.16801 6.04416 5.16801 13.5C5.16801 17.8752 7.22338 21.7642 10.4097 24.2311C8.17556 25.2319 6.12014 26.648 4.35929 28.4311C2.99958 29.8079 1.85577 31.3628 0.950149 33.0415C-0.721055 36.1393 -0.0395101 39.2979 1.84255 41.5313C3.65438 43.6815 6.55681 45 9.612 45H27.388C30.4432 45 33.3456 43.6815 35.1574 41.5314C37.0395 39.2979 37.7211 36.1393 36.0498 33.0415C35.1442 31.3628 34.0004 29.8079 32.6407 28.4311C30.8799 26.648 28.8244 25.2319 26.5903 24.2311ZM18.5 27C14.3748 27 10.4186 28.6594 7.50167 31.6131C6.44399 32.6841 5.55449 33.8933 4.85016 35.1988C4.16809 36.4632 4.38812 37.6195 5.22313 38.6104C6.12836 39.6847 7.7585 40.5 9.612 40.5H27.388C29.2415 40.5 30.8716 39.6847 31.7769 38.6104C32.6119 37.6195 32.8319 36.4632 32.1498 35.1988C31.4455 33.8933 30.556 32.6841 29.4983 31.6131C26.5814 28.6594 22.6252 27 18.5 27Z" fill="#010000"/>
+                  </svg>
+                  </button>
+                  <a className='hidden' id='cart' href="#"><svg className='w-10 h-10' fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
                   width="800px" height="800px" viewBox="0 0 902.86 902.86"
                   >
                 <g>
@@ -160,31 +184,6 @@ export default function Header () {
                   </g>
                 </g>
                 </svg></a>
-            <a href="/">Home</a>
-             <ul id='brandUL'>
-                <li id='brandHead'>Shop by Brand</li>
-                <div id='brandDiv' className='brandDiv overflow-y-scroll absolute border-solid border-black'>
-                {brandListItems}
-                </div>
-             </ul>
-             <Image className="w-[12vw] h-[18vh] lg:h-[16vh] lg:w-[12vw] md:w-[10vw] md:h-[12vh] sm:h-[10vh] sm:w-[8vw]"
-              src={xbn} alt={''} />
-             <ul id='catUL'>
-                <li id='categoryHead'>Shop by Category</li>
-                <div className='absolute catDiv  border-solid border-black bg-[#B87333]'>
-                {categoryListItems}
-                </div>
-             </ul>
-             <a href="#">Contact Us</a>
-             <div className='flex justify-around w-[10vw]'>
-                  <button id='userMenu' onClick={() => {
-                    document.getElementById('userClass')?.setAttribute('style', 'transform:scale(1);')
-                  }}>
-                  <svg width="37" height="45" viewBox="0 0 37 45" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path fill-rule="evenodd" clip-rule="evenodd" d="M18.5 4.5C13.5913 4.5 9.612 8.52944 9.612 13.5C9.612 18.4706 13.5913 22.5 18.5 22.5C23.4087 22.5 27.388 18.4706 27.388 13.5C27.388 8.52944 23.4087 4.5 18.5 4.5ZM26.5903 24.2311C29.7766 21.7642 31.832 17.8752 31.832 13.5C31.832 6.04416 25.8631 0 18.5 0C11.1369 0 5.16801 6.04416 5.16801 13.5C5.16801 17.8752 7.22338 21.7642 10.4097 24.2311C8.17556 25.2319 6.12014 26.648 4.35929 28.4311C2.99958 29.8079 1.85577 31.3628 0.950149 33.0415C-0.721055 36.1393 -0.0395101 39.2979 1.84255 41.5313C3.65438 43.6815 6.55681 45 9.612 45H27.388C30.4432 45 33.3456 43.6815 35.1574 41.5314C37.0395 39.2979 37.7211 36.1393 36.0498 33.0415C35.1442 31.3628 34.0004 29.8079 32.6407 28.4311C30.8799 26.648 28.8244 25.2319 26.5903 24.2311ZM18.5 27C14.3748 27 10.4186 28.6594 7.50167 31.6131C6.44399 32.6841 5.55449 33.8933 4.85016 35.1988C4.16809 36.4632 4.38812 37.6195 5.22313 38.6104C6.12836 39.6847 7.7585 40.5 9.612 40.5H27.388C29.2415 40.5 30.8716 39.6847 31.7769 38.6104C32.6119 37.6195 32.8319 36.4632 32.1498 35.1988C31.4455 33.8933 30.556 32.6841 29.4983 31.6131C26.5814 28.6594 22.6252 27 18.5 27Z" fill="#010000"/>
-                  </svg>
-                  </button>
-
              </div>
 
     <div className='absolute top-[1%] left-[85.25%]  h-[100vh]'>

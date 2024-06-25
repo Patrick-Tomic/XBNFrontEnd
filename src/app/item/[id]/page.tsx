@@ -62,7 +62,7 @@ export default function itemDetail (req: { params: { id: any } }) {
       console.log(product)
       if (product.flavors.length === 0) {
         document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
-      } 
+      }
       setProduct(product)
       const id = localStorage.getItem('id')
       const dataB = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`)
@@ -92,21 +92,27 @@ export default function itemDetail (req: { params: { id: any } }) {
       })
     })
     document.getElementById('leftBtn')?.addEventListener('click', () => {
-      const vw = 25
-      const imgs = document.getElementById('productImg')
+      document.getElementById('productImg')?.setAttribute('style', `transform:translateX(${0}px); transition: transform 0.5s ease-in-out;`)
     })
+    document.getElementById('rightBtn')?.addEventListener('click', () => {
+      const vw: any = document.getElementById('firstImg')?.clientWidth
+      document.getElementById('productImg')?.setAttribute('style', `transform:translateX(-${vw}px);transition: transform 0.5s ease-in-out;`)
+    })
+    const imgWidth: any = document.getElementById('productImg')?.clientWidth
+    const width = imgWidth / 2
+    const imgWrap = document.getElementById('imgWrap')?.setAttribute('style', `max-width:${width}px`)
   }, [])
   const imgs = product.images
   const flavors = product.flavors
   const productImg = (
-    <div id='productImg' className='flex w-[25vw] overflow-hidden'>
-      <img src={imgs[0]} alt="" />
-      <img src={imgs[imgs.length - 1]} alt="" />
+    <div id='productImg' className='flex w-[100%]'>
+      <img id='firstImg' src={imgs[0]} alt="" />
+      <img id='secondImg' src={imgs[imgs.length - 1]} alt="" />
     </div>
   )
   const images = imgs.map((img: any) => {
     return (
-      <img src={img} alt = {product.product} />
+      <img className='max-w-[100vw]' src={img} alt = {product.product} />
     )
   })
   const flavorOptions: any = flavors.map((flavor: any) => {
@@ -122,17 +128,21 @@ export default function itemDetail (req: { params: { id: any } }) {
         <Header />
         <main className='itemDetail h-[100%] bg-[F6E4C8] items-center flex flex-col  ' suppressHydrationWarning={true}>
             <div className='flex rounded-xl h-[100vh]  w-[85%] p-16 justify-around bg-[#FAF9F6]' suppressHydrationWarning={true}>
-            <div className='flex justify-around items-center  w-[45vw]'>
+            <div className='flex justify-around items-center  '>
                 <button id='leftBtn'>
-                    left
+                <svg width="70" height="56" viewBox="0 0 70 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path className='hover:fill-[#F28C28] transition-all ease-in-out' d="M69.2419 55.9557L0.758179 28.0002L69.2419 0.0441831L48.8496 28.0002L69.2419 55.9557Z" fill="black"/>
+                </svg>
                 </button>
-                <div>
-                {images}
+                 <div id='imgWrap' className='flex overflow-hidden  w-[100vw]'>
+                 {productImg}
                 <div>
                 </div>
                 </div>
                 <button id='rightBtn'>
-                    right
+                <svg width="69" height="56" viewBox="0 0 69 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path className='hover:fill-[#F28C28] transition-all ease-in-out' d="M0.519995 55.9116L69 27.956L0.519995 -6.33003e-06L20.9111 27.956L0.519995 55.9116Z" fill="black"/>
+                </svg>
                 </button>
              </div>
               <div className='flex  items-center justify-between flex-col' id='rightItemDesc' suppressHydrationWarning={true} >

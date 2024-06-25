@@ -5,7 +5,7 @@ import xbn from '/public/xbnLogoB.png'
 export default function Footer () {
   return (
         <footer className="bg-[#353935] sm:text-base  md:text-lg text-white flex text-xl p-16">
-          <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw]  w-[40%]">
+          <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw] ml-24 w-[40%]">
            <div className="flex-col flex">
            <p className=" font-semibold">Tampa Palms - 15309A Amberly Dr. 33647</p>
            <a className='ml-10 underline hover:text-orange-500' href="tel:813-910-2639">(813) 910-2639</a>
