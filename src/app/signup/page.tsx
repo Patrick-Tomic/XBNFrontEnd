@@ -53,11 +53,10 @@ export default function Signup () {
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
   const { errors } = formState
 
-  const submitForm = async (data: any, e: any) => {
+  const submitForm = async (data: any) => {
     const formData = JSON.stringify(data)
     try {
-      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_links}signup`, {
-
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}signup`, {
         method: 'POST',
         body: formData,
         headers: {

@@ -186,7 +186,7 @@ export default function Header () {
                 </svg></a>
              </div>
 
-    <div className='absolute top-[1%] left-[85.25%]  h-[100vh]'>
+    <div className='absolute top-[1%] left-[86.25%]  h-[100vh]'>
     <UserMenu />
     </div>
         </header>
