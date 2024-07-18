@@ -1,5 +1,6 @@
 /* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+
 import XBN from '/public/xbnLogoB.png'
 import X from '/public/X.png'
 import SocialMedia from './social'
@@ -71,10 +72,15 @@ export default function UserMenu () {
               <a href="/signup"><button className=' font-sans border-solid border-black border-2 rounded-xl text-lg bg-white w-[5vw] h-[4vh] hover:bg-[#FF6726] ease-in-out transition-all hover:text-white'>Sign-up</button></a>
               </div>
               <div className='left-0'>
-              <button id='logoutBtn' className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
+                <div className='flex' id='logoutBtn'>
+              <button  className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
                 localStorage.clear()
                 window.location.reload()
               }}>Logout</button>
+              <button onClick={() => {
+                window.location.href = `/settings/${localStorage.getItem('id')}`
+              }}>Settings</button>
+              </div>
             <SocialMedia />
             </div>
         </div>
