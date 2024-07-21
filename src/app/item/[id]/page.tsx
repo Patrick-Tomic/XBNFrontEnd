@@ -10,7 +10,6 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
-import { number } from 'yup'
 export default function itemDetail (req: { params: { id: any } }) {
   const [product, setProduct] = useState({
     product: '',
@@ -36,7 +35,6 @@ export default function itemDetail (req: { params: { id: any } }) {
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
   const submitForm = async (data: any) => {
     const id = localStorage.getItem('id')
-    console.log(id)
     // eslint-disable-next-line object-shorthand
     const obj = { product: product.product, flavor: data.flavor, amount: data.amount, price: product.price, id: id }
     const formData = JSON.stringify(obj)

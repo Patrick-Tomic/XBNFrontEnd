@@ -64,7 +64,8 @@ export default function UserMenu () {
                 </div>
             </div>
             <div className='flex startingBtns justify-center mt-2'>
-              <button id='login' className=' font-sans border-solid border-black border-2 rounded-xl hover:bg-[#FF6726] ease-in-out transition-all hover:text-white text-lg w-[5vw] bg-white h-[4vh] mr-10' onClick={() => {
+              <button id='login' className=' font-sans border-solid border-black border-2 rounded-xl hover:bg-[#FF6726] ease-in-out transition-all hover:text-white text-lg w-[5vw] bg-white h-[4vh] mr-10'
+               onClick={() => {
                 document.querySelector('main')?.setAttribute('style', 'filter: blur(10px)')
                 document.querySelector('header')?.setAttribute('style', 'filter: blur(10px)')
                 document.getElementById('loginForm')?.setAttribute('style', 'visibility:visible; opacity:1;')
@@ -72,8 +73,8 @@ export default function UserMenu () {
               <a href="/signup"><button className=' font-sans border-solid border-black border-2 rounded-xl text-lg bg-white w-[5vw] h-[4vh] hover:bg-[#FF6726] ease-in-out transition-all hover:text-white'>Sign-up</button></a>
               </div>
               <div className='left-0'>
-                <div className='flex' id='logoutBtn'>
-              <button  className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
+                <div className='flex'>
+              <button id='logoutBtn' className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
                 localStorage.clear()
                 window.location.reload()
               }}>Logout</button>
