@@ -15,7 +15,7 @@
 import UserMenu from './userMenu'
 import Image from 'next/image'
 import X from '/public/X.png'
-import { useForm } from 'react-hook-form'
+import { set, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 import { useEffect, useState } from 'react'
@@ -23,7 +23,7 @@ import xbn from '/public/xbn.png'
 export default function Header () {
   const [brands, setBrands] = useState([])
   const [categories, setCategories] = useState([])
-  const [userAuth, setUserAuth] = useState()
+  const [userAuth, setUserAuth] = useState(false)
 
   const validationSchema = Yup.object().shape({
     username: Yup.string().required('Please enter your email'),
@@ -67,10 +67,9 @@ export default function Header () {
     })
     document.getElementById('brandUL')?.addEventListener('mouseout', () => {
       document.getElementById('brandDiv')?.setAttribute('style', 'height:auto;')
-    })
+    });
     // check if token in local storage is valid
-    const validateToken = async () => {
-      try {
+    ( async () => {
         const token = localStorage.getItem('token')
         const valid = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}load/${localStorage.getItem('token')}`)
         const data = await valid.json()
@@ -78,30 +77,28 @@ export default function Header () {
           document.querySelector('.startingBtns')?.setAttribute('style', 'display:none')
           document.querySelector('#logoutBtn')?.setAttribute('style', 'display:block')
           document.getElementById('cart')?.setAttribute('style', 'display:block')
+          localStorage.setItem('validToken', 'true')
         } else {
           console.log('not valid')
           localStorage.clear()
         }
-      } catch (err) {
-        console.log('expired token')
-      }
-    }
-    validateToken()
-
-    const fetchBrands = async () => {
+    
+    })();
+ 
+    ( async () => {
       const brandResponse = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}brands`)
       const data = await brandResponse.json()
       const brands = await data.brands
       setBrands(brands)
-    }
-    fetchBrands()
-    const fetchCat = async () => {
+    })();
+ 
+    (async () => {
       const categoryResponse = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}categories`)
       const dataB = await categoryResponse.json()
       const cat = await dataB.categories
       setCategories(cat)
-    }
-    fetchCat()
+  })();
+    
   }, [])
   const categoryListItems = categories.map((cat: any) => {
     document.getElementById(`${cat.type}`)?.addEventListener('mouseover', () => {
