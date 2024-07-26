@@ -199,11 +199,11 @@ export default function Header () {
          <div className='flex flex-col ml-10'>
 
            <label className=' text-xl font-bold' htmlFor="emai">Email:</label>
-           <input type="text" className='border-2 border-black border-solid text-black w-[25vw] ' {...register('username')} />
+           <input type="text" className='border-2 border-black border-solid text-black w-[25vw] '  {...register('username')} />
          </div>
          <div className='flex flex-col ml-10 mt-10'>
            <label className=' text-xl font-bold' htmlFor="password">Password:</label>
-           <input className='border-2 border-black w-[25vw] border-solid text-black' type="password" {...register('password')} />
+           <input className='border-2 border-black w-[25vw] border-solid text-black'  type="password" {...register('password')} />
            <button className='invisible'>Forgot Password?</button>
          </div>
          <div className='flex flex-col  items-center'>

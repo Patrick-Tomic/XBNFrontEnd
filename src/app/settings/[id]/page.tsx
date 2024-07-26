@@ -17,7 +17,7 @@ export default function UserPage() {
         purchaseHistory: [],
         cart: {}
     })
-    const [URI, setURI] = useState("");
+  
     const validationSchema = Yup.object().shape({
         email: Yup.string(),
         password: Yup.string(),
@@ -28,24 +28,13 @@ export default function UserPage() {
     })
     const formOptions = {resolver: yupResolver(validationSchema)}
     const {register, handleSubmit, reset, formState} = useForm(formOptions)
-    const submitForm = async(data: any) => {
+    const submitFormA1 = async(data: any) => {
         const id = localStorage.getItem('id')  
-        let formData 
-        document.getElementById('passwordResetConfirm')?.addEventListener('click',() => {
             const obj = {id:id , password: data.password}
-            formData = JSON.stringify(obj)
-            setURI('verify')
-            console.log(URI)
-        })
-        document.getElementById('resetPasswordSubmit')?.addEventListener('click', () => {
-            const obj = {id:id, password: data.newPassword}
-            formData = JSON.stringify(obj)
-            setURI('update')
-        })
-        console.log(URI)
+            let formData = JSON.stringify(obj)
+        
             try {
-                
-                const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}${URI}`  , {
+                const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}verify`  , {
                     method: 'POST',
                     body: formData,
                     headers: {
@@ -64,7 +53,26 @@ export default function UserPage() {
             catch(err){
                 console.log(err)
             }
-   
+}
+const submitFormA2 = async(data: any) => {
+    const id = localStorage.getItem('id')  
+        const obj = {id:id , password: data.newPassword, user: user}
+        let formData = JSON.stringify(obj)
+        try {
+            const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}update`  , {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+           const file = await req.json()
+           console.log(file)
+        }
+        catch(err){
+            console.log(err)
+        }
+
 }
     useEffect(() => {
         (async() => {
@@ -95,7 +103,7 @@ export default function UserPage() {
             child.setAttribute("style", "display:hidden");
         });
         });
-    });
+    }, []);
     const [errMessage, setErrMessage] = useState("");
     return(
         <>
@@ -116,7 +124,8 @@ export default function UserPage() {
                 </div>
             </div>
             <div className="flex flex-col col-span-2 p-10" id="settingContent">
-            <div className="flex flex-col">
+          {/* need to create second form of authentication through email */}
+            <div className="flex flex-col" id="UpdatePasswordDiv">
                     <div className="flex justify-around w-[600px]">
                         <h1 className=" font-bold text-2xl">Hello {user.firstName}</h1>
                        
@@ -130,7 +139,7 @@ export default function UserPage() {
                         </button>
                         </div>
                         <div>
-                        <form action="" onSubmit={handleSubmit(submitForm)} className="flex flex-col " id="userInfoForm">
+                        <form action="" onSubmit={handleSubmit(submitFormA1)} className="flex flex-col " id="userInfoForm">
                             
                                 <label htmlFor="email">Email</label>
                                 <input type="email" id="email" {...register('email')} value={user.email} readOnly/>
@@ -138,13 +147,16 @@ export default function UserPage() {
                                 <input type="password" {...register('password')} id="password"  readOnly/>
                                 <button className="hidden border-2 border-black border-solid bg-green-500 w-[10vw]" type="submit" id="passwordResetConfirm">Enter</button>
                             </form>
-                            <form action="" onSubmit={handleSubmit(submitForm)} id="updatePassword" className="hidden flex-col">
+                            <form action="" onSubmit={handleSubmit(submitFormA2)} id="updatePassword" className="hidden flex-col">
                                 <label htmlFor="resetPassword">Enter New Password</label>
                                 <input type="password"  {...register('newPassword')} id="newPassword" />
                                 <button type="submit" id="resetPasswordSubmit">Enter</button>
                             </form>
                             </div>
                 </div>
+            <div>
+                        
+            </div>    
             <div id="adminDiv">
                     <div id="inventory">
 
