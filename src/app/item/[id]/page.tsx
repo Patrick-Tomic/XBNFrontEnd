@@ -36,7 +36,7 @@ export default function itemDetail (req: { params: { id: any } }) {
   const submitForm = async (data: any) => {
     const id = localStorage.getItem('id')
     // eslint-disable-next-line object-shorthand
-    const obj = { product: product.product, flavor: data.flavor, amount: data.amount, price: product.price, id: id }
+    const obj = { product: product, flavor: data.flavor, amount: data.amount, price: product.price, id: id }
     const formData = JSON.stringify(obj)
     try {
       const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addcart`, {

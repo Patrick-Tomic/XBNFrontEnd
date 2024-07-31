@@ -4,10 +4,11 @@ import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import Header from "@/components/header";
+import { get } from "http";
 export default function UserPage() {
     const [admin, setAdmin] = useState(false);
     const [error, setError] = useState("");
-    const [addressUpdate, setAddressUpdate] = useState(false);
+    const [index, setIndex] = useState(0);
     const [errMessage, setErrMessage] = useState("");
     const [user, setUser] = useState({
         firstName: "",
@@ -30,7 +31,11 @@ export default function UserPage() {
         zip: Yup.string(),
         index: Yup.number(),
         payment: Yup.array(),
-        purchaseHistory: Yup.array()
+        purchaseHistory: Yup.array(),
+        updateAddress: Yup.string(),
+        updateCity: Yup.string(),
+        updateState: Yup.string(),
+        updateZip: Yup.string()
     })
     const formOptions = {resolver: yupResolver(validationSchema)}
     const {register, handleSubmit, reset, formState} = useForm(formOptions)
@@ -82,14 +87,8 @@ const submitFormA2 = async(data: any) => {
 }
 const submitFormB = async(data: any) => {
     const id = localStorage.getItem('id')  
-    let obj
-    if(addressUpdate){
-          obj = {id:id , address: data.address, city: data.city, state: data.state, zip: data.zip, index: data.index}
-    }else{
-         obj = {id:id , address: data.address, city: data.city, state: data.state, zip: data.zip}
-    }
-    console.log(obj)
-        let formData = JSON.stringify(obj)
+    const obj = {id:id , address: data.address, city: data.city, state: data.state, zip: data.zip}
+        const formData = JSON.stringify(obj)
         try {
             const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}update`  , {
                 method: 'POST',
@@ -100,10 +99,31 @@ const submitFormB = async(data: any) => {
             })
            const file = await req.json()
            console.log(file)
+           window.location.reload()
         }
         catch(err: any){
             setErrMessage(err)
         }
+}
+const submitFormB2 = async(data: any) => {
+    const id = localStorage.getItem('id')  
+    const obj = {id:id , address: data.updateAddress, city: data.updateCity, state: data.updateState, zip: data.updateZip , index: index}
+        const formData = JSON.stringify(obj)
+        try {
+            const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateAddress`  , {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+           const file = await req.json()
+           console.log(file)
+           window.location.reload()
+        }
+        catch(err: any){
+            setErrMessage(err)
+}
 }
     useEffect(() => {
         (async() => {
@@ -175,13 +195,12 @@ const submitFormB = async(data: any) => {
             </label>
             
             <button className=" bg-green-500 w-[100px] h-[50px] rounded-md mt-[-10px] hover:bg-[#353935] transition-all ease-in-out hover:text-white" onClick={() => {
-                            document.getElementById('createBillInfo')?.setAttribute('style', 'display:flex');
-                            document.getElementById('addressInput')?.setAttribute('value', address.street);
-                            document.getElementById('cityInput')?.setAttribute('value', address.city);
-                            document.getElementById('stateInput')?.setAttribute('value', address.state);
-                            document.getElementById('zipInput')?.setAttribute('value', address.zip);
-                            setAddressUpdate(true);
-                            document.getElementById('indexInput')?.setAttribute('value', `${index}`);
+                            document.getElementById('updateBillInfo')?.setAttribute('style', 'display:flex');
+                            document.getElementById('addressUpdate')?.setAttribute('value', address.street);
+                            document.getElementById('cityInputB')?.setAttribute('value', address.city);
+                            document.getElementById('stateInputB')?.setAttribute('value', address.state);
+                            document.getElementById('zipInputB')?.setAttribute('value', address.zip);  
+                            setIndex(index);
             }}
             >Edit</button>
             <button className=" bg-red-500 w-[100px] h-[50px] rounded-md mt-[-10px] hover:bg-[#353935] transition-all ease-in-out hover:text-white">Delete</button>
@@ -189,7 +208,6 @@ const submitFormB = async(data: any) => {
         )
         
     })
-console.log(user.purchaseHistory)
     return(
         <>
         <Header />
@@ -251,7 +269,21 @@ console.log(user.purchaseHistory)
                         <div className="p-10" >
                             {billingInfo}
                         </div>
-                        
+                    <form className="hidden flex-col" onSubmit={handleSubmit(submitFormB2)} id='updateBillInfo' action="">
+                    <label htmlFor="">Address</label>    
+                    <input type="text"  {...register('updateAddress')} id="addressUpdate" />
+                    <label htmlFor="">City</label>
+                    <input type="text" {...register('updateCity')} id="cityInputB" />
+                    <label htmlFor="">State</label>
+                    <input type="text" id="stateInputB" {...register('updateState')} />
+                    <label htmlFor="">Zip Code:</label>
+                    <input type="text" {...register('updateZip')} id="zipInputB" />
+                    <div>
+                    <button className=" w-[100px] h-[40px] rounded-md bg-green-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white" type="submit" id="submitNewAddress">Enter</button>
+                    <button className=" w-[100px] h-[40px] rounded-md bg-red-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white"  >Cancel</button>
+                    </div>
+                    </form>
+
                     <form className="hidden flex-col" onSubmit={handleSubmit(submitFormB)} id='createBillInfo' action="">
                     <label htmlFor="">Address</label>    
                     <input type="text"  {...register('address')} id="addressInput" />
@@ -261,18 +293,9 @@ console.log(user.purchaseHistory)
                     <input type="text" id="stateInput" {...register('state')} />
                     <label htmlFor="">Zip Code:</label>
                     <input type="text" {...register('zip')} id="zipInput" />
-                    <input type="number" className="hidden" {...register('index')} id="indexInput" />
-                    <div className="w-[250px] flex justify-around mt-5">
-                        <div>
+                    <div>
                     <button className=" w-[100px] h-[40px] rounded-md bg-green-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white" type="submit" id="submitNewAddress">Enter</button>
-                    </div>
-                    <button className=" w-[100px] h-[40px] rounded-md bg-red-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white" type="button" onClick={() => {
-                        document.getElementById('createBillInfo')?.setAttribute('style', 'display:none');
-                        document.getElementById('addressInput')?.setAttribute('value', '');
-                        document.getElementById('cityInput')?.setAttribute('value', '');
-                        document.getElementById('stateInput')?.setAttribute('value', '');
-                        document.getElementById('zipInput')?.setAttribute('value', '');
-                    }}>Cancel</button>
+                    <button className=" w-[100px] h-[40px] rounded-md bg-red-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white"  >Cancel</button>
                     </div>
                     </form>
             </div>    
