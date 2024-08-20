@@ -99,13 +99,19 @@ export default function itemDetail (req: { params: { id: any } }) {
     const imgWidth: any = document.getElementById('productImg')?.clientWidth
     const width = imgWidth / 2
     const imgWrap = document.getElementById('imgWrap')?.setAttribute('style', `max-width:${width}px`)
+    document.getElementById('secondImg')?.addEventListener('mousedown', () => {
+      document.getElementById('secondImg')?.setAttribute('style', 'transform:scale(2);')
+    })
   }, [])
   const imgs = product.images
   const flavors = product.flavors
   const productImg = (
-    <div id='productImg' className='flex w-[100%]'>
+    <div id='productImg' className='flex w-[100%] '>
       <img id='firstImg' src={imgs[0]} alt="" />
-      <img id='secondImg' src={imgs[imgs.length - 1]} alt="" />
+      <img id='secondImg'  src={imgs[imgs.length - 1]} alt="" />
+      <div>
+
+      </div>
     </div>
   )
   const images = imgs.map((img: any) => {
@@ -125,7 +131,7 @@ export default function itemDetail (req: { params: { id: any } }) {
         <>
         <Header />
         <main className='itemDetail h-[100%] bg-[F6E4C8] items-center flex flex-col  ' suppressHydrationWarning={true}>
-            <div className='flex rounded-xl h-[100vh]  w-[85%] p-16 justify-around bg-[#FAF9F6]' suppressHydrationWarning={true}>
+            <div className='flex rounded-xl h-[100vh]  w-[85%] p-16 justify-around bg-[#353935] text-white' suppressHydrationWarning={true}>
             <div className='flex justify-around items-center  '>
                 <button id='leftBtn'>
                 <svg width="70" height="56" viewBox="0 0 70 56" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -143,14 +149,14 @@ export default function itemDetail (req: { params: { id: any } }) {
                 </svg>
                 </button>
              </div>
-              <div className='flex  items-center justify-between flex-col' id='rightItemDesc' suppressHydrationWarning={true} >
+              <div className='flex  items-center justify-around flex-col' id='rightItemDesc' suppressHydrationWarning={true} >
                 <div>
               <h1 className='text-3xl font-bold mb-5'>{product.brand.name} - {product.product}</h1>
                 <p className='text-2xl' suppressHydrationWarning={true}>
                     ${product.price}
                 </p>
                 </div>
-                <form className='w-[100%]' onSubmit={handleSubmit(submitForm)}>
+                <form className='w-[100%] h-[20vh] flex flex-col justify-around' onSubmit={handleSubmit(submitForm)}>
                 <div className='flex justify-center items-center' id="flavorSelect">
                 <h3 className='text-3xl'>Flavors:</h3>
                 <select className='w-[80%] text-3xl' defaultValue={flavors[0]} {...register('flavor')} >
@@ -159,7 +165,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                 </div>
                   <div>
                   <h3 className='text-3xl'>Amount:</h3>
-                  <select defaultValue={'1'} className='w-[80%] text-3xl' {...register('amount')} >
+                  <select defaultValue={'1'} className='w-[80%] text-black text-3xl' {...register('amount')} >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -168,7 +174,7 @@ export default function itemDetail (req: { params: { id: any } }) {
                     </select>
                   </div>
 
-                 <button type='submit' id='addToCart' className='w-[90%] h-[5vh] border-solid rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
+                 <button type='submit' id='addToCart' className='w-[90%] h-[5vh] border-solid bg-white text-black rounded-xl border-black border-2 text-4xl'>Add to Cart</button>
                  </form>
                 <p className='w-[20vw] text-xl leading-loose'>
                   {product.summary}
