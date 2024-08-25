@@ -99,9 +99,44 @@ export default function itemDetail (req: { params: { id: any } }) {
     const imgWidth: any = document.getElementById('productImg')?.clientWidth
     const width = imgWidth / 2
     const imgWrap = document.getElementById('imgWrap')?.setAttribute('style', `max-width:${width}px`)
-    document.getElementById('secondImg')?.addEventListener('mousedown', () => {
-      document.getElementById('secondImg')?.setAttribute('style', 'transform:scale(2);')
-    })
+    let bool = false
+    document.getElementById('secondImg')?.addEventListener('mousedown', (e) => {
+      const img: any = document.getElementById('secondImg')
+    console.log(e.pageX, e.pageY, img.width, img.height)
+      let x = 0
+      let y = 0
+      const XCoord = e.pageX
+      const YCoord = e.pageY
+      let translateX = ((XCoord) / img.width)*150
+      let translateY = ((YCoord) / img.height)*150
+      if(XCoord > 230){
+        translateX = -translateX
+      }
+      if(YCoord > 230){
+        translateY = -translateY
+      }
+      x = XCoord
+      y = YCoord
+      bool = true
+    console.log(translateX, translateY)
+      img.setAttribute('style', ` transform:scale(2) translate(${translateX}px, ${translateY}px); transition: transform 0.5s ease-in-out;`)
+   
+      /* img?.addEventListener('mousemove',  (e: any) => {
+         
+        const XCoord = e.clientX
+        const YCoord = e.clientY
+        let translateX = ((e.pageX - img.style.offset - img.style.left) / img.width)*20
+        let translateY = ((e.pageY - img.style.offset - img.style.top) / img.height)*20
+        if(x < XCoord){ translateX = -translateX}
+        if(y < YCoord){ translateY = -translateY}
+        x = XCoord
+        y = YCoord
+      
+        img.setAttribute('style', ` transform:scale(2) translate(${translateX}px, ${translateY}px); transition: transform 0.5s ease-in-out;`)
+        
+      }) */
+
+      })
   }, [])
   const imgs = product.images
   const flavors = product.flavors
@@ -130,7 +165,7 @@ export default function itemDetail (req: { params: { id: any } }) {
   return (
         <>
         <Header />
-        <main className='itemDetail h-[100%] bg-[F6E4C8] items-center flex flex-col  ' suppressHydrationWarning={true}>
+        <main className='itemDetail h-[100%] bg-[#F6E4C8] items-center flex flex-col  ' suppressHydrationWarning={true}>
             <div className='flex rounded-xl h-[100vh]  w-[85%] p-16 justify-around bg-[#353935] text-white' suppressHydrationWarning={true}>
             <div className='flex justify-around items-center  '>
                 <button id='leftBtn'>

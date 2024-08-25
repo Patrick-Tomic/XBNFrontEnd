@@ -185,7 +185,7 @@ const submitFormA2 = async(data: any) => {
             <div id="purchase">
 
             </div>
-           <BillingDetails user={user} />
+           <BillingDetails user={user.address} />
             <div id="adminDiv">
                     <div id="inventory">
 
