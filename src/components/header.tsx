@@ -204,9 +204,10 @@ export default function Header () {
          <div className='flex flex-col ml-10 mt-10'>
            <label className=' text-xl font-bold text-white' htmlFor="password">Password:</label>
            <input className='border-2 border-black w-[25vw] border-solid text-black'  type="password" {...register('password')} />
-           <button className=''>Forgot Password?</button>
+      
          </div>
          <div className='flex flex-col  items-center'>
+         <button className='border-2 self-center p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-md  mt-10 rounded-lg transition-all ease-in-out duration-[1s]'>Forgot Password?</button>
          <button className='border-2 self-center p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-2xl  mt-10 rounded-lg transition-all ease-in-out duration-[1s]' type='submit'>Submit</button>
         <button onClick={() => {
           window.location.href = '/signup'
