@@ -188,7 +188,7 @@ export default function Header () {
     </div>
         </header>
 
-         <form id='loginForm' className='flex invisible flex-col fixed z-[11] font-[Junge] bg-[#353935]  h-[50vh] w-[30vw] top-[25%] left-[35%] rounded-md ' onSubmit={handleSubmit(submitForm)}>
+         <form id='loginForm' className='flex invisible shadow-lg flex-col fixed z-[11] font-[Junge] bg-[#353935]  h-[50vh] w-[30vw] top-[25%] left-[35%] rounded-md ' onSubmit={handleSubmit(submitForm)}>
          <button className='self-end' id='userMenuExit' onClick={() => {
            document.querySelector('main')?.setAttribute('style', 'filter: blur(0px)')
            document.querySelector('header')?.setAttribute('style', 'filter: blur(0px)')
@@ -207,7 +207,9 @@ export default function Header () {
       
          </div>
          <div className='flex flex-col  items-center'>
-         <button className='border-2 self-center p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-md  mt-10 rounded-lg transition-all ease-in-out duration-[1s]'>Forgot Password?</button>
+         <button onClick={() => {
+          window.location.href = '/identify'
+         }} className='border-2 self-center p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-md  mt-10 rounded-lg transition-all ease-in-out duration-[1s]'>Forgot Password?</button>
          <button className='border-2 self-center p-1 border-solid hover:bg-gray-300 border-black bg-white text-black text-2xl  mt-10 rounded-lg transition-all ease-in-out duration-[1s]' type='submit'>Submit</button>
         <button onClick={() => {
           window.location.href = '/signup'
