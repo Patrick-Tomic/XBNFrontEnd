@@ -34,6 +34,7 @@ export default function Header () {
   const { errors } = formState
 
   const submitForm = async (data: any) => {
+    console.log('ye')
     const formData = JSON.stringify(data)
     try {
       const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}login`, {

@@ -9,16 +9,19 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from 'yup'
 export default function IdentifyAccount(){
 const validationSchema = Yup.object().shape({
-    confirmNum: Yup.number(),
-    email: Yup.string().email()
+    email: Yup.string() ,
+    confirmNum: Yup.string()
+   
 })
 const formOptions = { resolver: yupResolver(validationSchema)}
 const { register, handleSubmit, reset, formState } = useForm(formOptions)
 const {errors} = formState
 const submitForm = async(data: any) => {
+     
     const formData = JSON.stringify(data)
     try{
-        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}identify`, {
+        
+        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}forgotPass`, {
             method: 'POST',
             body: formData,
             headers: {  'Content-Type': 'application/json' }
@@ -27,8 +30,12 @@ const submitForm = async(data: any) => {
         if(req.status !== 200 || file.message === 'error'){
             return
         }
-        if(file.message === 'sucess'){
-            window.location.href = '/account'
+        else if(file.message === 'success'){
+            window.location.href  = '/'
+        }else if(file.message === 'Email sent'){
+            document.getElementById('sendEmail')?.classList.add('invisible')
+            document.getElementById('sendCode')?.classList.remove('invisible')
+
         }
     }catch(err){
         console.log(err)
@@ -39,18 +46,18 @@ const submitForm = async(data: any) => {
         <main className="bg-[#353935] h-[100vh] flex justify-around items-center">
              <Image className="w-[20vw]" src = {logo} alt= 'logo' />
                 <div className="bg-white h-[60vh] p-20 shadow-lg">
-                <form onSubmit={handleSubmit(submitForm)} action="">
+                <form id="forgetPasswordG" onSubmit={handleSubmit(submitForm)}>
                 <div id="sendEmail">
                 <label htmlFor="">Enter Your email: </label>
                 <input type="text" {...register('email')} />
                 </div>
                 <div className="invisible" id="sendCode">
                     <label htmlFor="Code">Enter code:</label>
-                    <input type="text" {...register('confirmNum')} />
-                    <button onClick={handleSubmit(submitForm)}>
-                        Try Again
-                    </button>
+                    <input type="text"   {...register('confirmNum')} />
+                    
+                        
                 </div>
+                <button type="submit">Enter</button>
                 </form>
                 </div>
              </main>
