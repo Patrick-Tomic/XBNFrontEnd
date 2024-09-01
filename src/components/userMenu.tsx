@@ -34,10 +34,12 @@ export default function UserMenu () {
     })
   })
   return (
-        <div id='userClass' className="z-[11] absolute flex border-2 border-solid origin-right border-black font-[Junge] bg-[#FFFBD6] w-[300px] h-[100%] scale-x-0 transition-all duration-[.5s] ease-in-out flex-col">
+        <div id='userClass' className="z-[11] absolute flex border-2 border-solid origin-right border-black font-[Junge] bg-[#FFFBD6] w-[400px] h-[100%] scale-x-0 transition-all duration-[.5s] ease-in-out flex-col
+        lg:text-xl md:text-xl sm:text-xl max-[640px]:text-xl
+        ">
             <div className='flex justify-around border-b-2 border-black border-solid'>
-                <Image className='w-[200px] h-[100px]' src={XBN} alt='Xtreme Body Nutrition' />
-                <button id='userMenuExit' onClick={() => {
+                <Image className='w-[200px] h-[100px] max-[400px]:w-[150px] max-[400px]:h-[75px]' src={XBN} alt='Xtreme Body Nutrition' />
+                <button className='3xl:mr-12 max-[640px]:mr-32 max-[400px]:mr-44 lg:mr-16 md:mr-24 sm:mr-24' id='userMenuExit' onClick={() => {
                   document.getElementById('userClass')?.setAttribute('style', 'transform:scaleX(0);')
                   document.getElementById('loginForm')?.setAttribute('style', 'display:none')
                 }}>
@@ -63,17 +65,7 @@ export default function UserMenu () {
             <div className='border-b-2 w-[50%] scale-[.5] ml-1 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black' id='divContact'>
                 </div>
             </div>
-            <div className='flex startingBtns justify-center mt-2'>
-              <button id='login' className=' font-sans border-solid border-black border-2 rounded-xl hover:bg-[#FF6726] ease-in-out transition-all hover:text-white text-lg w-[5vw] bg-white h-[4vh] mr-10'
-               onClick={() => {
-                document.querySelector('main')?.setAttribute('style', 'filter: blur(10px)')
-                document.querySelector('header')?.setAttribute('style', 'filter: blur(10px)')
-                document.getElementById('loginForm')?.setAttribute('style', 'visibility:visible; opacity:1;')
-              }}>Login</button>
-              <a href="/signup"><button className=' font-sans border-solid border-black border-2 rounded-xl text-lg bg-white w-[5vw] h-[4vh] hover:bg-[#FF6726] ease-in-out transition-all hover:text-white'>Sign-up</button></a>
-              </div>
-              <div className='left-0'>
-                <div className='flex'>
+            <div className='flex'>
               <button id='logoutBtn' className='hidden sm:text-base sm:w-[8vw] md:w-[8vw] lg:w-[6vw] font-sans border-solid border-black border-2 rounded-xl text-lg w-[4vw] h-[4vh]' onClick = {() => {
                 localStorage.clear()
                 window.location.reload()
@@ -82,7 +74,20 @@ export default function UserMenu () {
                 window.location.href = `/settings/${localStorage.getItem('id')}`
               }}>Settings</button>
               </div>
+            <div className='flex startingBtns justify-center max-[640px]:justify-start  sm:justify-start md:justify-start lg:justify-start mt-2'>
+              <button id='login' className='lg:w-[10vw] phone:w-[15vw] 3xl:w-[5vw] sm:w-[10vw] md:w-[10vw] max-[640px]:w-[10vw] font-sans border-solid border-black border-2 rounded-xl hover:bg-[#FF6726] ease-in-out transition-all hover:text-white text-lg w-[5vw] bg-white h-[4vh] mr-10'
+               onClick={() => {
+                document.querySelector('main')?.setAttribute('style', 'filter: blur(10px)')
+                document.querySelector('header')?.setAttribute('style', 'filter: blur(10px)')
+                document.getElementById('loginForm')?.setAttribute('style', 'visibility:visible; opacity:1;')
+              }}>Login</button>
+              <a href="/signup"><button className='sm:w-[10vw] 3xl:w-[5vw] phone:w-[20vw] phone:text-base max-[640px]:w-[10vw] max-[640px]:text-sm lg:w-[10vw] md:w-[10vw] font-sans lg:text-base border-solid border-black border-2 rounded-xl text-lg bg-white w-[5vw] h-[4vh] hover:bg-[#FF6726] ease-in-out transition-all hover:text-white'>Sign-up</button></a>
+              </div>
+              <div className='left-0'>
+                
+              <div className=' '>
             <SocialMedia />
+            </div>
             </div>
         </div>
   )
