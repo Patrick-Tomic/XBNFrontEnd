@@ -100,7 +100,7 @@ export default function BillingDetails( {user} : any) {
     }
     }
 
-    const billingInfo = user.address.map((address :any) => {
+    const billingInfo = user.map((address :any) => {
         let index = -1
         index++
         return(
