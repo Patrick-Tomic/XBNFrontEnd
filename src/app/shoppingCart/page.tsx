@@ -27,7 +27,6 @@ export default function ShoppingCartPage() {
         const id = localStorage.getItem('id')
         const obj = {id:id, cart: cart}
         const formData = JSON.stringify(obj)
-        console.log('ww')
         try {
             const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateCart`, {
                 method: 'POST',
@@ -37,7 +36,7 @@ export default function ShoppingCartPage() {
                 }
             })
             const file = await req.json()
-            console.log(file)
+            console.log(cart.items)
             window.location.reload()
         }
         catch(err: any){
@@ -82,6 +81,7 @@ export default function ShoppingCartPage() {
     index++
     const id = index
    
+
    const images = item.image
          return(
               <>
@@ -97,12 +97,20 @@ export default function ShoppingCartPage() {
                     setCart({items: obj, price: cart.price})
                     console.log(cart)
                    }} name="" className='text-black' defaultValue={item.amount} >
-                   <option value="1">1</option>
+                    <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                    </select>
+                   <button  type='submit' onClick={() => {
+                    const obj = cart.items
+                    const split = obj.splice(0, id+1)
+                    split.pop()
+                    const join = split.concat(obj)
+                    setCart({items: join, price: cart.price})
+                    console.log(cart)    
+                   }} id={`${id}`}>delete </button>
               </div>
               </>
          )
@@ -117,9 +125,10 @@ export default function ShoppingCartPage() {
             <h3 className='font-bold'>Quantity</h3>
         </div>
         <div>
-        {items}
+  
         </div>
         <form onSubmit={handleSubmit(submitForm)}>
+        {items}
         <button type='submit' className='border-2 border-black border-solid bg-white text-black w-24' >Enter</button>
         </form>
         </main>
