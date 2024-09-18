@@ -29,7 +29,7 @@ export default function itemDetail (req: { params: { id: any } }) {
 
   const validationSchema = Yup.object().shape({
     amount: Yup.number().required(),
-    flavor: Yup.string().required()
+    flavor: Yup.string()
   })
   const formOptions = { resolver: yupResolver(validationSchema) }
   const { register, handleSubmit, reset, formState } = useForm(formOptions)
@@ -191,16 +191,16 @@ export default function itemDetail (req: { params: { id: any } }) {
                     ${product.price}
                 </p>
                 </div>
-                <form className='w-[100%] h-[20vh] flex flex-col justify-around' onSubmit={handleSubmit(submitForm)}>
+                <form className='w-[100%] h-[20vh] flex flex-col justify-around ' onSubmit={handleSubmit(submitForm)}>
                 <div className='flex justify-center items-center' id="flavorSelect">
                 <h3 className='text-3xl'>Flavors:</h3>
-                <select className='w-[80%] text-3xl' defaultValue={flavors[0]} {...register('flavor')} >
+                <select className='w-[80%] text-black text-3xl' defaultValue={flavors[0]} {...register('flavor')} >
                   {flavorOptions}
                 </select>
                 </div>
-                  <div>
+                  <div className='flex justify-center items-center self-start '>
                   <h3 className='text-3xl'>Amount:</h3>
-                  <select defaultValue={'1'} className='w-[80%] text-black text-3xl' {...register('amount')} >
+                  <select defaultValue={'1'} className='w-[40%] text-black text-3xl text-center' {...register('amount')} >
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>

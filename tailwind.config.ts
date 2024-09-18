@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      background:{
+        
+      },
       transformOrigin: {
         'center-right': 'center right'
       },
@@ -17,7 +20,8 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+          'fusion': 'linear-gradient(#F6E4C8,#FAA11B)',
       },
       screens:{
         '3xl':'1537px',
