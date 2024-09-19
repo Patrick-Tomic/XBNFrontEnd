@@ -3,30 +3,45 @@ import Header from '@/components/header';
 import {useState, useEffect} from 'react';
 import Footer from '@/components/footer';
 import * as Yup from 'yup';
-import {useForm} from 'react-hook-form';
+import {set, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 export default function ShoppingCartPage() {
-    /* type item = {
+   type item = {
         name: string,
         price: number,
         quantity: number,
         image: Array<string>,
         flavor: string,
         brand: string | null
-    } */
+    } 
+    const [price, setPrice] = useState(0)
     const [cart, setCart] = useState({
     items:[],
     price:0
     })
+    console.log(cart)
     const validationSchema = Yup.object().shape({
          
     })
     const formOptions = {resolver: yupResolver(validationSchema)}
     const {register, handleSubmit, reset, formState} = useForm(formOptions)
-    const submitForm = async(data: any) => {
+    const submitForm = async(data: any ) => {
         const id = localStorage.getItem('id')
-        const obj = {id:id, cart: cart}
-        alert(obj.cart.items.length)
+        let obj = {id:id, cart: cart}
+       
+        if(localStorage.getItem('cart') != null){
+            
+            const Cart = JSON.parse(localStorage.getItem('cart') as string)
+            const newPrice = JSON.parse(localStorage.getItem('price') as string)
+            console.log(typeof(newPrice))
+            const newObj = {items:Cart, price: newPrice}
+            obj = {id:id, cart: newObj}
+            localStorage.removeItem('cart')
+            localStorage.removeItem('price')
+             
+      
+        }
+      
         const formData = JSON.stringify(obj)
         try {
             const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateCart`, {
@@ -50,7 +65,7 @@ export default function ShoppingCartPage() {
             const id = localStorage.getItem("id")
                  const user = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`);
              const data = await user.json();
-             console.log(data.cart.cart)
+            
              setCart(data.cart.cart);
          })()
          document.getElementById("brandHead")?.addEventListener("mouseover", () => {
@@ -75,14 +90,14 @@ export default function ShoppingCartPage() {
                 child.setAttribute("style", "display:hidden");
             });
             });
+          
     }, [])
     let index = -1
-   const items = cart.items.map((item: any) => {
+    
+   const items:any  = cart.items.map((item: any) => {
     const src = item.image[0]
     index++
     const id = index
-   
-
    const images = item.image
          return(
               <>
@@ -91,7 +106,7 @@ export default function ShoppingCartPage() {
                 
                      <h1 className=' text-xl w-[10vw] font-bold'>{item.name}</h1>
                      <h2 className=' text-lg font-bold w-10 mr-10'>{item.total.toFixed(2)}</h2>
-                  {/* <form onClick={handleSubmit(submitForm)}>   */}
+                <form onClick={handleSubmit(submitForm)}>    
                    <select id={`${id}`} onChange={() => {
                     const obj: any = cart.items
                     const amount = document.getElementById(`${id}`) as HTMLSelectElement
@@ -123,7 +138,7 @@ export default function ShoppingCartPage() {
                     <option value="5">5</option>
                    </select>
                    
-                   <button type='button'    onClick={(event) => {
+                   <button type='submit'    onClick={(event) => {
                     const obj: any = cart.items
                     if(id == 0){
                         if(obj.length === 1){
@@ -136,21 +151,25 @@ export default function ShoppingCartPage() {
                         return
                     }
                    else if(id > 0){
-                      const split: any = obj.splice(id)
-                    const price = split[0].total
-                    split.shift()
-                    const join = obj.concat(split)
-                    console.log(split)
-                   console.log(obj)
-                   console.log(join)
-                  const body = {items: split, price: cart.price-price}
-                    setCart(body)
-                   console.log(cart.items)
+                    let newPrice = 0
+                    obj.map((item: any, index: number) => {
+                        if(index === id){
+                            newPrice = item.total
+                        }
+                    })
+                     
+              /*   console.log(obj)
+                  const body = {items: obj.concat(split), price: cart.price-price} */
+                  const item = obj.filter((item: any, index: number) => index != id)
+                    localStorage.setItem('cart', JSON.stringify(item))
+                    localStorage.setItem('price', JSON.stringify(cart.price-newPrice))
+                /*     setCart({items: newItem, price: cart.price -price})
+                   console.log(cart) */
                      
                     handleSubmit(submitForm)  
                      }   
                    }} id={`${id}`}>delete </button>
-               {/*  </form>    */}  
+                </form>     
               </div>
               </>
          )
