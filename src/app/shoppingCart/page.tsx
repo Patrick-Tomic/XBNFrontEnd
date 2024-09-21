@@ -5,6 +5,7 @@ import Footer from '@/components/footer';
 import * as Yup from 'yup';
 import {set, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
+import { loadStripe } from '@stripe/stripe-js';
 export default function ShoppingCartPage() {
    type item = {
         name: string,
@@ -19,7 +20,7 @@ export default function ShoppingCartPage() {
     items:[],
     price:0
     })
-    console.log(cart)
+   
     const validationSchema = Yup.object().shape({
          
     })
@@ -58,6 +59,19 @@ export default function ShoppingCartPage() {
         catch(err: any){
             console.log(err)
         }
+
+    }
+    const makePayment = async () => {
+        const stripe = await loadStripe('process.env.stripeKey')
+        const body ={
+            products:cart.items
+        }
+        const headers = {'Content-Type':'application/json'}
+        const response = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}checkout`, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body)
+        })
 
     }
     useEffect(() => {
@@ -190,12 +204,15 @@ export default function ShoppingCartPage() {
         </div>
         <form onSubmit={handleSubmit(submitForm)}>
         {items}
-        <button type='submit' className='border-2 border-black border-solid bg-white text-black w-24' >Enter</button>
+        <button onClick={makePayment} type='button' className='border-2 border-black border-solid bg-white text-black w-24' >Enter</button>
         </form>
         </div>
-        <div className='flex flex-col bg-white' id='summary'>
+        <div className='flex flex-col bg-white w-[30%] m-10 p-10' id='summary'>
             <div>
-        <h1>Items: {cart.price.toFixed(2)}</h1>
+        <h1 className='text-xl font-bold border-solid '>Item Total: {cart.price.toFixed(2)}</h1>
+        <h2 className='text-lg font-bold'>Sales Tax: {(cart.price*.06).toFixed(2)} </h2>
+        <h3 className='text-lg font-bold'>Shipping: 0</h3>
+        <h4 className='text-lg font-bold'>Total: {(cart.price+(cart.price*.06)).toFixed(2)}</h4>
         </div>
         </div>
         </main>
