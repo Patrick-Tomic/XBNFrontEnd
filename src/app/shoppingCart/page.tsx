@@ -72,6 +72,8 @@ export default function ShoppingCartPage() {
             headers: headers,
             body: JSON.stringify(body)
         })
+        const session = await response.json()
+        window.location.href = session.url
 
     }
     useEffect(() => {
