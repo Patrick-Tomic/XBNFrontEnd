@@ -21,6 +21,7 @@ useEffect(() => {
       
         const items = data.categories
         setCategories(items)
+        console.log(items)
     }
     fetchCategories()
 
@@ -39,26 +40,43 @@ useEffect(() => {
 const items = products.map((item: any) => {
     const images = item.images
     return (
-        <div id='obj' className='flex justify-around bg-white border-2 w-[80%] border-orange-500 border-solid'>
-            <img className='w-20' src={images[0]} alt=""/>
-            <h2>{item.product}</h2>
-            <p>{item.price}</p>
-            <p>{item.brand.name}</p>
-            <p>{item.category}</p>
-            <div>
-            <button>Summary</button>
-            <p className='hidden'>{item.summary}</p>
+        <div id='obj' className='flex justify-start text-center bg-white border-2 w-[60%] border-orange-500 border-solid'>
+            <img className='w-[100px] border-2 border-black border-solid' src={images[0]} alt=""/>
+            <h2 className='w-[200px] mt-9'>{item.product}</h2>
+            <p className='w-[200px] mt-9'>{item.price}</p>
+            <p className='w-[200px] mt-9'>{item.brand.name}</p>
+            <div className='w-[200px] mt-9'>
+            <button onClick={() => {
+                const p = document.getElementById(`${item.product}`)
+                p?.setAttribute('style', 'display:block')
+            }}>Expand</button>
+            <p id={`${item.product}`} className='hidden absolute bg-white w-[25vw] border-2 border-black border-solid p-10 '>{item.summary} 
+            <button onClick={() => {
+                const p = document.getElementById(`${item.product}`)
+                p?.setAttribute('style', 'display:none')
+            }} className='absolute w-10 font-bold top-2 ml-5'>X</button></p>
             </div>
-          
-            <p>{item.flavors.map((flavor: any) => {
-                return flavor
+          <div>
+            <button   onClick={() => {
+                const p = document.getElementById(`${item.flavors[0]}`)
+                p?.setAttribute('style', 'display:block')
+                 
+              
+            }} className='mt-9'>[...]</button>
+             <p id = {item.flavors[0]} className='w-[200px] mt-9 hidden'>{item.flavors.map((flavor: any) => {
+                return flavor+','
             })}</p>
-            <p>{item.stock}</p>
+          </div>
+            
+            <p className='w-[200px] mt-9'>{item.stock}</p>
+            <button className='absolute left-[70%] mt-10 border-white border-solid border-2 bg-white rounded-md p-2 text-blue-600 hover:text-lg hover:bg-orange-500 duration-300 transition-all ease-in-out ' >Update Item</button>
+            <button className='absolute left-[80%] mt-10 bg-red-500 border-solid border-2   rounded-md p-2 text-white hover:text-lg   duration-300 transition-all ease-in-out '>Delete Item</button>
+
         </div>
     )  
 })
 
-console.log(brands)
+
  
   const brandItems = brands.map((brand: any) => {
     return(
@@ -71,7 +89,7 @@ console.log(brands)
 const categorItems = categories.map((category: any) => {
     return(
         <div id='obj'>
-            <h2>{category.type}</h2>
+            <h2 className='font-bold text-2xl m-5'>{category.type}</h2>
             
         </div>
     )
@@ -104,13 +122,38 @@ return(
             document.querySelector('.catItems')?.setAttribute('style', 'display:block')
         }}><h1>Categories</h1></button>
     </header>
-    <main className='bg-[#343434] w-[100%] margin-0'>
-        <div id='container'>
-            <div className='products w-[100%]' id='wrap'>
+    <main className='bg-[#343434] min-w-full m-0'>
+        <div>
+            <button className='absolute left-[90%] bg-green-700 p-2 w-32 border-solid text-white text-xl rounded-lg border-white border-2 '>Add</button>
+            </div>
+        <div id='container' className='w-screen'>
+            <div className='products w-screen' id='wrap'>
+                <nav className='flex justify-around ml-20 w-[50%]'>
+                    
+                    <h1 className='text-white font-bold ml-16'>
+                        Product Name
+                    </h1>
+                    <h1 className='text-white ml-10  font-bold'>
+                        Price
+                    </h1>
+                    <h1 className='text-white ml-10 font-bold'>
+                        Brand
+                    </h1>
+                    <h1 className='text-white ml-32 font-bold'>
+                        Summary
+                    </h1>
+                    <h1 className='text-white font-bold'>
+                        Flavors
+                    </h1>
+                    <h1 className='text-white font-bold'>
+                        Stock
+                    </h1>
+                </nav>
                 {items}
             </div>
-              <div className='catItems hidden' id='wrap'>
+              <div className='catItems hidden bg-white w-[10%]  ' id='wrap'>
                 {categorItems}
+                
             </div> 
             <div className='brandItems hidden' id='wrap'>
              {brandItems}
