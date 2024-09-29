@@ -6,6 +6,7 @@ import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import  AdminCreate from './adminCreate'
+import AdminUpdate from './adminUpdate';
 export default function AdminDashboard(){
     const [reload, setReload] = useState('')
     const [products, setProducts] = useState([])
@@ -13,6 +14,7 @@ export default function AdminDashboard(){
     const [categories, setCategories] = useState([])
     const [option, setOption] = useState('item')
     const [flavors, setFlavors] = useState(['huh'])
+    const [form, setForm] = useState('none')
     const [newItem, setNewItem] = useState({
         product: '',
         price: '',
@@ -21,9 +23,25 @@ export default function AdminDashboard(){
         summary: '',
         flavors: [],
         stock: '',
-        images: []
+        images: [],
+        _id:''
     })
-    
+    document.querySelector('#exitForm')?.addEventListener('click', () => {
+        const obj = {
+            product: '',
+            price: '',
+            brand: '',
+            category: '',
+            summary: '',
+            flavors: [],
+            stock: '',
+            images: [],
+            _id:''
+        }
+        setNewItem(obj)
+    })
+
+
    function handleItemChange(e: {target: {dataset: {key: any}; value: any;};}){
     if(e.target.dataset.key === 'flavors'){
     console.log(newItem.flavors)
@@ -45,11 +63,18 @@ function handleAddImage(e: any) {
     setNewItem({...newItem, images: images})
 }
     
-   
-  
+
     const submitForm = async(e:any) => {
-        console.log(newItem)
-        const formData = JSON.stringify(newItem)
+      if(form ==='item'){
+        let formData = JSON.stringify(newItem)
+        if(option === 'item'){
+        
+        }else if(option ==='brand'){
+            formData = JSON.stringify({name: newItem.brand, type: 'brand'})
+        }else if(option === 'category'){
+            formData = JSON.stringify({name: newItem.category, type: 'category'})
+            console.log(formData)
+        }
         try{
             const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addOption`, {
                 method: 'POST',
@@ -61,12 +86,37 @@ function handleAddImage(e: any) {
             const file = await req.json()
             if(req.status !== 200){
                 return
+            }else{
+                window.location.reload()
             }
-            console.log('www')
+          
         }catch(err){
             console.log(err)
         }
     }
+    else{
+        let formData = JSON.stringify(newItem)
+        
+        try{
+            const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateItem/${newItem._id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: formData
+            })
+            const file = await req.json()
+            if(req.status !== 200){
+                return
+            }else{
+                window.location.reload()
+            }
+          
+        }catch(err){
+            console.log(err)
+        }
+    }
+}
  
 
 useEffect(() => {
@@ -135,8 +185,38 @@ const items = products.map((item: any) => {
             })}</p>
           </div>
             
-            <p className='w-[200px] mt-9'>{item.stock}</p>
-            <button className='absolute left-[70%] mt-10 border-white border-solid border-2 bg-white rounded-md p-2 text-blue-600 hover:text-lg hover:bg-orange-500 duration-300 transition-all ease-in-out ' >Update Item</button>
+            <p className='w-[200px] mt-9'>{item.stock}</p> 
+            <button type='button' onClick={() => {
+                 (async () => {
+                    console.log(item._id)
+                    const obj = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${item._id}`)
+                    const data = await obj.json()
+                    const product = data.product
+                    const object = {
+                        product: product.product,
+                        price: product.price,
+                        brand: product.brand,
+                        category: product.category,
+                        summary: product.summary,
+                        flavors: product.flavors,
+                        stock: product.stock,
+                        images: product.images,
+                        _id: product._id
+                    }
+                 
+                    setNewItem(object)
+                   
+                    setForm('update')
+                    const form = document.getElementById('formUpdate')
+                    form?.setAttribute('style', 'display:block')
+                   
+                  
+                    if (product.flavors.length === 0) {
+                      document.getElementById('flavorSelect')?.setAttribute('style', 'display:none')
+                    }
+                    setNewItem(product)
+                  })()
+            }} className='absolute left-[70%] mt-10 border-white border-solid border-2 bg-white rounded-md p-2 text-blue-600 hover:text-lg hover:bg-orange-500 duration-300 transition-all ease-in-out ' >Update</button>
             <button onClick={() => {
                 const go = async() => {
                     try{
@@ -168,9 +248,12 @@ const items = products.map((item: any) => {
         <div className='flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-solid p-10'  id='obj'>
             <h2 className='font-bold text-lg'>{brand.name}</h2>
             <button className='absolute left-[55%] border-2 border-black border-solid text-lg rounded-md p-1 hover:bg-red-500 hover:text-white font-bold' onClick={() =>{
+                 console.log(brand._id)
                  const go = async() => {
+
                     try{
-                        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteItem/${brand._id}`, {
+                       
+                        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteBrand/${brand._id}`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -179,8 +262,10 @@ const items = products.map((item: any) => {
                         })
                         if(req.status !== 200){
                             return
+                        }else{
+                            window.location.reload()
                         }
-                        window.location.reload()
+                      
                     }catch(err){
                         console.log(err)
                 }
@@ -192,12 +277,12 @@ const items = products.map((item: any) => {
 })
 const categorItems = categories.map((category: any) => {
     return(
-        <div id='obj'>
+        <div className='flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-solid p-10' id='obj'>
             <h2 className='font-bold text-2xl m-5'>{category.type}</h2>
             <button className='absolute left-[55%] border-2 border-black border-solid text-lg rounded-md p-1 hover:bg-red-500 hover:text-white font-bold' onClick={() =>{
                  const go = async() => {
                     try{
-                        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteItem/${category._id}`, {
+                        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteCategory/${category._id}`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json'
@@ -247,12 +332,47 @@ return(
         }}><h1>Categories</h1></button>
     </header>
     <main className='bg-[#343434] min-w-full m-0'>
-    <AdminCreate typeForm={option} onChange= {handleItemChange} addFlavor={handleAddFlavor} product={newItem.product}
-    price={newItem.price} flavors={newItem.flavors} stock={newItem.stock} type={newItem.category} name={newItem.brand} summary={newItem.summary}
-    brands={brands} categories={categories} images={newItem.images} addImage={handleAddImage}  onSubmit = {submitForm} />
+    <video className='hidden' width="320" height="240" controls>
+  <source src="adminCreate.mp4" type="video/mp4"></source>
+    </video>
+    <AdminCreate 
+    
+    typeForm={option}  
+    onChange= {handleItemChange} 
+    addFlavor={handleAddFlavor}
+     product={newItem.product}
+    price={newItem.price} 
+    flavors={newItem.flavors}
+     stock={newItem.stock} 
+     type={newItem.category} 
+     name={newItem.brand} 
+     summary={newItem.summary}
+     brands={brands} 
+     categories={categories} 
+     images={newItem.images} 
+     _id={newItem._id}
+     addImage={handleAddImage}  
+     onSubmit = {submitForm} />
+     <AdminUpdate
+     onChange = {handleItemChange}
+        addFlavor = {handleAddFlavor}
+        product = {newItem.product} 
+        _id = {newItem._id}
+        price = {newItem.price}
+        flavors = {newItem.flavors}
+        stock = {newItem.stock}
+        summary = {newItem.summary}
+        brand = {newItem.brand}
+        category = {newItem.category}
+        images = {newItem.images}
+        brands = {brands}
+        categories = {categories}
+        addImage = {handleAddImage}
+        onSubmit = {submitForm}
+     />
         <div>
             <button onClick={() => {
-               
+                setForm('item')
                 const form = document.getElementById('formCreate')
                 form?.setAttribute('style', 'display:block')
             }}   className='absolute left-[90%] bg-green-700 p-2 w-32 border-solid text-white text-xl rounded-lg border-white border-2 '>Add</button>

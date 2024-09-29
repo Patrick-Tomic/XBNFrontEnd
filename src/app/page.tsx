@@ -114,6 +114,7 @@ export default function Home () {
   <Header />
  
   <main className='md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10'>
+ 
     <div id='imageSlider' className='col-span-2 p-10 w-[100%] sm:p-0 max-[640px]:p-0  bg-[#343434]'>
   <div id='wrap' className=' 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   '>
   <Image className='slideA rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[9] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 ' alt='pre' src= {pre} />

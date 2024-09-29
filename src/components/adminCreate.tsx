@@ -1,6 +1,6 @@
 'use client'
 import InputSection from "./input"
-export default function AdminCreate({onChange, typeForm, addFlavor,product, price, flavors, stock,type, name, summary, brand, category, images, brands, categories, addImage, onSubmit }:any,){ {
+export default function AdminCreate({onChange,_id, typeForm, addFlavor,product, price, flavors, stock,type, name, summary, brand, category, images, brands, categories, addImage, onSubmit }:any,){ {
 const brandList = brands
 const catList = categories
 const optionBrands = brandList.map((brand: any) => {
@@ -39,7 +39,7 @@ const brandForm = (
         text ='Brand'  
         onChange = {onChange} 
         dataKey = 'name' />
-        <button className="border-2 border-black border-solid " onClick={onSubmit} type="button">Enter</button>
+        <button className="border-2 border-solid border-black p-1 rounded-md hover:bg-orange-400" onClick={onSubmit} type="button">Enter</button>
     </form>
 )
 const categoryForm = (
@@ -51,7 +51,7 @@ const categoryForm = (
         text ='Category'  
         onChange = {onChange} 
         dataKey = 'category' />
-        <button  className="border-2 p-1  rounded-md border-black border-solid " onClick={onSubmit} type="button">Enter</button>
+        <button  className="border-2 border-solid border-black p-1 rounded-md hover:bg-orange-400" onClick={onSubmit} type="button">Enter</button>
     </form>
 )
  const itemForm = (
