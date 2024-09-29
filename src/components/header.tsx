@@ -205,8 +205,8 @@ export default function Header () {
          <div className='flex flex-col ml-10 mt-10'>
            <label className=' text-xl font-bold text-white' htmlFor="password">Password:</label>
            <input className='border-2 border-black w-[25vw] border-solid text-black'  type="password" {...register('password')} />
-      
          </div>
+          
          <div className='flex flex-col  items-center'>
          <button onClick={() => {
           window.location.href = '/identify'

@@ -73,7 +73,7 @@ export default function ShoppingCartPage() {
             body: JSON.stringify(body)
         })
         const session = await response.json()
-        window.location.href = session.url
+        window.location.href =session.url
 
     }
     useEffect(() => {
