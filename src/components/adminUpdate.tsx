@@ -159,7 +159,7 @@ export default function AdminUpdate({
             className="border-2 border-solid border-black rounded"
             name="summary"
             data-key="summary"
-            value={summary}
+           
             onChange={onChange}
             cols={60}
             rows={10}

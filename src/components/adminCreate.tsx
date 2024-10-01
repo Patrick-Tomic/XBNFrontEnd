@@ -1,4 +1,5 @@
 "use client";
+import React from "react";
 import InputSection from "./input";
 export default function AdminCreate({
   onChange,
@@ -190,11 +191,13 @@ export default function AdminCreate({
             className="border-2 border-solid border-black rounded"
             name="summary"
             data-key="summary"
-            defaultValue={summary}
+           
             onChange={onChange}
             cols={60}
             rows={10}
-          ></textarea>
+          >
+            {summary}
+          </textarea>
         </div>
 
         <div>

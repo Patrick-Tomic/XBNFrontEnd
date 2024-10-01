@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@next/eslint-plugin-next": "^14.2.13",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

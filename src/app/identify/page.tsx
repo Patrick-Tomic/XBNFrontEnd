@@ -1,6 +1,6 @@
-"use client";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+"use client"
+/* import Header from "@/components/header";
+import Footer from "@/components/footer"; */
 import PasswordReset from "@/components/passwordReset";
 import Image from "next/image";
 import logo from "/public/xbnLogoB.png";
@@ -14,13 +14,15 @@ export default function IdentifyAccount() {
     email: Yup.string(),
     confirmNum: Yup.string(),
   });
-
+  console.log(typeof window)
+  const [email, setEmail] = useState("");
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
   
   const submitForm = async (data: any) => {
- 
+    const newE = data.email
+    setEmail(newE);
     const formData = JSON.stringify(data);
     try {
       const req = await fetch(
@@ -32,7 +34,7 @@ export default function IdentifyAccount() {
         },
       );
       const file = await req.json();
-      if (req.status !== 200 || file.message === "error") {
+      if (req.status !== 200 || file.message === "error") { 
         return;
       } else if (file.message === "success") {
         document.getElementById("mainPasswordPage")?.classList.add("hidden");
@@ -47,14 +49,11 @@ export default function IdentifyAccount() {
       console.log(err);
     }
   };
-  useEffect(() => {
-    const email:any = document.querySelector("#email");
-    localStorage.setItem("email", email.value);
-  },[])
+ 
   return (
     <>
-      <Header />
-      <PasswordReset />
+      {/* <Header /> */}
+      <PasswordReset email = {email} />
       <main
         id="mainPasswordPage"
         className="flex bg-[#353935] h-[100vh] justify-around items-center"

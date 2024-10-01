@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
-export default function PasswordReset() {
+export default function PasswordReset(email: any) {
   const [error, setError] = useState("");
   const validationSchema = Yup.object().shape({
     email: Yup.string(),
@@ -42,7 +42,7 @@ export default function PasswordReset() {
       console.log(err);
     }
   };
-  const email:any = localStorage.getItem("email");
+  
   return (
     <main
       className="bg-[#353935] h-[100vh]  justify-center items-center hidden"
