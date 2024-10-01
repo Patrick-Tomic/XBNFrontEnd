@@ -115,7 +115,7 @@ export default function ShoppingCartPage() {
   let index = -1;
 
   const items: any = cart.items.map((item: any) => {
-    const src = item.images[0];
+    const src: any = item.images[0];
     index++;
     const id = index;
     const total = item.price * item.stock;
