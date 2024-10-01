@@ -1,203 +1,194 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Belleza&family=Quicksand:wght@300..700&family=Ysabeau+SC:wght@1..1000&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Belleza&family=Quicksand:wght@300..700&family=Ysabeau+SC:wght@1..1000&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Junge&display=swap");
-html{
-  
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
- 
-#loginForm{
-    box-shadow: #464241 1px 1px 10px 1px;
-}
-header{
-    #brandDiv{
-        scrollbar-width: thin;
-    }
-    font-family: 'Bebas Neue', system-ui;
-    font-size:x-large;
-    font-weight: bold;
-    z-index: 10;
-    background: white;
-    box-shadow: 1px 10px 10px 1px orange;
-    position: sticky;
-    top: 0;
-    ul{
-        div{
-            background: white;
-          /*   border: #353935 1px solid; */
-            z-index: 4;
-            li{
-                font-weight: normal;
-            }
-            li:hover{ 
-                
-                
-               text-decoration: underline orange 2px;
-            }
-        }
-    }
-    
-    #startingBtns{
-        button:hover{
-            transition: all ease-in-out .5s;
-            background: #F28C28;
-        }
-        button{
-            transition: all .5s ease-in-out;
-        }
-    }
-}
-.itemDetail{
-    background: linear-gradient(#F6E4C8,#FAA11B);
-}
-.brandPage{
-    background: linear-gradient(#464241 40%, #FF6726);
-}
-main{
-    #imageSlider{
-        box-shadow: 1px 10px 10px 1px orange;
-        margin-bottom: 5vh;
-    }
-    //slide drop hit the folks dont stop
-    #addToCart:hover{
-        background: orange;
-        color: white;
-    }
-    #homeDescription{
-        div{
-            h1{
-                border-radius: 5px;
-            }
-           padding: 50px 50px;
-            border-radius: 15px;
-        }
-    }
-    display: grid;
-   padding: 5vh 5vw;
-    grid-template-columns: 1fr 1fr;
-    background:	#FAF9F6;
-    #productImg{
-       img{
-        
-        max-width:25vw;
-       }
-    }
-    .signup{
-       
-        background: #B2BEB5	;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        div{
-            width: 25vw;
-            label{
-                width: 20vw;
-                font-weight: 600;
-                font-size:x-large;
-            }
-            input{
-                margin-left: 10px;
-            }
-        }
-        button{
-            border:solid 2px black;
-            border-radius: 5px;
-            width: 10vw;
-            height: 5vh;
-            background: white;
-        }
-    }
-}
-footer{
-    svg:hover{
-        path{
-            fill:#FF6726;
-        }
-    }
+html {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
-@media( max-width:640px){
-    footer{
-    
-    }
-    main{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        div{
-            height: 400px;
-    
-        div{
-            img{
-                width: 378px;
-                
-                left: 0;
-            }
-         height: 600px;
-          
-        }
-    }
-    iframe{
-        margin-top: 5vh;
-        height: 500px;
-    }
-    #homeDescription{
-        margin: 10vh 10vw;
-        margin-bottom: 30vh;
-        img{
-            width:200px ;
-        }
-        
-        h1{
-            font-size: large;
-        }
-        p{
-            font-size: medium;
-        }
-    }
+#loginForm {
+  box-shadow: #464241 1px 1px 10px 1px;
 }
+header {
+  #brandDiv {
+    scrollbar-width: thin;
+  }
+  font-family: "Bebas Neue", system-ui;
+  font-size: x-large;
+  font-weight: bold;
+  z-index: 10;
+  background: white;
+  box-shadow: 1px 10px 10px 1px orange;
+  position: sticky;
+  top: 0;
+  ul {
+    div {
+      background: white;
+      /*   border: #353935 1px solid; */
+      z-index: 4;
+      li {
+        font-weight: normal;
+      }
+      li:hover {
+        text-decoration: underline orange 2px;
+      }
+    }
+  }
+
+  #startingBtns {
+    button:hover {
+      transition: all ease-in-out 0.5s;
+      background: #f28c28;
+    }
+    button {
+      transition: all 0.5s ease-in-out;
+    }
+  }
 }
-@media(max-width:500px){
-    main{
-        #homeDescription{
-            p{
-                font-size: small;
-            }
-        }
-    }
+.itemDetail {
+  background: linear-gradient(#f6e4c8, #faa11b);
 }
-@media(max-width:380px){
-    main{
-        div{
-            height: 250px;
-    
-        div{
-             
-            img{
-                width: 252px;
-                margin: 0;
-                left: 0;
-                right: 40px;
-            }
-         height: 600px;
-          
-        }
+.brandPage {
+  background: linear-gradient(#464241 40%, #ff6726);
+}
+main {
+  #imageSlider {
+    box-shadow: 1px 10px 10px 1px orange;
+    margin-bottom: 5vh;
+  }
+  //slide drop hit the folks dont stop
+  #addToCart:hover {
+    background: orange;
+    color: white;
+  }
+  #homeDescription {
+    div {
+      h1 {
+        border-radius: 5px;
+      }
+      padding: 50px 50px;
+      border-radius: 15px;
     }
-    #homeDescription{
-        margin: 10vh 10vw;
-        margin-bottom: 50vh;
-        img{
-            width:200px ;
-        }
-        
-        h1{
-            font-size: medium;
-        }
-        p{
-            font-size:xx-small;
-        }
+  }
+  display: grid;
+  padding: 5vh 5vw;
+  grid-template-columns: 1fr 1fr;
+  background: #faf9f6;
+  #productImg {
+    img {
+      max-width: 25vw;
     }
+  }
+  .signup {
+    background: #b2beb5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    div {
+      width: 25vw;
+      label {
+        width: 20vw;
+        font-weight: 600;
+        font-size: x-large;
+      }
+      input {
+        margin-left: 10px;
+      }
     }
+    button {
+      border: solid 2px black;
+      border-radius: 5px;
+      width: 10vw;
+      height: 5vh;
+      background: white;
+    }
+  }
+}
+footer {
+  svg:hover {
+    path {
+      fill: #ff6726;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  footer {
+  }
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div {
+      height: 400px;
+
+      div {
+        img {
+          width: 378px;
+
+          left: 0;
+        }
+        height: 600px;
+      }
+    }
+    iframe {
+      margin-top: 5vh;
+      height: 500px;
+    }
+    #homeDescription {
+      margin: 10vh 10vw;
+      margin-bottom: 30vh;
+      img {
+        width: 200px;
+      }
+
+      h1 {
+        font-size: large;
+      }
+      p {
+        font-size: medium;
+      }
+    }
+  }
+}
+@media (max-width: 500px) {
+  main {
+    #homeDescription {
+      p {
+        font-size: small;
+      }
+    }
+  }
+}
+@media (max-width: 380px) {
+  main {
+    div {
+      height: 250px;
+
+      div {
+        img {
+          width: 252px;
+          margin: 0;
+          left: 0;
+          right: 40px;
+        }
+        height: 600px;
+      }
+    }
+    #homeDescription {
+      margin: 10vh 10vw;
+      margin-bottom: 50vh;
+      img {
+        width: 200px;
+      }
+
+      h1 {
+        font-size: medium;
+      }
+      p {
+        font-size: xx-small;
+      }
+    }
+  }
 }

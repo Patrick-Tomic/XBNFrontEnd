@@ -1,224 +1,254 @@
-'use client'
-import Header from '@/components/header';
-import {useState, useEffect} from 'react';
-import Footer from '@/components/footer';
-import * as Yup from 'yup';
-import {set, useForm} from 'react-hook-form';
-import {yupResolver} from '@hookform/resolvers/yup';
-import { loadStripe } from '@stripe/stripe-js';
+"use client";
+import Header from "@/components/header";
+import { useState, useEffect } from "react";
+import Footer from "@/components/footer";
+import * as Yup from "yup";
+import { set, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loadStripe } from "@stripe/stripe-js";
+import React from "react";
 export default function ShoppingCartPage() {
-   type item = {
-        name: string,
-        price: number,
-        quantity: number,
-        image: Array<string>,
-        flavor: string,
-        brand: string | null
-    } 
-    const [price, setPrice] = useState(0)
-    const [cart, setCart] = useState({
-    items:[],
-    price:0
-    })
-   
-    const validationSchema = Yup.object().shape({
-         
-    })
-    const formOptions = {resolver: yupResolver(validationSchema)}
-    const {register, handleSubmit, reset, formState} = useForm(formOptions)
-    const submitForm = async(data: any ) => {
-        const id = localStorage.getItem('id')
-        let obj = {id:id, cart: cart}
-       
-        if(localStorage.getItem('cart') != null){
-            
-            const Cart = JSON.parse(localStorage.getItem('cart') as string)
-            const newPrice = JSON.parse(localStorage.getItem('price') as string)
-            console.log(typeof(newPrice))
-            const newObj = {items:Cart, price: newPrice}
-            obj = {id:id, cart: newObj}
-            localStorage.removeItem('cart')
-            localStorage.removeItem('price')
-             
-      
-        }
-      
-        const formData = JSON.stringify(obj)
-        try {
-            const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateCart`, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Content-Type': 'application/json'
+  type item = {
+    name: string;
+    price: number;
+    quantity: number;
+    image: Array<string>;
+    flavor: string;
+    brand: string | null;
+  };
+  const [price, setPrice] = useState(0);
+  const [cart, setCart] = useState({
+    items: [],
+    price: 0,
+  });
+  console.log(cart);
+  const validationSchema = Yup.object().shape({});
+  const formOptions = { resolver: yupResolver(validationSchema) };
+  const { register, handleSubmit, reset, formState } = useForm(formOptions);
+  const submitForm = async (data: any) => {
+    const id = localStorage.getItem("id");
+    let obj = { id: id, cart: cart };
+
+    if (localStorage.getItem("cart") != null) {
+      const Cart = JSON.parse(localStorage.getItem("cart") as string);
+      const newPrice = JSON.parse(localStorage.getItem("price") as string);
+      console.log(typeof newPrice);
+      const newObj = { items: Cart, price: newPrice };
+      obj = { id: id, cart: newObj };
+      localStorage.removeItem("cart");
+      localStorage.removeItem("price");
+    }
+
+    const formData = JSON.stringify(obj);
+    try {
+      const req = await fetch(
+        `${process.env.NEXT_PUBLIC_backend_Link}updateCart`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+      const file = await req.json();
+      console.log(cart.items);
+      window.location.reload();
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
+  const makePayment = async () => {
+    const stripe = await loadStripe("process.env.stripeKey");
+    const body = {
+      products: cart.items,
+    };
+    const headers = { "Content-Type": "application/json" };
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_backend_Link}checkout`,
+      {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify(body),
+      },
+    );
+    const session = await response.json();
+
+    window.location.href = session.url;
+  };
+  useEffect(() => {
+    (async () => {
+      const id = localStorage.getItem("id");
+      const user = await fetch(
+        `${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`,
+      );
+      const data = await user.json();
+
+      setCart(data.cart.cart);
+      console.log(data.cart.cart);
+    })();
+    document.getElementById("brandHead")?.addEventListener("mouseover", () => {
+      document.querySelectorAll("#brandChild").forEach((child) => {
+        child.setAttribute("style", "display:block;");
+      });
+    });
+
+    document
+      .getElementById("categoryHead")
+      ?.addEventListener("mouseover", () => {
+        document.querySelectorAll("#categoryChild").forEach((child) => {
+          child.setAttribute("style", "display:block");
+        });
+      });
+    document.getElementById("catUL")?.addEventListener("mouseleave", () => {
+      document.querySelectorAll("#categoryChild").forEach((child) => {
+        child.setAttribute("style", "display:hidden");
+      });
+    });
+
+    document.getElementById("brandUL")?.addEventListener("mouseleave", () => {
+      document.querySelectorAll("#brandChild").forEach((child) => {
+        child.setAttribute("style", "display:hidden");
+      });
+    });
+  }, []);
+  let index = -1;
+
+  const items: any = cart.items.map((item: any) => {
+    const src = item.images[0];
+    index++;
+    const id = index;
+    const total = item.price * item.stock;
+    console.log(item);
+    return (
+      <>
+        <div className="flex items-center justify-evenly w-[100%] ml-3 border-b-2 border-white border-solid mb-10">
+          <img className="w-[6vw]" src={src} alt={item.name} />
+
+          <h1 className=" text-xl w-[10vw] font-bold">{item.product}</h1>
+          <h2 className=" text-lg font-bold w-10 mr-10">{total.toFixed(2)}</h2>
+          <form onClick={handleSubmit(submitForm)}>
+            <select
+              id={`${id}`}
+              onChange={() => {
+                const obj: any = cart.items;
+                const amount = document.getElementById(
+                  `${id}`,
+                ) as HTMLSelectElement;
+                let cartPrice = cart.price;
+                if (obj[id].amount === amount.value) {
+                  return;
+                } else if (obj[id].amount > amount.value) {
+                  const difference = obj[id].amount - parseInt(amount.value);
+                  const priceDifference = obj[id].price * difference;
+                  obj[id].total = obj[id].total - priceDifference;
+                  obj[id].amount = amount.value;
+                  cartPrice = cartPrice - priceDifference;
+                } else if (obj[id].amount < amount.value) {
+                  const difference = parseInt(amount.value) - obj[id].amount;
+                  obj[id].amount = amount.value;
+                  const addition = obj[id].price * difference;
+                  obj[id].total = obj[id].total + addition;
+                  cartPrice = cartPrice + addition;
                 }
-            })
-            const file = await req.json()
-            console.log(cart.items)
-            window.location.reload()
-        }
-        catch(err: any){
-            console.log(err)
-        }
+                /*                     obj[id].price = obj[id].price*parseInt(amount.value) */
+                setCart({ items: obj, price: cartPrice });
+                handleSubmit(submitForm);
+              }}
+              name=""
+              className="text-black w-16 ml-16 text-center"
+              defaultValue={item.amount}
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
 
-    }
-    const makePayment = async () => {
-        const stripe = await loadStripe('process.env.stripeKey')
-        const body ={
-            products:cart.items
-        }
-        const headers = {'Content-Type':'application/json'}
-        const response = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}checkout`, {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(body)
-        })
-        const session = await response.json()
-        window.location.href =session.url
+            <button
+              type="button"
+              onClick={(event) => {
+                const obj: any = cart.items;
+                if (id == 0) {
+                  if (obj.length === 1) {
+                    setCart({ items: [], price: 0 });
+                    handleSubmit(submitForm);
+                  }
+                  obj.shift();
+                  const price = obj[0].total;
+                  setCart({ items: obj, price: cart.price - price });
+                  return;
+                } else if (id > 0) {
+                  let newPrice = 0;
+                  obj.map((item: any, index: number) => {
+                    if (index === id) {
+                      newPrice = item.total;
+                    }
+                  });
 
-    }
-    useEffect(() => {
-        (async() => {
-            const id = localStorage.getItem("id")
-                 const user = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}cart/${id}`);
-             const data = await user.json();
-            
-             setCart(data.cart.cart);
-         })()
-         document.getElementById("brandHead")?.addEventListener("mouseover", () => {
-            document.querySelectorAll("#brandChild").forEach((child) => {
-                child.setAttribute("style", "display:block;");
-            });
-            });
-        
-            document.getElementById("categoryHead")?.addEventListener("mouseover", () => {
-            document.querySelectorAll("#categoryChild").forEach((child) => {
-                child.setAttribute("style", "display:block");
-            });
-            });
-            document.getElementById("catUL")?.addEventListener("mouseleave", () => {
-            document.querySelectorAll("#categoryChild").forEach((child) => {
-                child.setAttribute("style", "display:hidden");
-            });
-            });
-        
-            document.getElementById("brandUL")?.addEventListener("mouseleave", () => {
-            document.querySelectorAll("#brandChild").forEach((child) => {
-                child.setAttribute("style", "display:hidden");
-            });
-            });
-          
-    }, [])
-    let index = -1
-    
-   const items:any  = cart.items.map((item: any) => {
-    const src = item.image[0]
-    index++
-    const id = index
-   const images = item.image
-         return(
-              <>
-              <div className="flex items-center justify-evenly w-[100%] ml-3 border-b-2 border-white border-solid mb-10">
-                <img className='w-[6vw]' src={src} alt={item.name} />
-                
-                     <h1 className=' text-xl w-[10vw] font-bold'>{item.name}</h1>
-                     <h2 className=' text-lg font-bold w-10 mr-10'>{item.total.toFixed(2)}</h2>
-                <form onClick={handleSubmit(submitForm)}>    
-                   <select id={`${id}`} onChange={() => {
-                    const obj: any = cart.items
-                    const amount = document.getElementById(`${id}`) as HTMLSelectElement
-                    let cartPrice = cart.price
-                    if(obj[id].amount === amount.value){
-                    return
-                    }else if(obj[id].amount > amount.value){
-                    const difference = obj[id].amount-parseInt(amount.value)
-                    const priceDifference = obj[id].price*difference
-                    obj[id].total = obj[id].total-priceDifference
-                    obj[id].amount = amount.value
-                    cartPrice = cartPrice-priceDifference
-                    }
-                    else if(obj[id].amount < amount.value){
-                    const difference = parseInt(amount.value)-obj[id].amount
-                    obj[id].amount = amount.value
-                    const addition = obj[id].price*difference
-                    obj[id].total = obj[id].total+addition
-                    cartPrice = cartPrice+addition
-                    }
-/*                     obj[id].price = obj[id].price*parseInt(amount.value) */
-                    setCart({items: obj, price: cartPrice})
-                    handleSubmit(submitForm)
-                   }} name="" className='text-black w-16 ml-16 text-center' defaultValue={item.amount} >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                   </select>
-                   
-                   <button type='submit'    onClick={(event) => {
-                    const obj: any = cart.items
-                    if(id == 0){
-                        if(obj.length === 1){
-                            setCart({items: [], price: 0})
-                            return
-                        }
-                        obj.shift()
-                        const price = obj[0].total
-                        setCart({items: obj, price: cart.price-price})
-                        return
-                    }
-                   else if(id > 0){
-                    let newPrice = 0
-                    obj.map((item: any, index: number) => {
-                        if(index === id){
-                            newPrice = item.total
-                        }
-                    })
-                     
-              /*   console.log(obj)
+                  /*   console.log(obj)
                   const body = {items: obj.concat(split), price: cart.price-price} */
-                  const item = obj.filter((item: any, index: number) => index != id)
-                    localStorage.setItem('cart', JSON.stringify(item))
-                    localStorage.setItem('price', JSON.stringify(cart.price-newPrice))
-                /*     setCart({items: newItem, price: cart.price -price})
+                  const item = obj.filter(
+                    (item: any, index: number) => index != id,
+                  );
+                  localStorage.setItem("cart", JSON.stringify(item));
+                  localStorage.setItem(
+                    "price",
+                    JSON.stringify(cart.price - newPrice),
+                  );
+                  /*     setCart({items: newItem, price: cart.price -price}) 
                    console.log(cart) */
-                     
-                    handleSubmit(submitForm)  
-                     }   
-                   }} id={`${id}`}>delete </button>
-                </form>     
-              </div>
-              </>
-         )
-   })
-    return(
-        <>
-        <Header />
-        <main  className='brandPage flex'>
-        <div className='flex flex-col bg-[#353935] w-[50%] m-10 text-white p-10'>
-       
-        <div className="flex items-center justify-evenly ml-[100px] w-[100%] ">
-            <h1 className=' text-xl font-bold'>Item</h1>
-            <h2 className=' text-lg font-bold '>Price</h2>
-            <h3 className='font-bold mr-10'>Quantity</h3>
+                  handleSubmit(submitForm);
+                }
+              }}
+              id={`${id}`}
+            >
+              delete{" "}
+            </button>
+          </form>
         </div>
-        <div>
-  
+      </>
+    );
+  });
+  return (
+    <>
+      <Header />
+      <main className="brandPage flex">
+        <div className="flex flex-col bg-[#353935] w-[50%] m-10 text-white p-10">
+          <div className="flex items-center justify-evenly ml-[100px] w-[100%] ">
+            <h1 className=" text-xl font-bold">Item</h1>
+            <h2 className=" text-lg font-bold ">Price</h2>
+            <h3 className="font-bold mr-10">Quantity</h3>
+          </div>
+          <div></div>
+          <form onSubmit={handleSubmit(submitForm)}>
+            {items}
+            <button
+              onClick={makePayment}
+              type="button"
+              className="border-2 border-black border-solid bg-white text-black w-24"
+            >
+              Enter
+            </button>
+          </form>
         </div>
-        <form onSubmit={handleSubmit(submitForm)}>
-        {items}
-        <button onClick={makePayment} type='button' className='border-2 border-black border-solid bg-white text-black w-24' >Enter</button>
-        </form>
+        <div className="flex flex-col bg-white w-[30%] m-10 p-10" id="summary">
+          <div>
+            <h1 className="text-xl font-bold border-solid ">
+              Item Total: {cart.price.toFixed(2)}
+            </h1>
+            <h2 className="text-lg font-bold">
+              Sales Tax: {(cart.price * 0.06).toFixed(2)}{" "}
+            </h2>
+            <h3 className="text-lg font-bold">Shipping: 0</h3>
+            <h4 className="text-lg font-bold">
+              Total: {(cart.price + cart.price * 0.06).toFixed(2)}
+            </h4>
+          </div>
         </div>
-        <div className='flex flex-col bg-white w-[30%] m-10 p-10' id='summary'>
-            <div>
-        <h1 className='text-xl font-bold border-solid '>Item Total: {cart.price.toFixed(2)}</h1>
-        <h2 className='text-lg font-bold'>Sales Tax: {(cart.price*.06).toFixed(2)} </h2>
-        <h3 className='text-lg font-bold'>Shipping: 0</h3>
-        <h4 className='text-lg font-bold'>Total: {(cart.price+(cart.price*.06)).toFixed(2)}</h4>
-        </div>
-        </div>
-        </main>
-        <Footer />
-        </>
-    )
+      </main>
+      <Footer />
+    </>
+  );
 }

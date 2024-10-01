@@ -1,11 +1,10 @@
-'use client'
-import AdminDashboard from '@/components/AdminDashBoard'
- 
+"use client";
+import AdminDashboard from "@/components/AdminDashBoard";
 
-export default function AdminPage(){
-   return(
+export default function AdminPage() {
+  return (
     <>
-    <AdminDashboard/>
+      <AdminDashboard />
     </>
-   )
+  );
 }
