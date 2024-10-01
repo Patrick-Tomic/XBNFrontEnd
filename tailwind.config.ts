@@ -23,7 +23,7 @@ const config: Config = {
       },
       screens: {
         "3xl": "1537px",
-        phone: "320px",
+        'phone': "320px",
       },
     },
   },

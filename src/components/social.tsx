@@ -3,14 +3,10 @@ export default function SocialMedia() {
   return (
     <div className="flex items-center justify-around mt-5 w-[10vw] ml-10">
       <a href="https://www.linkedin.com/company/xtremebody-nutrition-llc/">
-        <button>
-          <svg
-            width="33"
-            height="28"
-            viewBox="0 0 33 28"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
+        <button className="phone:max-w-10">
+          <svg className="phone:w-10 phone:max-h-10"  width="33" height="28" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+           
+          
             <g clipPath="url(#clip0_17_51)">
               <rect width="32.6495" height="28" fill="white" />
               <path
@@ -20,14 +16,14 @@ export default function SocialMedia() {
             </g>
             <defs>
               <clipPath id="clip0_17_51">
-                <rect width="32.6495" height="28" fill="white" />
+                <rect width="12" height="28" fill="white" />
               </clipPath>
             </defs>
           </svg>
         </button>
       </a>
       <a href="https://www.facebook.com/xbnutrition/">
-        <button>
+        <button  className="phone:max-w-10">
           <svg
             width="34"
             height="30"

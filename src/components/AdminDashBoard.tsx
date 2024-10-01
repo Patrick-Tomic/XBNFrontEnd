@@ -416,7 +416,7 @@ const exitForm: any = document.querySelector("#exitForm")
         </button>
       </header>
       <main className="bg-[#343434] min-w-full m-0">
-        <video className="hidden" width="320" height="240" controls>
+        <video className="w-[320px] h-[240px]" width="320" height="240" controls>
           <source src="adminCreate.mp4" type="video/mp4"></source>
         </video>
         <AdminCreate

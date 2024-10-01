@@ -241,14 +241,9 @@ export default function Home() {
             />
           </div>
         </div>
-        <iframe
-          className="xl:h-[620px] sm:w-auto xl:mt-40 md:w-auto lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]  2xl:h-[775px] 2xl:mt-0 "
-          title="vimeo-player"
-          src="https://player.vimeo.com/video/928577228?h=5c2f067c4f"
-          width="900px"
-          height="775"
-          allowFullScreen
-        ></iframe>
+        <video  className="xl:h-[620px] sm:w-auto xl:mt-40 md:w-auto lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]"  controls>
+          <source src="homeVid.mp4" type="video/mp4" />
+        </video>
         <div
           id="homeDescription"
           className=" md:m-10 sm:m-10 lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 "

@@ -4,14 +4,14 @@ import Image from "next/image";
 import xbn from "/public/xbnLogoB.png";
 export default function Footer() {
   return (
-    <footer className="bg-[#353935] sm:text-base  md:text-lg text-white flex text-xl p-16">
-      <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw] ml-24 w-[40%]">
+    <footer className="bg-[#353935] phone:text-sm sm:text-base  md:text-lg text-white flex text-xl p-16">
+      <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw] phone:ml-0 ml-24 w-[40%]">
         <div className="flex-col flex">
           <p className=" font-semibold">
             Tampa Palms - 15309A Amberly Dr. 33647
           </p>
           <a
-            className="ml-10 underline hover:text-orange-500"
+            className="ml-10 underline hover:text-orange-500 phone:ml-0"
             href="tel:813-910-2639"
           >
             (813) 910-2639
@@ -22,7 +22,7 @@ export default function Footer() {
             South Tampa - 4045 S Dale Mabry Hwy 33611
           </p>
           <a
-            className="ml-10 underline hover:text-orange-500"
+            className="ml-10 underline phone:ml-0 hover:text-orange-500"
             href="tel:813-542-4150"
           >
             (813) 542-4150
@@ -31,11 +31,11 @@ export default function Footer() {
       </div>
       <div className="grid grid-cols-2 w-[60%]">
         <Image
-          className="w-[12vw] h-[14vh] md:w-[12vw] sm:h-[12vh] sm:w-[16vw] md:h-[12vh] ml-10"
+          className="w-[12vw] h-[14vh] md:w-[12vw] phone:h-[12vh] phone:w-[20vw] phone:ml-3 sm:h-[12vh] sm:w-[16vw] md:h-[12vh] ml-10"
           src={xbn}
           alt="Logo"
         />
-        <div className="flex  flex-col ml-32 md:ml-16 sm:ml-10 justify-around">
+        <div className="flex  flex-col ml-32 md:ml-16 sm:ml-0 phone:ml-10 phone:mt-10  justify-around">
           <a
             className="underline hover:text-orange-500 w-[200px] md:w-auto"
             href="#"
@@ -43,20 +43,21 @@ export default function Footer() {
             Terms of Services
           </a>
           <a
-            className="underline hover:text-orange-500 w-[200px] md:w-auto"
+            className="underline hover:text-orange-500 w-[200px] md:w-auto md:ml-16 sm:ml-0 phone:ml-10 phone:mt-10 "
             href="#"
           >
             Refund Policy
           </a>
         </div>
-        <h2 className="text-2xl mt-10 sm:text-lg">
+        <h2 className="text-2xl phone:text-xs phone:ml-5 mt-10 sm:text-sm">
           {" "}
           ©2024 Xtreme Body Nutrition
         </h2>
-        <div className="flex items-center justify-between mt-10 w-[10vw] ml-32 md:ml-16 sm:ml-10">
+        <div className="flex items-center justify-between mt-10 w-[10vw] ml-32 md:ml-16 sm:ml-10 phone:ml-10">
           <a href="https://www.linkedin.com/company/xtremebody-nutrition-llc/">
             <button>
               <svg
+              className="phone:w-[30px] md:w-[33px] lg:w-[40px] xl:w-[48px] 2xl:w-48px]"
                 width="48"
                 height="48"
                 viewBox="0 0 48 48"
@@ -80,6 +81,7 @@ export default function Footer() {
           <a href="https://www.facebook.com/xbnutrition/">
             <button>
               <svg
+               className="phone:w-[30px] md:w-[33px] lg:w-[40px] xl:w-[48px] 2xl:w-48px]"
                 width="48"
                 height="48"
                 viewBox="0 0 48 48"
@@ -103,6 +105,7 @@ export default function Footer() {
           <a href="https://www.instagram.com/xtremebodynutrition/?hl=en">
             <button>
               <svg
+               className="phone:w-[30px] md:w-[33px] lg:w-[40px] xl:w-[48px] 2xl:w-48px]"
                 width="48"
                 height="48"
                 viewBox="0 0 48 48"
