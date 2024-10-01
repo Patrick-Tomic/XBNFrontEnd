@@ -1,3 +1,4 @@
+
 import logo from "/public/xbn.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -25,20 +26,7 @@ export default function AdminDashboard() {
     images: [],
     _id: "",
   });
-  document.querySelector("#exitForm")?.addEventListener("click", () => {
-    const obj = {
-      product: "",
-      price: "",
-      brand: "",
-      category: "",
-      summary: "",
-      flavors: [],
-      stock: "",
-      images: [],
-      _id: "",
-    };
-    setNewItem(obj);
-  });
+  
 
   function handleItemChange(e: {
     target: { dataset: { key: any }; value: any };
@@ -119,6 +107,22 @@ export default function AdminDashboard() {
   };
 
   useEffect(() => {
+const exitForm: any = document.querySelector("#exitForm")
+  exitForm?.addEventListener("click", () => {
+    const obj = {
+      product: "",
+      price: "",
+      brand: "",
+      category: "",
+      summary: "",
+      flavors: [],
+      stock: "",
+      images: [],
+      _id: "",
+    };
+    setNewItem(obj);
+  });
+
     const fetchItems = async () => {
       const brandItems = await fetch(
         `${process.env.NEXT_PUBLIC_backend_Link}allitems`,

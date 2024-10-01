@@ -190,7 +190,7 @@ export default function AdminCreate({
             className="border-2 border-solid border-black rounded"
             name="summary"
             data-key="summary"
-            value={summary}
+            defaultValue={summary}
             onChange={onChange}
             cols={60}
             rows={10}

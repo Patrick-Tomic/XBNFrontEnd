@@ -18,8 +18,9 @@ export default function IdentifyAccount() {
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const { errors } = formState;
+  
   const submitForm = async (data: any) => {
-    localStorage.setItem("email", data.email);
+ 
     const formData = JSON.stringify(data);
     try {
       const req = await fetch(
@@ -46,7 +47,10 @@ export default function IdentifyAccount() {
       console.log(err);
     }
   };
-
+  useEffect(() => {
+    const email:any = document.querySelector("#email");
+    localStorage.setItem("email", email.value);
+  },[])
   return (
     <>
       <Header />
