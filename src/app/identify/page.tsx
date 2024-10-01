@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
+import React from "react";
 export default function IdentifyAccount() {
   const validationSchema = Yup.object().shape({
     email: Yup.string(),

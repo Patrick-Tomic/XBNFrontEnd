@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable import/no-absolute-path */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 "use client";
 import Footer from "@/components/footer";
@@ -19,6 +18,7 @@ import imgE from "/public/imgE.jpg";
 import imgF from "/public/imgF.jpg";
 import imgG from "/public/imgG.jpg";
 import { useEffect, useState } from "react";
+import React from "react";
 export default function Home() {
   const [count, setCount] = useState(0);
   useEffect(() => {
@@ -60,111 +60,111 @@ export default function Home() {
       if (count === 0) {
         slideA?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideB?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 1) {
         slideB?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideC?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 2) {
         slideC?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideD?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 3) {
         slideD?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideE?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 4) {
         slideE?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideF?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 5) {
         slideF?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideG?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 6) {
         slideG?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideA?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 7) {
         slideG?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideH?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 8) {
         slideH?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideI?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 9) {
         slideI?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideJ?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       if (count === 10) {
         slideJ?.setAttribute(
           "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear",
+          "opacity:0; visibility:hidden; transition: 0.5s linear"
         );
         slideA?.setAttribute(
           "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s",
+          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
         );
       }
       let num = count + 1;

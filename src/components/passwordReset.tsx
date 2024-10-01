@@ -16,7 +16,7 @@ export default function PasswordReset() {
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
 
-  const submitForm = async (data: { password: any; confirmPassword: any }) => {
+  const submitForm = async (data: any) => {
     const formData = JSON.stringify(data);
 
     if (data.password !== data.confirmPassword) {
@@ -42,7 +42,7 @@ export default function PasswordReset() {
       console.log(err);
     }
   };
-  const email = localStorage.getItem("email");
+  const email:any = localStorage.getItem("email");
   return (
     <main
       className="bg-[#353935] h-[100vh]  justify-center items-center hidden"
