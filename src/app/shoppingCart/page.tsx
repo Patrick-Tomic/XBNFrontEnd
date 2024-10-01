@@ -21,7 +21,7 @@ export default function ShoppingCartPage() {
     items: [],
     price: 0,
   });
-  console.log(cart);
+   
   const validationSchema = Yup.object().shape({});
   const formOptions = { resolver: yupResolver(validationSchema) };
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
@@ -29,15 +29,7 @@ export default function ShoppingCartPage() {
     const id = localStorage.getItem("id");
     let obj = { id: id, cart: cart };
 
-    if (localStorage.getItem("cart") != null) {
-      const Cart = JSON.parse(localStorage.getItem("cart") as string);
-      const newPrice = JSON.parse(localStorage.getItem("price") as string);
-      console.log(typeof newPrice);
-      const newObj = { items: Cart, price: newPrice };
-      obj = { id: id, cart: newObj };
-      localStorage.removeItem("cart");
-      localStorage.removeItem("price");
-    }
+    
 
     const formData = JSON.stringify(obj);
     try {
@@ -115,7 +107,8 @@ export default function ShoppingCartPage() {
   let index = -1;
 
   const items: any = cart.items.map((item: any) => {
-    const src: any = item.images[0];
+   const images:any = item.images
+   const src: any = images
     index++;
     const id = index;
     const total = item.price * item.stock;
@@ -123,10 +116,10 @@ export default function ShoppingCartPage() {
     return (
       <>
         <div className="flex items-center justify-evenly w-[100%] ml-3 border-b-2 border-white border-solid mb-10">
-          <img className="w-[6vw]" src={src} alt={item.name} />
+          <img className="w-[6vw]" src={item.images[0]} alt={item.name} />
 
           <h1 className=" text-xl w-[10vw] font-bold">{item.product}</h1>
-          <h2 className=" text-lg font-bold w-10 mr-10">{total.toFixed(2)}</h2>
+          <h2 className=" text-lg font-bold w-10 mr-10">{item.price.toFixed(2)}</h2>
           <form onClick={handleSubmit(submitForm)}>
             <select
               id={`${id}`}
@@ -172,33 +165,38 @@ export default function ShoppingCartPage() {
                 const obj: any = cart.items;
                 if (id == 0) {
                   if (obj.length === 1) {
-                    setCart({ items: [], price: 0 });
+                    cart.items=[]
+                    cart.price = 0
+                    
+                    console.log(cart)
                     handleSubmit(submitForm);
-                  }
-                  obj.shift();
-                  const price = obj[0].total;
-                  setCart({ items: obj, price: cart.price - price });
-                  return;
-                } else if (id > 0) {
-                  let newPrice = 0;
-                  obj.map((item: any, index: number) => {
+                    return
+                }
+              cart.price-=obj[id].price*obj[id].stock
+              cart.items = obj.filter(
+                (item: any, index: number) => index != id,
+              );
+              handleSubmit(submitForm)
+              }else if (id > 0) {
+                
+                  /* obj.map((item: any, index: number) => {
                     if (index === id) {
-                      newPrice = item.total;
+                      newPrice += item.total;
                     }
-                  });
-
+                    obj.slice()
+                  }); */
+                  const deletedItem = obj[id].price * obj[id].stock;
+            
                   /*   console.log(obj)
                   const body = {items: obj.concat(split), price: cart.price-price} */
                   const item = obj.filter(
                     (item: any, index: number) => index != id,
                   );
-                  localStorage.setItem("cart", JSON.stringify(item));
-                  localStorage.setItem(
-                    "price",
-                    JSON.stringify(cart.price - newPrice),
-                  );
-                  /*     setCart({items: newItem, price: cart.price -price}) 
-                   console.log(cart) */
+                  
+                cart.items = item
+                cart.price = cart.price - deletedItem
+                 
+              
                   handleSubmit(submitForm);
                 }
               }}

@@ -46,7 +46,7 @@ export default function brandPage(req: { params: { id: any } }) {
     fetchItems();
   }, []);
 
-  const div = items.map((item: any) => {
+  const div: any = items.map((item: any) => {
     const images = item.images;
     return (
       <a key={item.product} href={`/item/${item._id}`}>
