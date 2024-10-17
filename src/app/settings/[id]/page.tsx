@@ -118,7 +118,7 @@ export default function UserPage() {
     const objects = purchase.items.map((item: any) => {
       return (
         <div className="flex justify-around w-[50vw]">
-          <Image className="w-20" src={item.images[0]} overrideSrc={`${item.images[0]}`} alt="" />
+          <img className="w-20" src={item.images[0]} alt="" />
           <p>{item.product}</p>
           <p>{item.brand}</p>
 

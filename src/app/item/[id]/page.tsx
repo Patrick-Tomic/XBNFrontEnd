@@ -6,7 +6,6 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import Footer from "@/components/footer";
 import Header from "@/components/header";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -177,8 +176,8 @@ export default function itemDetail(req: { params: { id: any } }) {
   const flavors = product.flavors;
   const productImg = (
     <div id="productImg" className="flex w-[100%] ">
-      <Image id="firstImg" src={imgs[0]} overrideSrc={`${imgs[0]}`} alt="" />
-      <Image id="secondImg" src={imgs[imgs.length - 1]} overrideSrc={`${imgs[imgs.length-1]}`} alt="" />
+      <img id="firstImg" src={imgs[0]} alt="" />
+      <img id="secondImg" src={imgs[imgs.length - 1]} alt="" />
       <div></div>
     </div>
   );
