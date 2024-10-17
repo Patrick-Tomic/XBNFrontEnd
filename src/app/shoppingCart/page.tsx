@@ -6,6 +6,7 @@ import * as Yup from "yup";
 import { set, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loadStripe } from "@stripe/stripe-js";
+import Image from "next/image";
 import React from "react";
 export default function ShoppingCartPage() {
   type item = {
@@ -27,7 +28,7 @@ export default function ShoppingCartPage() {
   const { register, handleSubmit, reset, formState } = useForm(formOptions);
   const submitForm = async (data: any) => {
     const id = localStorage.getItem("id");
-    let obj = { id: id, cart: cart };
+    const obj = { id: id, cart: cart };
 
     
 
@@ -116,7 +117,7 @@ export default function ShoppingCartPage() {
     return (
       <>
         <div className="flex items-center justify-evenly w-[100%] ml-3 border-b-2 border-white border-solid mb-10">
-          <img className="w-[6vw]" src={item.images[0]} alt={item.name} />
+          <Image className="w-[6vw]" src={item.images[0]} alt={item.name} />
 
           <h1 className=" text-xl w-[10vw] font-bold">{item.product}</h1>
           <h2 className=" text-lg font-bold w-10 mr-10">{item.price.toFixed(2)}</h2>

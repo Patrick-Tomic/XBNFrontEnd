@@ -165,7 +165,7 @@ const exitForm: any = document.querySelector("#exitForm")
         id="obj"
         className="flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-orange-500 border-solid"
       >
-        <img
+        <Image
           className="w-[100px] border-2 border-black border-solid"
           src={images[0]}
           alt=""
