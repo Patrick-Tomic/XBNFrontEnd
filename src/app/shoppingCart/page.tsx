@@ -51,7 +51,7 @@ export default function ShoppingCartPage() {
     }
   };
   const makePayment = async () => {
-    const stripe = await loadStripe(`${process.env.stripeKey}`);
+    /* const stripe = await loadStripe(`${process.env.stripeKey}`); */
     const body = {
       products: cart.items,
     };
