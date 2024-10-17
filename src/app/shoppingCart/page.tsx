@@ -117,7 +117,7 @@ export default function ShoppingCartPage() {
     return (
       <>
         <div className="flex items-center justify-evenly w-[100%] ml-3 border-b-2 border-white border-solid mb-10">
-          <Image className="w-[6vw]" src={item.images[0]} alt={item.name} />
+          <Image className="w-[6vw]" src={item.images[0]} overrideSrc={`${item.images[0]}`} alt={item.name} />
 
           <h1 className=" text-xl w-[10vw] font-bold">{item.product}</h1>
           <h2 className=" text-lg font-bold w-10 mr-10">{item.price.toFixed(2)}</h2>

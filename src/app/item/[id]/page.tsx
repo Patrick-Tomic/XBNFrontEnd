@@ -177,8 +177,8 @@ export default function itemDetail(req: { params: { id: any } }) {
   const flavors = product.flavors;
   const productImg = (
     <div id="productImg" className="flex w-[100%] ">
-      <Image id="firstImg" src={imgs[0]} alt="" />
-      <Image id="secondImg" src={imgs[imgs.length - 1]} alt="" />
+      <Image id="firstImg" src={imgs[0]} overrideSrc={`${imgs[0]}`} alt="" />
+      <Image id="secondImg" src={imgs[imgs.length - 1]} overrideSrc={`${imgs[imgs.length-1]}`} alt="" />
       <div></div>
     </div>
   );

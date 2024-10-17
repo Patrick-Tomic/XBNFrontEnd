@@ -168,6 +168,7 @@ const exitForm: any = document.querySelector("#exitForm")
         <Image
           className="w-[100px] border-2 border-black border-solid"
           src={images[0]}
+          overrideSrc={`${images[0]}`}
           alt=""
         />
         <h2 className="w-[200px] mt-9">{item.product}</h2>
