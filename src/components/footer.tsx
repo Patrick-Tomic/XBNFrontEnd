@@ -44,7 +44,7 @@ export default function Footer() {
           </a>
           <a
             className="underline hover:text-orange-500 w-[200px] md:w-auto md:ml-16 sm:ml-0 phone:ml-10 phone:mt-10 "
-            href="#"
+            href="/refunds"
           >
             Refund Policy
           </a>
