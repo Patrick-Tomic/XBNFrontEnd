@@ -9,6 +9,7 @@ export default function Success() {
       const updateUser = await fetch(
         `${process.env.NEXT_PUBLIC_backend_Link}update`,
         {
+          mode:'no-cors',
           method: "POST",
           headers: headers,
           body: JSON.stringify({
