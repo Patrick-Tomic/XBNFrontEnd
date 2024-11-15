@@ -27,6 +27,7 @@ export default function Success() {
         `${process.env.NEXT_PUBLIC_backend_Link}shipping`,
         {
           method: "POST",
+          mode:'no-cors',
           headers: headers,
           body: JSON.stringify({ id: localStorage.getItem("id") }),
         },
