@@ -9,7 +9,7 @@ export default function RefundPolicy(){
             <h1 className="text-2xl font-bold mb-10">
                 Refund Policy
             </h1>
-            <p className="w-[40vw] text-xl">None opened products can be exchanged in store or shipped back for credit. Any opened products can not be refunded or exchanges unless product is out of date, opened or damage</p>
+            <p className="w-[40vw] text-xl">Unopened products can be exchanged in store or shipped back for credit. Any opened products can not be refunded or exchanged unless the product is out of date, opened or damage</p>
         </main>
         <Footer/>
         

@@ -69,6 +69,7 @@ export default function Contact(){
         <>
         <Header />
         <main>
+            
             <form className="border-2 border-black border-solid" onSubmit={handleSubmit(submitForm)}>
                 <div className="flex flex-col">
                     <label htmlFor="email">

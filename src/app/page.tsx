@@ -256,12 +256,14 @@ export default function Home() {
             <p className="text-orange-400 text-xl font-bold 2xl:text-lg ">
               Our mission at Xtreme Body Nutrition is to develop an
               individualized supplement stack that fits your lifestyle, fitness
-              goals, and training style to help your reach your goals! We pride
+              goals, and training style to help you reach your goals! We pride
               ourselves on always bringing in high-quality products, and
               providing helpful employee knowledge which created the fantastic
               customer retention over the years. <br></br> <br></br>
+          
               We want to be a resource for you. Come in and chat with us today
               and make your health and fitness dream a reality!
+              
             </p>
           </div>
         </div>
