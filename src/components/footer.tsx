@@ -4,8 +4,8 @@ import Image from "next/image";
 import xbn from "/public/xbnLogoB.png";
 export default function Footer() {
   return (
-    <footer className="bg-[#353935] phone:text-sm sm:text-base  md:text-lg text-white flex text-xl p-16">
-      <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw] phone:ml-0 ml-24 w-[40%]">
+    <footer className="bg-[#353935] phone:text-sm sm:text-base  md:text-lg text-white flex text-xl p-16 ">
+      <div className=" flex-col flex justify-around items-center md:w-[30vw] sm:w-[25vw] phone:ml-0 ml-25 w-[40%]">
         <div className="flex-col flex">
           <p className=" font-semibold">
             Tampa Palms - 15309A Amberly Dr. 33647

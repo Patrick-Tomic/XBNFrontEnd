@@ -7,6 +7,21 @@ import { useEffect } from "react";
 export default function UserMenu() {
   useEffect(() => {
     document
+      .getElementById("settingAnchor")
+      ?.addEventListener("mouseover", () => {
+        document
+          .getElementById("divSetting")
+          ?.setAttribute("style", "transform:scaleX(1);");
+      });
+    document
+      .getElementById("settingAnchor")
+      ?.addEventListener("mouseout", () => {
+        document
+          .getElementById("divSetting")
+          ?.setAttribute("style", "transform:scaleX(.5);");
+      });
+    
+    document
       .getElementById("brandAnchor")
       ?.addEventListener("mouseover", () => {
         document
@@ -56,11 +71,13 @@ export default function UserMenu() {
           .getElementById("divContact")
           ?.setAttribute("style", "transform:scaleX(.5);");
       });
+      
   });
+  
   return (
     <div
       id="userClass"
-      className="z-[11] absolute flex border-2 border-solid origin-right border-black font-[Junge] bg-[#FFFBD6] w-[400px] h-[100%] scale-x-0 transition-all duration-[.5s] ease-in-out flex-col
+      className="z-[11] absolute flex border-2 border-solid origin-right border-black font-[Junge] bg-[#FFFBD6] w-[417px] h-[100%] scale-x-0 transition-all duration-[.5s] ease-in-out flex-col
         lg:text-xl md:text-xl sm:text-xl max-[640px]:text-xl
         "
     >
@@ -85,7 +102,8 @@ export default function UserMenu() {
           <Image src={X} alt="X" />
         </button>
       </div>
-      <div className="flex  flex-col justify-around">
+      <div className="h-[60%] ">
+      <div className="flex pt-10 mb-10  flex-col justify-around">
         <a id="brandAnchor" href="#">
           Brands
         </a>
@@ -94,7 +112,7 @@ export default function UserMenu() {
           className="border-b-2 w-[50%] ml-1 scale-[.5] solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black"
         ></div>
       </div>
-      <div>
+      <div className="flex pt-10 mb-10  flex-col justify-around">
         <a id="catAnchor" href="#">
           Categories
         </a>
@@ -103,7 +121,7 @@ export default function UserMenu() {
           id="divCategory"
         ></div>
       </div>
-      <div>
+      <div className="flex pt-10 mb-10  flex-col justify-around">
         <a id="productAnchor" href="#">
           All Products
         </a>
@@ -112,7 +130,7 @@ export default function UserMenu() {
           id="divProducts"
         ></div>
       </div>
-      <div>
+      <div className="flex pt-10 mb-10  flex-col justify-around">
         <a id="contactAnchor" href="#">
           Contact Us
         </a>
@@ -120,6 +138,14 @@ export default function UserMenu() {
           className="border-b-2 w-[50%] scale-[.5] ml-1 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black"
           id="divContact"
         ></div>
+      </div>
+      <div className="flex pt-10 mb-10  flex-col justify-around">
+      <a id="settingAnchor" href={`/settings/${localStorage.getItem("id")}`}>Settings</a>
+        <div
+          className="border-b-2 w-[50%] scale-[.5] ml-1 solid border-2 ease-in-out transition-all delay-[.1s] origin-left border-black"
+          id="divSetting"
+        ></div>
+      </div>
       </div>
       <div className="flex">
         <button
@@ -132,13 +158,7 @@ export default function UserMenu() {
         >
           Logout
         </button>
-        <button
-          onClick={() => {
-            window.location.href = `/settings/${localStorage.getItem("id")}`;
-          }}
-        >
-          Settings
-        </button>
+        
       </div>
       <div className="flex startingBtns justify-center max-[640px]:justify-start  sm:justify-start md:justify-start lg:justify-start mt-2">
         <button

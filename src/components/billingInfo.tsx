@@ -215,7 +215,11 @@ export default function BillingDetails({ user }: any) {
           >
             Enter
           </button>
-          <button className=" w-[100px] h-[40px] rounded-md bg-red-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white">
+          <button type='reset' onClick={()=> {
+           document
+           .getElementById("createBillInfo")
+           ?.setAttribute("style", "display:hidden");
+          }} className=" w-[100px] h-[40px] rounded-md bg-red-500 font-bold hover:bg-[#353935] transition-all ease-in-out hover:text-white">
             Cancel
           </button>
         </div>

@@ -1,25 +1,21 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export default function SocialMedia() {
   return (
-    <div className="flex items-center justify-around mt-5 w-[10vw] ml-10">
+    <div className="flex items-center justify-around mt-5 w-[15vw] ml-10">
       <a href="https://www.linkedin.com/company/xtremebody-nutrition-llc/">
         <button className="phone:max-w-10">
-          <svg className="phone:w-10 phone:max-h-10"  width="33" height="28" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-           
-          
-            <g clipPath="url(#clip0_17_51)">
-              <rect width="32.6495" height="28" fill="white" />
-              <path
-                d="M30.2327 0H2.41045C1.07769 0 0 0.902346 0 2.01797V25.9765C0 27.0922 1.07769 28 2.41045 28H30.2327C31.5654 28 32.6495 27.0922 32.6495 25.982V2.01797C32.6495 0.902346 31.5654 0 30.2327 0ZM9.68643 23.8601H4.84004V10.4945H9.68643V23.8601ZM7.26323 8.67347C5.70729 8.67347 4.45105 7.59611 4.45105 6.26716C4.45105 4.93828 5.70729 3.86094 7.26323 3.86094C8.81285 3.86094 10.069 4.93828 10.069 6.26716C10.069 7.59062 8.81285 8.67347 7.26323 8.67347ZM27.8222 23.8601H22.9822V17.3633C22.9822 15.8156 22.9503 13.8195 20.4634 13.8195C17.9445 13.8195 17.5618 15.5094 17.5618 17.2539V23.8601H12.7282V10.4945H17.3706V12.3211H17.4343C18.0784 11.2711 19.6598 10.161 22.0129 10.161C26.9167 10.161 27.8222 12.9281 27.8222 16.5266V23.8601Z"
-                fill="black"
-              />
-            </g>
-            <defs>
-              <clipPath id="clip0_17_51">
-                <rect width="12" height="28" fill="white" />
-              </clipPath>
-            </defs>
-          </svg>
+        <svg width="33" height="28" viewBox="0 0 33 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_17_51)">
+<rect width="32.6495" height="28" fill="white"/>
+<path d="M30.2327 0H2.41045C1.07769 0 0 0.902346 0 2.01797V25.9765C0 27.0922 1.07769 28 2.41045 28H30.2327C31.5654 28 32.6495 27.0922 32.6495 25.982V2.01797C32.6495 0.902346 31.5654 0 30.2327 0ZM9.68643 23.8601H4.84004V10.4945H9.68643V23.8601ZM7.26323 8.67347C5.70729 8.67347 4.45105 7.59611 4.45105 6.26716C4.45105 4.93828 5.70729 3.86094 7.26323 3.86094C8.81285 3.86094 10.069 4.93828 10.069 6.26716C10.069 7.59062 8.81285 8.67347 7.26323 8.67347ZM27.8222 23.8601H22.9822V17.3633C22.9822 15.8156 22.9503 13.8195 20.4634 13.8195C17.9445 13.8195 17.5618 15.5094 17.5618 17.2539V23.8601H12.7282V10.4945H17.3706V12.3211H17.4343C18.0784 11.2711 19.6598 10.161 22.0129 10.161C26.9167 10.161 27.8222 12.9281 27.8222 16.5266V23.8601Z" fill="black"/>
+</g>
+<defs>
+<clipPath id="clip0_17_51">
+<rect width="32.6495" height="28" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+
         </button>
       </a>
       <a href="https://www.facebook.com/xbnutrition/">
