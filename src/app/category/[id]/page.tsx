@@ -1,8 +1,6 @@
-/* eslint-disable no-useless-return */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable @typescript-eslint/no-floating-promises */
 "use client";
-
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import React from "react";
@@ -10,58 +8,54 @@ import { useEffect, useState } from "react";
 
 export default function categoryPage(req: { params: { id: any } }) {
   const [items, setItems] = useState([]);
+
   useEffect(() => {
     (async () => {
-      const categoryItems = await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_backend_Link}category/${req.params.id}`,
       );
-      const data = await categoryItems.json();
-      const items = data.items;
-      setItems(items);
-      return;
+      const data = await res.json();
+      setItems(data.items);
     })();
+
     document.getElementById("brandHead")?.addEventListener("mouseover", () => {
-      document.querySelectorAll("#brandChild").forEach((child) => {
-        child.setAttribute("style", "display:block;");
-      });
+      document.querySelectorAll("#brandChild").forEach((c) => c.setAttribute("style", "display:block;"));
     });
-
-    document
-      .getElementById("categoryHead")
-      ?.addEventListener("mouseover", () => {
-        document.querySelectorAll("#categoryChild").forEach((child) => {
-          child.setAttribute("style", "display:block");
-        });
-      });
+    document.getElementById("categoryHead")?.addEventListener("mouseover", () => {
+      document.querySelectorAll("#categoryChild").forEach((c) => c.setAttribute("style", "display:block"));
+    });
     document.getElementById("catUL")?.addEventListener("mouseleave", () => {
-      document.querySelectorAll("#categoryChild").forEach((child) => {
-        child.setAttribute("style", "display:hidden");
-      });
+      document.querySelectorAll("#categoryChild").forEach((c) => c.setAttribute("style", "display:hidden"));
     });
-
     document.getElementById("brandUL")?.addEventListener("mouseleave", () => {
-      document.querySelectorAll("#brandChild").forEach((child) => {
-        child.setAttribute("style", "display:hidden");
-      });
+      document.querySelectorAll("#brandChild").forEach((c) => c.setAttribute("style", "display:hidden"));
     });
   }, []);
-  const div = items.map((item: any) => {
-    const images = item.images;
-    return (
-      <a key={item.product} href={`/item/${item._id}`}>
-        <div className="w-[25vw] xl:ml-0 md:w-[80%] md:ml-[10vw] sm:w-[80%] sm:ml-[10vw] phone:ml-10 phone:w-[80%]  bg-white p-3 border-gray-500 border-solid border-2 rounded-xl flex flex-col justify-center items-center">
-          <img className="2xl:w-[8vw] xl:w-[10vw] md:max-w-[100vw] md:w-[15vw] sm:w-[15vw] phone:w-[20vw] phone:max-w-[100vw] phone:text-base  h-[20vh] mb-10" src={`${images[0]}`} alt="" />
-          <h2 className="text-2xl phone:text-base md:text-lg font-bold">{item.product} </h2>
-          <p className="text-xl md:text-lg">{item.price}</p>
+
+  const cards = items.map((item: any) => (
+    <a key={item.product} href={`/item/${item._id}`} className="group">
+      <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-5 flex flex-col items-center gap-4 hover:border-[#ff4d00] transition-all duration-200 shadow-[0_2px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_24px_rgba(255,77,0,0.15)]">
+        <img
+          className="h-[180px] w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+          src={item.images[0]}
+          alt={item.product}
+        />
+        <div className="w-full text-center border-t border-[#2a2a2a] pt-4">
+          <h2 className="text-white font-semibold text-base leading-snug">{item.product}</h2>
+          <p className="text-[#ff4d00] font-bold text-lg mt-1">${item.price}</p>
         </div>
-      </a>
-    );
-  });
+      </div>
+    </a>
+  ));
 
   return (
     <>
       <Header />
-      <main className="h-[100%] 2x:ml-[-10vw] lg:grid-cols-2 md:grid-cols-1 phone:grid-cols-1 sm:grid-cols-1 grid gap-10 2xl:grid-cols-3 brandPage">{div}</main>
+      <main className="bg-[#0a0a0a] min-h-screen px-[5vw] py-12">
+        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
+          {cards}
+        </div>
+      </main>
       <Footer />
     </>
   );

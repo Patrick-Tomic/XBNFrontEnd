@@ -19,255 +19,137 @@ import imgF from "/public/imgF.jpg";
 import imgG from "/public/imgG.jpg";
 import { useEffect, useState } from "react";
 import React from "react";
+
 export default function Home() {
   const [count, setCount] = useState(0);
+
   useEffect(() => {
     document.getElementById("brandHead")?.addEventListener("mouseover", () => {
       document.querySelectorAll("#brandChild").forEach((child) => {
         child.setAttribute("style", "display:block;");
       });
     });
-
-    document
-      .getElementById("categoryHead")
-      ?.addEventListener("mouseover", () => {
-        document.querySelectorAll("#categoryChild").forEach((child) => {
-          child.setAttribute("style", "display:block");
-        });
+    document.getElementById("categoryHead")?.addEventListener("mouseover", () => {
+      document.querySelectorAll("#categoryChild").forEach((child) => {
+        child.setAttribute("style", "display:block");
       });
+    });
     document.getElementById("catUL")?.addEventListener("mouseleave", () => {
       document.querySelectorAll("#categoryChild").forEach((child) => {
         child.setAttribute("style", "display:hidden");
       });
     });
-
     document.getElementById("brandUL")?.addEventListener("mouseleave", () => {
       document.querySelectorAll("#brandChild").forEach((child) => {
         child.setAttribute("style", "display:hidden");
       });
     });
+
     setTimeout(() => {
-      const slideA = document.querySelector(".slideA");
-      const slideB = document.querySelector(".slideB");
-      const slideC = document.querySelector(".slideC");
-      const slideD = document.querySelector(".slideD");
-      const slideE = document.querySelector(".slideE");
-      const slideF = document.querySelector(".slideF");
-      const slideG = document.querySelector(".slideG");
-      const slideH = document.querySelector(".slideH");
-      const slideI = document.querySelector(".slideI");
-      const slideJ = document.querySelector(".slideJ");
-      if (count === 0) {
-        slideA?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideB?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
+      const slides = ["slideA","slideB","slideC","slideD","slideE","slideF","slideG","slideH","slideI","slideJ"];
+      const show = (cls: string) => document.querySelector(`.${cls}`)?.setAttribute("style","opacity:1; visibility:visible; transition: 0.5s linear 0.5s");
+      const hide = (cls: string) => document.querySelector(`.${cls}`)?.setAttribute("style","opacity:0; visibility:hidden; transition: 0.5s linear");
+
+      const sequence: [string, string][] = [
+        ["slideA","slideB"],["slideB","slideC"],["slideC","slideD"],["slideD","slideE"],
+        ["slideE","slideF"],["slideF","slideG"],["slideG","slideA"],["slideG","slideH"],
+        ["slideH","slideI"],["slideI","slideJ"],["slideJ","slideA"],
+      ];
+
+      if (count < sequence.length) {
+        hide(sequence[count][0]);
+        show(sequence[count][1]);
       }
-      if (count === 1) {
-        slideB?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideC?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 2) {
-        slideC?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideD?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 3) {
-        slideD?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideE?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 4) {
-        slideE?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideF?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 5) {
-        slideF?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideG?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 6) {
-        slideG?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideA?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 7) {
-        slideG?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideH?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 8) {
-        slideH?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideI?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 9) {
-        slideI?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideJ?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      if (count === 10) {
-        slideJ?.setAttribute(
-          "style",
-          "opacity:0; visibility:hidden; transition: 0.5s linear"
-        );
-        slideA?.setAttribute(
-          "style",
-          "opacity:1; visibility:visible; transition: 0.5s linear 0.5s"
-        );
-      }
-      let num = count + 1;
-      if (count === 10) {
-        num = 0;
-        setCount(num);
-      } else {
-        setCount(num);
-      }
+
+      const num = count === 10 ? 0 : count + 1;
+      setCount(num);
     }, 5000);
   });
+
   return (
     <>
       <Header />
 
-      <main className="md:flex md:flex-col sm:flex-col md:items-center sm:flex sm:items-center lg:items-center lg:flex lg:flex-col xl:grid p-0 m-0 grid-cols-2 pb-10">
-        <div
+      <main className="bg-[#0a0a0a] m-0 p-0 flex flex-col">
+        {/* ── Hero Slider ── */}
+        <section
           id="imageSlider"
-          className="col-span-2 p-10 w-[100%] sm:p-0 max-[640px]:p-0  bg-[#343434]"
+          className="w-screen border-b border-[#1e1e1e] overflow-hidden"
+          style={{ height: "100vh" }}
         >
           <div
             id="wrap"
-            className=" 2xl:h-[720px] xl:h-[720px] lg:h-[720px] md:h-[550px] sm:h-[550px]  w-[57.5%]   "
+            className="relative w-full h-full"
           >
-            <Image
-              className="slideA rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[9] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              alt="pre"
-              src={pre}
-            />
-            <Image
-              className="slideB rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[8] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgC}
-              alt="aminos"
-            />
-            <Image
-              className="slideC rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[7] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={supps}
-              alt="supps"
-            />
-            <Image
-              className="slideD rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[6] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgA}
-              alt="imgA"
-            />
-            <Image
-              className="slideE rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[5] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgB}
-              alt="imgB"
-            />
-            <Image
-              className="slideF invisible rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[4] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={aminos}
-              alt="imgC"
-            />
-            <Image
-              className="slideG rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[3] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgD}
-              alt="imgD"
-            />
-            <Image
-              className="slideH rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[2] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgE}
-              alt="imgE"
-            />
-            <Image
-              className="slideI rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[1] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgF}
-              alt="imgF"
-            />
-            <Image
-              className="slideJ rounded-md absolute 2xl:w-[1008px] xl:w-[1008px] max-h-[700px] z-[auto] left-[25%] xl:left-[20%] lg:w-[882px] lg:left-[10%] md:left-[10%] md:w-[706px] sm:left-0 "
-              src={imgG}
-              alt="imgG"
-            />
+            {[
+              { cls: "slideA", src: pre, alt: "pre" },
+              { cls: "slideB", src: imgC, alt: "aminos" },
+              { cls: "slideC", src: supps, alt: "supps" },
+              { cls: "slideD", src: imgA, alt: "imgA" },
+              { cls: "slideE", src: imgB, alt: "imgB" },
+              { cls: "slideF invisible", src: aminos, alt: "imgC" },
+              { cls: "slideG", src: imgD, alt: "imgD" },
+              { cls: "slideH", src: imgE, alt: "imgE" },
+              { cls: "slideI", src: imgF, alt: "imgF" },
+              { cls: "slideJ", src: imgG, alt: "imgG" },
+            ].map(({ cls, src, alt }) => (
+              <Image
+                key={cls}
+                className={`${cls} absolute inset-0 w-full h-full object-cover`}
+                alt={alt}
+                src={src}
+                fill
+                sizes="100vw"
+                style={{ objectFit: "cover" }}
+              />
+            ))}
           </div>
-        </div>
-        <video  className="xl:h-[620px] sm:w-auto xl:mt-40 md:w-auto lg:w-auto ml-0 xl:ml-52 xl:w-[500px] 2xl:w-[500px]"  controls>
-          <source src="homeVid.mp4" type="video/mp4" />
-        </video>
-        <div
-          id="homeDescription"
-          className=" md:m-10 sm:m-10 lg:m-10 xl:w-[25vw] flex flex-col items-center justify-start 2xl:w-[30vw] ml-32 "
-        >
-          <Image className="w-[15vw] h-[15vh]" src={xbn} alt={""} />
-          <div className="border-solid border-gray-600 border-2 flex flex-col justify-center items-center bg-[#353935]">
-            <h1 className=" z-[1]absolute p-3 border-4 border-solid border-orange-400 bg-white top-[38%] text-3xl text-orange-400 font-bold bg-">
-              Our Promise
-            </h1>
-            <p className="text-orange-400 text-xl font-bold 2xl:text-lg ">
-              Our mission at Xtreme Body Nutrition is to develop an
-              individualized supplement stack that fits your lifestyle, fitness
-              goals, and training style to help you reach your goals! We pride
-              ourselves on always bringing in high-quality products, and
-              providing helpful employee knowledge which created the fantastic
-              customer retention over the years. <br></br> <br></br>
-          
-              We want to be a resource for you. Come in and chat with us today
-              and make your health and fitness dream a reality!
-              
-            </p>
+        </section>
+
+        {/* ── Content Row ── */}
+        <section className="flex flex-col xl:flex-row gap-12 px-[5vw] py-16">
+          {/* Video */}
+          <div className="flex-1 flex justify-center">
+            <video
+              className="rounded-xl w-full max-w-[500px] h-auto border border-[#1e1e1e] shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+              controls
+            >
+              <source src="homeVid.mp4" type="video/mp4" />
+            </video>
           </div>
-        </div>
+
+          {/* Our Promise */}
+          <div
+            id="homeDescription"
+            className="flex-1 flex flex-col items-center gap-6 max-w-[500px] mx-auto"
+          >
+            <Image className="w-[140px] h-auto object-contain opacity-80" src={xbn} alt="XBN" />
+
+            <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-8 flex flex-col gap-4 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+              <div className="flex items-center gap-3">
+                <div className="h-px flex-1 bg-[#ff4d00] opacity-40" />
+                <h1 className="text-[#ff4d00] font-bebas tracking-[0.2em] text-2xl uppercase">
+                  Our Promise
+                </h1>
+                <div className="h-px flex-1 bg-[#ff4d00] opacity-40" />
+              </div>
+              <p className="text-[#a3a3a3] text-base leading-relaxed">
+                Our mission at Xtreme Body Nutrition is to develop an
+                individualized supplement stack that fits your lifestyle, fitness
+                goals, and training style to help you reach your goals! We pride
+                ourselves on always bringing in high-quality products, and
+                providing helpful employee knowledge which created the fantastic
+                customer retention over the years.
+              </p>
+              <p className="text-[#a3a3a3] text-base leading-relaxed">
+                We want to be a resource for you. Come in and chat with us today
+                and make your health and fitness dream a reality!
+              </p>
+            </div>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </>
   );

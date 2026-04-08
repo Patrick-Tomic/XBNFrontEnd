@@ -1,144 +1,194 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Belleza&family=Quicksand:wght@300..700&family=Ysabeau+SC:wght@1..1000&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Junge&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap");
+
+/* ─── Base ─────────────────────────────────────────── */
 html {
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-#loginForm {
-  box-shadow: #464241 1px 1px 10px 1px;
-}
+/* ─── Header ─────────────────────────────────────────── */
 header {
-  #brandDiv {
-    scrollbar-width: thin;
-  }
   font-family: "Bebas Neue", system-ui;
   font-size: x-large;
   font-weight: bold;
   z-index: 10;
-  background: white;
-  box-shadow: 1px 10px 10px 1px orange;
+  background: #0f0f0f;
+  border-bottom: 1px solid #1e1e1e;
   position: sticky;
   top: 0;
+
+  #brandDiv {
+    scrollbar-width: thin;
+    scrollbar-color: #2a2a2a #111111;
+  }
+
   ul {
     div {
-      background: white;
-      /*   border: #353935 1px solid; */
+      background: #111111;
+      border: 1px solid #2a2a2a;
       z-index: 4;
+
       li {
         font-weight: normal;
+        color: #a3a3a3;
+        transition: color 0.2s ease;
       }
+
       li:hover {
-        text-decoration: underline orange 2px;
+        color: #ff4d00;
+        text-decoration: none;
       }
     }
   }
 
   #startingBtns {
     button:hover {
-      transition: all ease-in-out 0.5s;
-      background: #f28c28;
+      background: #ff4d00;
+      color: white;
+      transition: all 0.25s ease-in-out;
     }
+
     button {
-      transition: all 0.5s ease-in-out;
+      transition: all 0.25s ease-in-out;
     }
   }
 }
+
+/* ─── Login Modal ─────────────────────────────────────────── */
+#loginForm {
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 1px rgba(255, 77, 0, 0.3);
+}
+
+/* ─── Product Detail ─────────────────────────────────────────── */
 .itemDetail {
-  background: linear-gradient(#f6e4c8, #faa11b);
+  background: var(--bg-base);
 }
+
+/* ─── Brand / Category Listing Page ─────────────────────────────────────────── */
 .brandPage {
-  background: linear-gradient(#464241 40%, #ff6726);
+  background: var(--bg-base);
+  padding: 40px 5vw;
 }
+
+/* ─── Main Layout ─────────────────────────────────────────── */
 main {
+  background: var(--bg-base);
+
   #imageSlider {
-    box-shadow: 1px 10px 10px 1px orange;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
     margin-bottom: 5vh;
   }
-  //slide drop hit the folks dont stop
+
   #addToCart:hover {
-    background: orange;
+    background: #ff4d00;
     color: white;
+    border-color: #ff4d00;
   }
+
   #homeDescription {
     div {
       h1 {
-        border-radius: 5px;
+        border-radius: 4px;
       }
-      padding: 50px 50px;
-      border-radius: 15px;
+      padding: 40px 48px;
+      border-radius: 12px;
     }
   }
+
   display: grid;
   padding: 5vh 5vw;
   grid-template-columns: 1fr 1fr;
-  background: #faf9f6;
+
   #productImg {
     img {
       max-width: 25vw;
     }
   }
+
   .signup {
-    background: #b2beb5;
+    background: #111111;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+
     div {
       width: 25vw;
+
       label {
         width: 20vw;
         font-weight: 600;
         font-size: x-large;
+        color: #ffffff;
       }
+
       input {
         margin-left: 10px;
+        background: #1a1a1a;
+        border: 1px solid #2a2a2a;
+        color: #ffffff;
+        border-radius: 6px;
+        padding: 4px 8px;
       }
     }
+
     button {
-      border: solid 2px black;
-      border-radius: 5px;
+      border: 1px solid #ff4d00;
+      border-radius: 6px;
       width: 10vw;
       height: 5vh;
-      background: white;
-    }
-  }
-}
-footer {
-  svg:hover {
-    path {
-      fill: #ff6726;
+      background: transparent;
+      color: #ff4d00;
+      font-weight: 600;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background: #ff4d00;
+        color: white;
+      }
     }
   }
 }
 
-@media (max-width: 640px) {
-  footer {
+/* ─── Footer ─────────────────────────────────────────── */
+footer {
+  svg:hover {
+    path {
+      fill: #ff4d00;
+      transition: fill 0.2s ease;
+    }
   }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 640px) {
   main {
     display: flex;
     flex-direction: column;
     align-items: center;
+
     div {
       height: 400px;
 
       div {
         img {
           width: 378px;
-
           left: 0;
         }
         height: 600px;
       }
     }
+
     iframe {
       margin-top: 5vh;
       height: 500px;
     }
+
     #homeDescription {
       margin: 10vh 10vw;
       margin-bottom: 30vh;
+
       img {
         width: 200px;
       }
@@ -146,12 +196,14 @@ footer {
       h1 {
         font-size: large;
       }
+
       p {
         font-size: medium;
       }
     }
   }
 }
+
 @media (max-width: 500px) {
   main {
     #homeDescription {
@@ -161,6 +213,7 @@ footer {
     }
   }
 }
+
 @media (max-width: 380px) {
   main {
     div {
@@ -176,9 +229,11 @@ footer {
         height: 600px;
       }
     }
+
     #homeDescription {
       margin: 10vh 10vw;
       margin-bottom: 50vh;
+
       img {
         width: 200px;
       }
@@ -186,6 +241,7 @@ footer {
       h1 {
         font-size: medium;
       }
+
       p {
         font-size: xx-small;
       }
