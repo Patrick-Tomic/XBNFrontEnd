@@ -32,11 +32,14 @@ export default function itemDetail(req: { params: { id: any } }) {
     const id = localStorage.getItem("id");
     const obj = { product, flavor: data.flavor, amount: data.amount, price: product.price, itemID, id };
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addcart`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addcart`, {
         method: "POST",
         body: JSON.stringify(obj),
         headers: { "Content-Type": "application/json" },
       });
+      if (res.ok) {
+        window.dispatchEvent(new CustomEvent("cart-added"));
+      }
     } catch (err) {
       console.log(err);
     }
@@ -74,8 +77,6 @@ export default function itemDetail(req: { params: { id: any } }) {
       document.getElementById("productImg")?.setAttribute("style", `transform:translateX(-${vw}px);transition: transform 0.5s ease-in-out;`);
     });
 
-    const imgWidth: any = document.getElementById("productImg")?.clientWidth;
-    document.getElementById("imgWrap")?.setAttribute("style", `max-width:${imgWidth / 2}px`);
   }, []);
 
   const imgs = product.images;
@@ -90,11 +91,11 @@ export default function itemDetail(req: { params: { id: any } }) {
       <Header />
       <main className="bg-[#0a0a0a] min-h-screen py-12 px-[5vw]" suppressHydrationWarning>
         <div
-          className="bg-[#111111] border border-[#2a2a2a] rounded-2xl overflow-hidden flex flex-col lg:flex-row shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+          className="max-w-9xl mx-auto bg-[#111111] overflow-hidden border border-[#2a2a2a] rounded-2xl  flex flex-col lg:flex-row shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
           suppressHydrationWarning
         >
           {/* Image Panel */}
-          <div className="flex-1 bg-[#0f0f0f] flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-[#1e1e1e] min-h-[400px]">
+          <div className="flex-1 bg-[#0f0f0f] flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-[#1e1e1e] min-h-[600px]">
             <div className="flex items-center gap-4 w-full">
               <button
                 id="leftBtn"
@@ -109,10 +110,10 @@ export default function itemDetail(req: { params: { id: any } }) {
                 </svg>
               </button>
 
-              <div id="imgWrap" className="flex overflow-hidden flex-1">
-                <div id="productImg" className="flex w-full">
-                  <img id="firstImg" src={imgs[0]} alt="" className="w-full object-contain max-h-[500px]" />
-                  <img id="secondImg" src={imgs[imgs.length - 1]} alt="" className="w-full object-contain max-h-[500px]" />
+              <div id="imgWrap" className="overflow-hidden w-full">
+                <div id="productImg" className="flex">
+                  <img id="firstImg" src={imgs[0]} alt="" className="min-w-full object-contain max-h-[700px]" />
+                  <img id="secondImg" src={imgs[imgs.length - 1]} alt="" className="min-w-full object-contain max-h-[700px]" />
                 </div>
               </div>
 
@@ -133,7 +134,7 @@ export default function itemDetail(req: { params: { id: any } }) {
 
           {/* Info Panel */}
           <div
-            className="flex flex-col justify-between gap-8 p-10 lg:w-[420px]"
+            className="flex flex-col gap-8 p-10 lg:w-[460px] flex-shrink-0 overflow-y-auto"
             id="rightItemDesc"
             suppressHydrationWarning
           >

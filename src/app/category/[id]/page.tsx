@@ -36,7 +36,7 @@ export default function categoryPage(req: { params: { id: any } }) {
     <a key={item.product} href={`/item/${item._id}`} className="group">
       <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-5 flex flex-col items-center gap-4 hover:border-[#ff4d00] transition-all duration-200 shadow-[0_2px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_24px_rgba(255,77,0,0.15)]">
         <img
-          className="h-[180px] w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+          className="h-[280px] w-auto object-contain group-hover:scale-105 transition-transform duration-300"
           src={item.images[0]}
           alt={item.product}
         />
@@ -52,7 +52,7 @@ export default function categoryPage(req: { params: { id: any } }) {
     <>
       <Header />
       <main className="bg-[#0a0a0a] min-h-screen px-[5vw] py-12">
-        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
+        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
           {cards}
         </div>
       </main>

@@ -52,6 +52,16 @@ export default function Header() {
   };
 
   useEffect(() => {
+    const handleCartAdded = () => {
+      const cartEl = document.getElementById("cart");
+      if (!cartEl) return;
+      cartEl.classList.remove("cart-shake");
+      void cartEl.offsetWidth; // reflow to restart animation if triggered quickly
+      cartEl.classList.add("cart-shake");
+      cartEl.addEventListener("animationend", () => cartEl.classList.remove("cart-shake"), { once: true });
+    };
+    window.addEventListener("cart-added", handleCartAdded);
+
     document.getElementById("brandUL")?.addEventListener("mouseover", () => {
       document.getElementById("brandDiv")?.setAttribute("style", "height:80vh;");
     });

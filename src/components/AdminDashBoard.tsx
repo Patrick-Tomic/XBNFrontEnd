@@ -1,20 +1,18 @@
-
+"use client";
 import logo from "/public/xbn.png";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { set, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
 import AdminCreate from "./adminCreate";
 import AdminUpdate from "./adminUpdate";
+
 export default function AdminDashboard() {
-  const [reload, setReload] = useState("");
   const [products, setProducts] = useState([]);
   const [brands, setBrands] = useState([]);
   const [categories, setCategories] = useState([]);
   const [option, setOption] = useState("item");
-  const [flavors, setFlavors] = useState(["huh"]);
   const [form, setForm] = useState("none");
+  const [expandedSummary, setExpandedSummary] = useState<string | null>(null);
+  const [expandedFlavors, setExpandedFlavors] = useState<string | null>(null);
   const [newItem, setNewItem] = useState({
     product: "",
     price: "",
@@ -26,399 +24,155 @@ export default function AdminDashboard() {
     images: [],
     _id: "",
   });
-  
 
-  function handleItemChange(e: {
-    target: { dataset: { key: any }; value: any };
-  }) {
-    if (e.target.dataset.key === "flavors") {
-      console.log(newItem.flavors);
-    }
+  function handleItemChange(e: { target: { dataset: { key: any }; value: any } }) {
     const { key } = e.target.dataset;
     setNewItem({ ...newItem, [key]: e.target.value });
   }
   function handleAddFlavor(e: any) {
-    const flavors: any = newItem.flavors;
+    const flavors: any = [...newItem.flavors];
     flavors.push(e);
-
-    setNewItem({ ...newItem, flavors: flavors });
+    setNewItem({ ...newItem, flavors });
   }
   function handleAddImage(e: any) {
-    const images: any = newItem.images;
+    const images: any = [...newItem.images];
     images.push(e);
-    setNewItem({ ...newItem, images: images });
+    setNewItem({ ...newItem, images });
   }
 
-  const submitForm = async (e: any) => {
+  const resetItem = () =>
+    setNewItem({ product: "", price: "", brand: "", category: "", summary: "", flavors: [], stock: "", images: [], _id: "" });
+
+  const submitForm = async () => {
     if (form === "item") {
       let formData = JSON.stringify(newItem);
-      if (option === "item") {
-        //already completed for us
-      } else if (option === "brand") {
-        formData = JSON.stringify({ name: newItem.brand, type: "brand" });
-      } else if (option === "category") {
-        formData = JSON.stringify({ name: newItem.category, type: "category" });
-        console.log(formData);
-      }
+      if (option === "brand") formData = JSON.stringify({ name: newItem.brand, type: "brand" });
+      else if (option === "category") formData = JSON.stringify({ name: newItem.category, type: "category" });
       try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_backend_Link}addOption`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: formData,
-          },
-        );
-        const file = await req.json();
-        if (req.status !== 200) {
-          return;
-        } else {
-          window.location.reload();
-        }
-      } catch (err) {
-        console.log(err);
-      }
+        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}addOption`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: formData,
+        });
+        if (req.status === 200) window.location.reload();
+      } catch (err) { console.log(err); }
     } else {
-      const formData = JSON.stringify(newItem);
-
       try {
-        const req = await fetch(
-          `${process.env.NEXT_PUBLIC_backend_Link}updateItem/${newItem._id}`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: formData,
-          },
-        );
-        const file = await req.json();
-        if (req.status !== 200) {
-          return;
-        } else {
-          window.location.reload();
-        }
-      } catch (err) {
-        console.log(err);
-      }
+        const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}updateItem/${newItem._id}`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newItem),
+        });
+        if (req.status === 200) window.location.reload();
+      } catch (err) { console.log(err); }
     }
   };
 
+  const deleteItem = async (id: string) => {
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteItem/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (req.status === 200) window.location.reload();
+    } catch (err) { console.log(err); }
+  };
+
+  const deleteBrand = async (id: string) => {
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteBrand/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (req.status === 200) window.location.reload();
+    } catch (err) { console.log(err); }
+  };
+
+  const deleteCategory = async (id: string) => {
+    try {
+      const req = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}deleteCategory/${id}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (req.status === 200) window.location.reload();
+    } catch (err) { console.log(err); }
+  };
+
   useEffect(() => {
-const exitForm: any = document.querySelector("#exitForm")
-  exitForm?.addEventListener("click", () => {
-    const obj = {
-      product: "",
-      price: "",
-      brand: "",
-      category: "",
-      summary: "",
-      flavors: [],
-      stock: "",
-      images: [],
-      _id: "",
-    };
-    setNewItem(obj);
-  });
+    const exitForm: any = document.querySelector("#exitForm");
+    exitForm?.addEventListener("click", resetItem);
 
     const fetchItems = async () => {
-      const brandItems = await fetch(
-        `${process.env.NEXT_PUBLIC_backend_Link}allitems`,
-      );
-      const data = await brandItems.json();
-      const items: any = data.items;
-
-      setProducts(items);
-      return;
+      const res = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}allitems`);
+      const data = await res.json();
+      setProducts(data.items);
+    };
+    const fetchCategories = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}categories`);
+      const data = await res.json();
+      setCategories(data.categories);
+    };
+    const fetchBrands = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}brands`);
+      const data = await res.json();
+      setBrands(data.brands);
     };
     fetchItems();
-    const fetchCategories = async () => {
-      const catItems = await fetch(
-        `${process.env.NEXT_PUBLIC_backend_Link}categories`,
-      );
-      const data = await catItems.json();
-
-      const items = data.categories;
-      setCategories(items);
-      return;
-    };
     fetchCategories();
-
-    const fetchBrands = async () => {
-      const brands = await fetch(
-        `${process.env.NEXT_PUBLIC_backend_Link}brands`,
-      );
-      const data = await brands.json();
-
-      const items = data.brands;
-      setBrands(items);
-    };
     fetchBrands();
   }, []);
 
-  const items = products.map((item: any) => {
-    const images = item.images;
-    return (
-      <div
-        id="obj"
-        className="flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-orange-500 border-solid"
-      >
-        <img
-          className="w-[100px] border-2 border-black border-solid"
-          src={images[0]}
-          alt=""
-        />
-        <h2 className="w-[200px] mt-9">{item.product}</h2>
-        <p className="w-[200px] mt-9">{item.price}</p>
-        <p className="w-[200px] mt-9">{item.brand.name}</p>
-        <div className="w-[200px] mt-9">
-          <button
-            onClick={() => {
-              const p = document.getElementById(`${item.product}`);
-              p?.setAttribute("style", "display:block");
-            }}
-          >
-            Expand
-          </button>
-          <p
-            id={`${item.product}`}
-            className="hidden absolute bg-white w-[25vw] border-2 border-black border-solid p-10 "
-          >
-            {item.summary}
-            <button
-              onClick={() => {
-                const p = document.getElementById(`${item.product}`);
-                p?.setAttribute("style", "display:none");
-              }}
-              className="absolute w-10 font-bold top-2 ml-5"
-            >
-              X
-            </button>
-          </p>
-        </div>
-        <div>
-          <button
-            onClick={() => {
-              const p = document.getElementById(`${item.flavors[0]}`);
-              p?.setAttribute("style", "display:block");
-            }}
-            className="mt-9"
-          >
-            [...]
-          </button>
-          <p id={item.flavors[0]} className="w-[200px] mt-9 hidden">
-            {item.flavors.map((flavor: any) => {
-              return flavor + ",";
-            })}
-          </p>
-        </div>
+  const tabLabel = option === "item" ? "Product" : option === "brand" ? "Brand" : "Category";
 
-        <p className="w-[200px] mt-9">{item.stock}</p>
-        <button
-          type="button"
-          onClick={() => {
-            (async () => {
-              console.log(item._id);
-              const obj = await fetch(
-                `${process.env.NEXT_PUBLIC_backend_Link}product/${item._id}`,
-              );
-              const data = await obj.json();
-              const product = data.product;
-              const object = {
-                product: product.product,
-                price: product.price,
-                brand: product.brand,
-                category: product.category,
-                summary: product.summary,
-                flavors: product.flavors,
-                stock: product.stock,
-                images: product.images,
-                _id: product._id,
-              };
-
-              setNewItem(object);
-
-              setForm("update");
-              const form = document.getElementById("formUpdate");
-              form?.setAttribute("style", "display:block");
-
-              if (product.flavors.length === 0) {
-                document
-                  .getElementById("flavorSelect")
-                  ?.setAttribute("style", "display:none");
-              }
-              setNewItem(product);
-            })();
-          }}
-          className="absolute left-[70%] mt-10 border-white border-solid border-2 bg-white rounded-md p-2 text-blue-600 hover:text-lg hover:bg-orange-500 duration-300 transition-all ease-in-out "
-        >
-          Update
-        </button>
-        <button
-          onClick={() => {
-            const go = async () => {
-              try {
-                const req = await fetch(
-                  `${process.env.NEXT_PUBLIC_backend_Link}deleteItem/${item._id}`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id: item._id }),
-                  },
-                );
-                if (req.status !== 200) {
-                  return;
-                }
-                window.location.reload();
-              } catch (err) {
-                console.log(err);
-              }
-            };
-            go();
-          }}
-          className="absolute left-[80%] mt-10 bg-red-500 border-solid border-2   rounded-md p-2 text-white hover:text-lg   duration-300 transition-all ease-in-out "
-        >
-          Delete Item
-        </button>
-      </div>
-    );
-  });
-
-  const brandItems = brands.map((brand: any) => {
-    return (
-      <div
-        className="flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-solid p-10"
-        id="obj"
-      >
-        <h2 className="font-bold text-lg">{brand.name}</h2>
-        <button
-          className="absolute left-[55%] border-2 border-black border-solid text-lg rounded-md p-1 hover:bg-red-500 hover:text-white font-bold"
-          onClick={() => {
-            console.log(brand._id);
-            const go = async () => {
-              try {
-                const req = await fetch(
-                  `${process.env.NEXT_PUBLIC_backend_Link}deleteBrand/${brand._id}`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id: brand._id }),
-                  },
-                );
-                if (req.status !== 200) {
-                  return;
-                } else {
-                  window.location.reload();
-                }
-              } catch (err) {
-                console.log(err);
-              }
-            };
-            go();
-          }}
-        >
-          Delete
-        </button>
-      </div>
-    );
-  });
-  const categorItems = categories.map((category: any) => {
-    return (
-      <div
-        className="flex z-[1] justify-start text-center bg-white border-2 w-[60%] border-solid p-10"
-        id="obj"
-      >
-        <h2 className="font-bold text-2xl m-5">{category.type}</h2>
-        <button
-          className="absolute left-[55%] border-2 border-black border-solid text-lg rounded-md p-1 hover:bg-red-500 hover:text-white font-bold"
-          onClick={() => {
-            const go = async () => {
-              try {
-                const req = await fetch(
-                  `${process.env.NEXT_PUBLIC_backend_Link}deleteCategory/${category._id}`,
-                  {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ id: category._id }),
-                  },
-                );
-                if (req.status !== 200) {
-                  return;
-                }
-                window.location.reload();
-              } catch (err) {
-                console.log(err);
-              }
-            };
-            go();
-          }}
-        >
-          Delete
-        </button>
-      </div>
-    );
-  });
   return (
-    <body className="bg-343434 h-[200vh%]">
-      <header className="flex h-[5vh] justify-around">
-        <Image className="w-20" src={logo} alt="Logo" />
+    <div className="bg-[#0a0a0a] min-h-screen">
+      {/* Header */}
+      <header className="bg-[#111111] border-b border-[#2a2a2a] px-8 py-4 flex items-center justify-between sticky top-0 z-10">
+        <div className="flex items-center gap-8">
+          <Image className="w-14" src={logo} alt="Logo" />
+          <nav className="flex gap-1">
+            {[
+              { label: "Products", value: "item" },
+              { label: "Brands", value: "brand" },
+              { label: "Categories", value: "category" },
+            ].map((tab) => (
+              <button
+                key={tab.value}
+                onClick={() => setOption(tab.value)}
+                className={`px-5 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                  option === tab.value
+                    ? "bg-[#ff4d00] text-white"
+                    : "text-[#a3a3a3] hover:text-white hover:bg-[#1e1e1e]"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </nav>
+        </div>
         <button
           onClick={() => {
-            const wraps = document.querySelectorAll("#wrap");
-            wraps.forEach((wrap) => {
-              wrap.setAttribute("style", "display:none");
-            });
-            setOption("item");
-            document
-              .querySelector(".products")
-              ?.setAttribute("style", "display:block");
+            setForm("item");
+            document.getElementById("formCreate")?.setAttribute("style", "display:block");
           }}
+          className="bg-[#ff4d00] hover:bg-[#ff6b2b] text-white font-bold px-6 py-2 rounded-lg transition-colors text-sm"
         >
-          <h1>Products</h1>
-        </button>
-
-        <button
-          onClick={() => {
-            const wraps = document.querySelectorAll("#wrap");
-            wraps.forEach((wrap) => {
-              wrap.setAttribute("style", "display:none");
-            });
-            setOption("brand");
-            document
-              .querySelector(".brandItems")
-              ?.setAttribute("style", "display:block");
-          }}
-        >
-          <h1>Brands</h1>
-        </button>
-
-        <button
-          onClick={() => {
-            const wraps = document.querySelectorAll("#wrap");
-            wraps.forEach((wrap) => {
-              wrap.setAttribute("style", "display:none");
-            });
-            setOption("category");
-            document
-              .querySelector(".catItems")
-              ?.setAttribute("style", "display:block");
-          }}
-        >
-          <h1>Categories</h1>
+          + Add {tabLabel}
         </button>
       </header>
-      <main className="bg-[#343434] min-w-full m-0">
-        <video className="w-[320px] h-[240px]" width="320" height="240" controls>
-          <source src="adminCreate.mp4" type="video/mp4"></source>
-        </video>
+
+      <main className="px-8 py-8 max-w-7xl mx-auto w-full">
+        {/* How-to video */}
+        <div className="mb-8 bg-[#111111] border border-[#2a2a2a] rounded-xl p-6 flex flex-col gap-3">
+          <p className="text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold">How to add a product</p>
+          <video className="rounded-lg w-full max-w-lg" controls>
+            <source src="/adminCreate.mp4" type="video/mp4" />
+          </video>
+        </div>
+
         <AdminCreate
           typeForm={option}
           onChange={handleItemChange}
@@ -454,38 +208,146 @@ const exitForm: any = document.querySelector("#exitForm")
           addImage={handleAddImage}
           onSubmit={submitForm}
         />
-        <div>
-          <button
-            onClick={() => {
-              setForm("item");
-              const form = document.getElementById("formCreate");
-              form?.setAttribute("style", "display:block");
-            }}
-            className="absolute left-[90%] bg-green-700 p-2 w-32 border-solid text-white text-xl rounded-lg border-white border-2 "
-          >
-            Add
-          </button>
-        </div>
-        <div id="container" className="w-screen">
-          <div className="products w-screen" id="wrap">
-            <nav className="flex justify-around ml-20 w-[50%]">
-              <h1 className="text-white font-bold ml-16">Product Name</h1>
-              <h1 className="text-white ml-10  font-bold">Price</h1>
-              <h1 className="text-white ml-10 font-bold">Brand</h1>
-              <h1 className="text-white ml-32 font-bold">Summary</h1>
-              <h1 className="text-white font-bold">Flavors</h1>
-              <h1 className="text-white font-bold">Stock</h1>
-            </nav>
-            {items}
+
+        {/* Products Table */}
+        {option === "item" && (
+          <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl ">
+            <table className="w-full">
+              <thead>
+                <tr className="border-b border-[#2a2a2a]">
+                  {["Image", "Product", "Price", "Brand", "Flavors", "Stock", "Summary", "Actions"].map((col) => (
+                    <th key={col} className="text-left text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold px-5 py-4">
+                      {col}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {(products as any[]).map((item: any) => (
+                  <tr key={item._id} className="border-b border-[#1e1e1e] hover:bg-[#161616] transition-colors">
+                    <td className="px-5 py-4">
+                      <img src={item.images[0]} alt={item.product} className="w-14 h-14 object-contain rounded-lg bg-[#0f0f0f]" />
+                    </td>
+                    <td className="px-5 py-4 text-white font-medium text-sm">{item.product}</td>
+                    <td className="px-5 py-4 text-[#ff4d00] font-bold text-sm">${item.price}</td>
+                    <td className="px-5 py-4 text-[#a3a3a3] text-sm">{item.brand?.name}</td>
+                    <td className="px-5 py-4">
+                      {item.flavors?.length > 0 ? (
+                        <div>
+                          <button
+                            onClick={() => setExpandedFlavors(expandedFlavors === item._id ? null : item._id)}
+                            className="text-[#a3a3a3] hover:text-[#ff4d00] text-xs underline transition-colors"
+                          >
+                            {expandedFlavors === item._id ? "Hide" : `${item.flavors.length} flavor${item.flavors.length !== 1 ? "s" : ""}`}
+                          </button>
+                          {expandedFlavors === item._id && (
+                            <div className="mt-1 flex flex-wrap gap-1">
+                              {item.flavors.map((f: string) => (
+                                <span key={f} className="bg-[#1e1e1e] text-[#a3a3a3] text-xs px-2 py-0.5 rounded">{f}</span>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-[#3a3a3a] text-xs">—</span>
+                      )}
+                    </td>
+                    <td className="px-5 py-4 text-[#a3a3a3] text-sm">{item.stock}</td>
+                    <td className="px-5 py-4 max-w-[200px]">
+                      <button
+                        onClick={() => setExpandedSummary(expandedSummary === item._id ? null : item._id)}
+                        className="text-[#a3a3a3] hover:text-[#ff4d00] text-xs underline transition-colors"
+                      >
+                        {expandedSummary === item._id ? "Collapse" : "View"}
+                      </button>
+                      {expandedSummary === item._id && (
+                        <p className="mt-1 text-[#a3a3a3] text-xs leading-relaxed">{item.summary}</p>
+                      )}
+                    </td>
+                    <td className="px-5 py-4">
+                      <div className="flex gap-2">
+                        <button
+                          onClick={async () => {
+                            const res = await fetch(`${process.env.NEXT_PUBLIC_backend_Link}product/${item._id}`);
+                            const data = await res.json();
+                            const p = data.product;
+                            setNewItem(p);
+                            setForm("update");
+                            document.getElementById("formUpdate")?.setAttribute("style", "display:block");
+                            if (p.flavors.length === 0) {
+                              document.getElementById("flavorSelect")?.setAttribute("style", "display:none");
+                            }
+                          }}
+                          className="px-3 py-1.5 bg-[#1e1e1e] hover:bg-[#2a2a2a] text-[#60a5fa] text-xs font-semibold rounded-lg border border-[#2a2a2a] transition-colors"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => deleteItem(item._id)}
+                          className="px-3 py-1.5 bg-[#1e1e1e] hover:bg-red-900/40 text-red-400 text-xs font-semibold rounded-lg border border-[#2a2a2a] transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {products.length === 0 && (
+              <div className="text-center text-[#3a3a3a] py-16 text-sm">No products found.</div>
+            )}
           </div>
-          <div className="catItems hidden bg-white w-screen  " id="wrap">
-            {categorItems}
+        )}
+
+        {/* Brands List */}
+        {option === "brand" && (
+          <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl overflow-hidden">
+            <div className="border-b border-[#2a2a2a] px-6 py-4 flex">
+              <span className="text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold flex-1">Brand Name</span>
+              <span className="text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold">Actions</span>
+            </div>
+            {(brands as any[]).map((brand: any) => (
+              <div key={brand._id} className="flex items-center px-6 py-4 border-b border-[#1e1e1e] hover:bg-[#161616] transition-colors">
+                <h2 className="text-white font-medium flex-1">{brand.name}</h2>
+                <button
+                  onClick={() => deleteBrand(brand._id)}
+                  className="px-3 py-1.5 bg-[#1e1e1e] hover:bg-red-900/40 text-red-400 text-xs font-semibold rounded-lg border border-[#2a2a2a] transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+            {brands.length === 0 && (
+              <div className="text-center text-[#3a3a3a] py-16 text-sm">No brands found.</div>
+            )}
           </div>
-          <div className="brandItems hidden w-" id="wrap">
-            {brandItems}
+        )}
+
+        {/* Categories List */}
+        {option === "category" && (
+          <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl overflow-hidden">
+            <div className="border-b border-[#2a2a2a] px-6 py-4 flex">
+              <span className="text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold flex-1">Category Name</span>
+              <span className="text-[#a3a3a3] text-xs uppercase tracking-widest font-semibold">Actions</span>
+            </div>
+            {(categories as any[]).map((category: any) => (
+              <div key={category._id} className="flex items-center px-6 py-4 border-b border-[#1e1e1e] hover:bg-[#161616] transition-colors">
+                <h2 className="text-white font-medium flex-1">{category.type}</h2>
+                <button
+                  onClick={() => deleteCategory(category._id)}
+                  className="px-3 py-1.5 bg-[#1e1e1e] hover:bg-red-900/40 text-red-400 text-xs font-semibold rounded-lg border border-[#2a2a2a] transition-colors"
+                >
+                  Delete
+                </button>
+              </div>
+            ))}
+            {categories.length === 0 && (
+              <div className="text-center text-[#3a3a3a] py-16 text-sm">No categories found.</div>
+            )}
           </div>
-        </div>
+        )}
       </main>
-    </body>
+    </div>
   );
 }

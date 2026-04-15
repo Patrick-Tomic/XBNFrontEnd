@@ -4,7 +4,7 @@ import xbn from "/public/xbnLogoB.png";
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0f0f0f] border-t border-[#1e1e1e] text-[#a3a3a3] flex flex-wrap p-12 gap-10">
+    <footer className="bg-[#0f0f0f] border-t border-[#1e1e1e] text-[#a3a3a3] flex flex-wrap items-center justify-around p-12 gap-16">
       {/* Locations */}
       <div className="flex flex-col gap-6 min-w-[220px]">
         <p className="text-xs uppercase tracking-widest text-[#525252] font-semibold">Locations</p>
@@ -31,7 +31,7 @@ export default function Footer() {
       </div>
 
       {/* Middle — logo + links */}
-      <div className="flex flex-col gap-6 flex-1 min-w-[200px]">
+      <div className="flex flex-col gap-6 ">
         <Image
           className="w-[120px] h-auto object-contain opacity-80"
           src={xbn}
