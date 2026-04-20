@@ -34,15 +34,17 @@ export default function categoryPage(req: { params: { id: any } }) {
 
   const cards = items.map((item: any) => (
     <a key={item.product} href={`/item/${item._id}`} className="group">
-      <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-5 flex flex-col items-center gap-4 hover:border-[#ff4d00] transition-all duration-200 shadow-[0_2px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_24px_rgba(255,77,0,0.15)]">
-        <img
-          className="h-[280px] w-auto object-contain group-hover:scale-105 transition-transform duration-300"
-          src={item.images[0]}
-          alt={item.product}
-        />
-        <div className="w-full text-center border-t border-[#2a2a2a] pt-4">
-          <h2 className="text-white font-semibold text-base leading-snug">{item.product}</h2>
-          <p className="text-[#ff4d00] font-bold text-lg mt-1">${item.price}</p>
+      <div className="bg-[#111111] border border-[#2a2a2a] rounded-xl p-2 md:p-5 flex flex-col items-center gap-2 md:gap-4 hover:border-[#ff4d00] transition-all duration-200 shadow-[0_2px_12px_rgba(0,0,0,0.4)] hover:shadow-[0_4px_24px_rgba(255,77,0,0.15)] h-[30vh] md:h-[50vh] overflow-hidden">
+        <div className="flex items-center justify-center h-[20vh] md:h-[28vh] w-full">
+          <img
+            className="max-h-full w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            src={item.images[0]}
+            alt={item.product}
+          />
+        </div>
+        <div className="w-full text-center border-t border-[#2a2a2a] pt-3 mt-auto">
+          <h2 className="text-white font-semibold text-sm md:text-base leading-snug line-clamp-2">{item.product}</h2>
+          <p className="text-[#ff4d00] font-bold text-base md:text-lg mt-1">${item.price}</p>
         </div>
       </div>
     </a>
@@ -51,8 +53,8 @@ export default function categoryPage(req: { params: { id: any } }) {
   return (
     <>
       <Header />
-      <main className="bg-[#0a0a0a] min-h-screen px-[5vw] py-12">
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
+      <main className="bg-[#0a0a0a] min-h-screen px-[5vw] pt-2 pb-12 md:py-12 flex items-start justify-start">
+        <div className="grid gap-6 grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
           {cards}
         </div>
       </main>

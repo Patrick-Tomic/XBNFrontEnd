@@ -89,19 +89,19 @@ export default function itemDetail(req: { params: { id: any } }) {
   return (
     <>
       <Header />
-      <main className="bg-[#0a0a0a] min-h-screen py-12 px-[5vw]" suppressHydrationWarning>
+      <main className="bg-[#0a0a0a] min-h-screen py-4 lg:py-12 px-[3vw] lg:px-[5vw]" suppressHydrationWarning>
         <div
-          className="max-w-9xl mx-auto bg-[#111111] overflow-hidden border border-[#2a2a2a] rounded-2xl  flex flex-col lg:flex-row shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+          className="max-w-9xl mx-auto bg-[#111111] border border-[#2a2a2a] rounded-2xl flex flex-col lg:flex-row shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
           suppressHydrationWarning
         >
           {/* Image Panel */}
-          <div className="flex-1 bg-[#0f0f0f] flex items-center justify-center p-8 border-b lg:border-b-0 lg:border-r border-[#1e1e1e] min-h-[600px]">
+          <div className="w-full  lg:flex-1 bg-[#0f0f0f] flex items-center justify-center p-4 lg:p-8 border-b lg:border-b-0 lg:border-r border-[#1e1e1e] min-h-[55vh] lg:min-h-[600px]">
             <div className="flex items-center gap-4 w-full">
               <button
                 id="leftBtn"
                 className="text-[#525252] hover:text-[#ff4d00] transition-colors flex-shrink-0"
               >
-                <svg width="40" height="32" viewBox="0 0 70 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-5 h-4 lg:w-10 lg:h-8" viewBox="0 0 70 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     className="transition-all ease-in-out"
                     d="M69.2419 55.9557L0.758179 28.0002L69.2419 0.0441831L48.8496 28.0002L69.2419 55.9557Z"
@@ -112,8 +112,8 @@ export default function itemDetail(req: { params: { id: any } }) {
 
               <div id="imgWrap" className="overflow-hidden w-full">
                 <div id="productImg" className="flex">
-                  <img id="firstImg" src={imgs[0]} alt="" className="min-w-full object-contain max-h-[700px]" />
-                  <img id="secondImg" src={imgs[imgs.length - 1]} alt="" className="min-w-full object-contain max-h-[700px]" />
+                  <img id="firstImg" src={imgs[0]} alt="" className="min-w-full object-contain max-h-[50vh] lg:max-h-[700px]" />
+                  <img id="secondImg" src={imgs[imgs.length - 1]} alt="" className="min-w-full object-contain max-h-[50vh] lg:max-h-[700px]" />
                 </div>
               </div>
 
@@ -121,7 +121,7 @@ export default function itemDetail(req: { params: { id: any } }) {
                 id="rightBtn"
                 className="text-[#525252] hover:text-[#ff4d00] transition-colors flex-shrink-0"
               >
-                <svg width="40" height="32" viewBox="0 0 69 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-5 h-4 lg:w-10 lg:h-8" viewBox="0 0 69 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path
                     className="transition-all ease-in-out"
                     d="M0.519995 55.9116L69 27.956L0.519995 -6.33003e-06L20.9111 27.956L0.519995 55.9116Z"
@@ -134,7 +134,7 @@ export default function itemDetail(req: { params: { id: any } }) {
 
           {/* Info Panel */}
           <div
-            className="flex flex-col gap-8 p-10 lg:w-[460px] flex-shrink-0 overflow-y-auto"
+            className="flex flex-col gap-5 p-5 lg:p-10 lg:w-[460px] flex-shrink-0 min-h-[75vh] lg:min-h-0 pb-8"
             id="rightItemDesc"
             suppressHydrationWarning
           >
@@ -142,8 +142,8 @@ export default function itemDetail(req: { params: { id: any } }) {
               <p className="text-[#ff4d00] text-xs uppercase tracking-widest font-semibold mb-2">
                 {product.brand.name}
               </p>
-              <h1 className="text-white text-3xl font-bold leading-tight mb-3">{product.product}</h1>
-              <p className="text-[#ff4d00] text-2xl font-bold">${product.price}</p>
+              <h1 className="text-white text-xl lg:text-3xl font-bold leading-tight mb-2">{product.product}</h1>
+              <p className="text-[#ff4d00] text-lg lg:text-2xl font-bold">${product.price}</p>
             </div>
 
             <form
@@ -175,7 +175,7 @@ export default function itemDetail(req: { params: { id: any } }) {
               <button
                 type="submit"
                 id="addToCart"
-                className="w-full py-4 bg-[#ff4d00] hover:bg-[#ff6b2b] text-white font-bold rounded-xl text-lg tracking-wide transition-colors mt-2"
+                className="w-full py-3 lg:py-4 bg-[#ff4d00] hover:bg-[#ff6b2b] text-white font-bold rounded-xl text-base lg:text-lg tracking-wide transition-colors mt-2"
               >
                 Add to Cart
               </button>

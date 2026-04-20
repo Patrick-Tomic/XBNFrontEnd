@@ -75,7 +75,7 @@ export default function UserMenu() {
         <div className="flex flex-col mt-1">
           <a
             id="settingAnchor"
-            href={`/settings/${typeof window !== "undefined" ? localStorage.getItem("id") : ""}`}
+            href={`/settings/${localStorage.getItem("id")}`}
             className="text-[#a3a3a3] hover:text-white transition-colors tracking-widest text-sm uppercase py-3 font-medium"
           >
             Settings
@@ -106,7 +106,7 @@ export default function UserMenu() {
             className="flex-1 py-2.5 rounded-lg bg-[#ff4d00] hover:bg-[#ff6b2b] text-white transition-colors text-sm tracking-wide font-semibold"
             onClick={() => {
               document.querySelector("main")?.setAttribute("style", "filter: blur(10px)");
-              document.querySelector("header")?.setAttribute("style", "filter: blur(10px)");
+              document.querySelector("header")?.setAttribute("style", "filter: blur(10px);");
               document.getElementById("loginForm")?.setAttribute("style", "visibility:visible; opacity:1;");
             }}
           >

@@ -95,12 +95,12 @@ export default function Home() {
             ].map(({ cls, src, alt }) => (
               <Image
                 key={cls}
-                className={`${cls} absolute inset-0 w-full h-full object-cover`}
+                className={`${cls} absolute inset-0 w-full h-full object-contain`}
                 alt={alt}
                 src={src}
                 fill
                 sizes="100vw"
-                style={{ objectFit: "cover" }}
+                style={{ objectFit: "contain", background: "#0a0a0a" }}
               />
             ))}
           </div>
