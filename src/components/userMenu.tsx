@@ -1,9 +1,12 @@
+"use client";
 import XBN from "/public/xbnLogoB.png";
 import SocialMedia from "./social";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function UserMenu() {
+  const [settingsHref, setSettingsHref] = useState("/settings");
+
   const links = [
     { id: "brandAnchor", divId: "divBrand", label: "Brands", href: "#" },
     { id: "catAnchor", divId: "divCategory", label: "Categories", href: "#" },
@@ -12,6 +15,9 @@ export default function UserMenu() {
   ];
 
   useEffect(() => {
+    const id = localStorage.getItem("id");
+    if (id) setSettingsHref(`/settings/${id}`);
+
     links.forEach(({ id, divId }) => {
       document.getElementById(id)?.addEventListener("mouseover", () => {
         document.getElementById(divId)?.setAttribute("style", "transform:scaleX(1);");
@@ -75,7 +81,7 @@ export default function UserMenu() {
         <div className="flex flex-col mt-1">
           <a
             id="settingAnchor"
-            href={`/settings/${localStorage.getItem("id")}`}
+            href={settingsHref}
             className="text-[#a3a3a3] hover:text-white transition-colors tracking-widest text-sm uppercase py-3 font-medium"
           >
             Settings
