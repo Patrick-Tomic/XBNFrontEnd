@@ -54,12 +54,12 @@ export default function Header() {
 
   useEffect(() => {
     const handleCartAdded = () => {
-      const cartEl = document.getElementById("cart");
-      if (!cartEl) return;
-      cartEl.classList.remove("cart-shake");
-      void cartEl.offsetWidth;
-      cartEl.classList.add("cart-shake");
-      cartEl.addEventListener("animationend", () => cartEl.classList.remove("cart-shake"), { once: true });
+      document.querySelectorAll(".cart-btn").forEach((cartEl) => {
+        cartEl.classList.remove("cart-shake");
+        void (cartEl as HTMLElement).offsetWidth;
+        cartEl.classList.add("cart-shake");
+        cartEl.addEventListener("animationend", () => cartEl.classList.remove("cart-shake"), { once: true });
+      });
     };
     window.addEventListener("cart-added", handleCartAdded);
 
@@ -77,7 +77,7 @@ export default function Header() {
       if (valid.status === 200) {
         document.querySelector(".startingBtns")?.setAttribute("style", "display:none");
         document.querySelector("#logoutBtn")?.setAttribute("style", "display:block");
-        document.getElementById("cart")?.setAttribute("style", "display:flex");
+        document.querySelectorAll(".cart-btn").forEach((el) => el.setAttribute("style", "display:flex"));
         localStorage.setItem("validToken", "true");
       } else {
         localStorage.clear();
@@ -215,7 +215,7 @@ export default function Header() {
             <button id="userMenu" onClick={() => document.getElementById("userClass")?.setAttribute("style", "transform:scale(1);")} className="hover:opacity-70 transition-opacity">
               <UserIcon />
             </button>
-            <a id="cart" className="hidden hover:opacity-70 transition-opacity" href="/shoppingCart">
+            <a className="cart-btn hidden hover:opacity-70 transition-opacity" href="/shoppingCart">
               <CartIcon />
             </a>
           </div>
@@ -231,7 +231,7 @@ export default function Header() {
             <button id="userMenu" onClick={() => { document.getElementById("userClass")?.setAttribute("style", "transform:scale(1);"); setMobileOpen(false); }} className="hover:opacity-70 transition-opacity">
               <UserIcon />
             </button>
-            <a id="cart" className="hidden hover:opacity-70 transition-opacity" href="/shoppingCart">
+            <a className="cart-btn hidden hover:opacity-70 transition-opacity" href="/shoppingCart">
               <CartIcon />
             </a>
             <button
